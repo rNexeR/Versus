@@ -1,0 +1,12 @@
+/***All resources taken from OpenGameArt***/
+
+Space shooter Redux from Kenney: http://opengameart.org/content/space-shooter-redux
+
+Wall Tiles and simple tileset from Xevin: http://opengameart.org/content/wall-tiles
+http://opengameart.org/content/simple-tileset
+
+Xeon Sheet from Redshrike (Stephen Challener): http://opengameart.org/content/xeon-ultimate-smash-friends
+
+Space merc by Surc: http://opengameart.org/sites/default/files/space_merc.png
+
+
