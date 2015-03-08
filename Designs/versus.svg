@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="Nuevo documento 1">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="337.90123"
+     inkscape:cy="809.32009"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1025"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#6c0004;fill-opacity:1;stroke:none;font-family:Sans"
+       x="63.134537"
+       y="249.29091"
+       id="text2985"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2987"
+         x="63.134537"
+         y="249.29091"
+         style="font-size:200px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:TeX Gyre Chorus;-inkscape-font-specification:TeX Gyre Chorus Medium;fill:#6c0004;fill-opacity:1">V</tspan></text>
+    <g
+       style="font-size:40px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#6c0004;fill-opacity:1;stroke:none;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
+       id="text2989">
+      <path
+         d="m 97.188342,256.67012 c 91.880258,-19.267 203.171308,0.71338 283.744738,1.77004 30.59997,0 60.6,-25.00003 60.6,-50.4 0,-8.19999 -3.20001,-12.40001 -18,-24 -14.59998,-11.39999 -17,-14.80001 -17,-23.4 0,-12.99999 9.80001,-24.2 21.6,-24.2 8.39999,0 11.4,3.60001 13.6,16.4 l 13.2,-9.4 c -1.2,-10.99999 -7.20001,-16.4 -17.8,-16.4 -20.59998,0 -44,22.80002 -44,42.6 0,8.99999 4.20001,15.60001 15.8,24.6 13.59999,10.79999 17.2,16.20001 17.2,25.4 0,15.59998 -15.00002,29.4 -32.4,29.4"
+         style="font-size:200px;fill:#6c0004;fill-opacity:1"
+         id="path2994"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccscssccsscsc" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="173.74623"
+       y="235.65384"
+       id="text2996"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2998"
+         x="173.74623"
+         y="235.65384"
+         style="font-size:144px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:TeX Gyre Chorus;-inkscape-font-specification:TeX Gyre Chorus Medium">ersu</tspan></text>
+  </g>
+</svg>
