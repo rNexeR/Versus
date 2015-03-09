@@ -50,6 +50,9 @@ int main(int argc, char **argv)
     }
 
     al_clear_to_color(al_map_rgb(0,0,0));
+    al_draw_bitmap(image,300,150,0);
+    al_flip_display();
+    al_rest(5);
 
     while(true)
     {
@@ -65,7 +68,6 @@ int main(int argc, char **argv)
         }
         al_clear_to_color(al_map_rgb(0,0,0));
 
-        al_draw_bitmap(image,300,150,0);
         al_flip_display();
     }
 
