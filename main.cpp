@@ -53,18 +53,18 @@ int initSplash(){
     return 0;
 }
 
-void showSplash(){
-
 void mainMenu(){
     while(true){
-        //Menu
+
     }
 }
 
-bool teclaPresionada(int keycode){
+bool teclaPresionada(){
     //Codigo
     return false;
 }
+
+void showSplash(){
     al_clear_to_color(al_map_rgb(0,0,0));
     al_draw_bitmap(splash,300,150,0);
     al_flip_display();
