@@ -5,12 +5,11 @@
 #include "allegro5/allegro_native_dialog.h"
 using namespace std;
 
-int main(int argc, char **argv)
-{
-    ALLEGRO_DISPLAY *display = NULL;
-    ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-    ALLEGRO_BITMAP  *image   = NULL;
+ALLEGRO_DISPLAY *display = NULL;
+ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+ALLEGRO_BITMAP  *splash   = NULL;
 
+int initAllegro(){
     if(!al_init())
     {
         cout<<"failed to initialize allegro!\n"<<endl;
@@ -20,7 +19,7 @@ int main(int argc, char **argv)
     if(!al_init_image_addon())
     {
         cout<<"Error: Failed to initialize al_init_image_addon!"<<endl;
-        return 0;
+        return -1;
     }
 
     display = al_create_display(1024, 480);
@@ -39,21 +38,44 @@ int main(int argc, char **argv)
     }
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
+    return 0;
+}
 
-    image = al_load_bitmap("Versus.png");
+int initSplash(){
+    splash = al_load_bitmap("Versus.png");
 
-    if(!image)
+    if(!splash)
     {
         cout<<"Error: Failed to load image!"<<endl;
         al_destroy_display(display);
-        return 0;
+        return -1;
     }
+    return 0;
+}
 
+void showSplash(){
+
+void mainMenu(){
+    while(true){
+        //Menu
+    }
+}
+
+bool teclaPresionada(int keycode){
+    //Codigo
+    return false;
+}
     al_clear_to_color(al_map_rgb(0,0,0));
-    al_draw_bitmap(image,300,150,0);
+    al_draw_bitmap(splash,300,150,0);
     al_flip_display();
     al_rest(5);
+}
 
+int main(int argc, char **argv)
+{
+    if (initAllegro()<0 || initSplash()<0)
+        return -1;
+    showSplash();
     while(true)
     {
         ALLEGRO_EVENT ev;
