@@ -5,6 +5,10 @@ Space shooter Redux from Kenney: http://opengameart.org/content/space-shooter-re
 Wall Tiles and simple tileset from Xevin: http://opengameart.org/content/wall-tiles
 http://opengameart.org/content/simple-tileset
 
+Open Gunner by Master484: http://opengameart.org/content/open-gunner-starter-kit
+
+Bullets by Master484: http://opengameart.org/content/bullet-collection-2-m484-games
+
 Xeon Sheet from Redshrike (Stephen Challener): http://opengameart.org/content/xeon-ultimate-smash-friends
 
 Space merc by Surc: http://opengameart.org/sites/default/files/space_merc.png
