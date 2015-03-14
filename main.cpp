@@ -46,12 +46,14 @@ int initAllegro()
     }
 
     timer = al_create_timer(1.0 / FPS);
-    if(!timer) {
+    if(!timer)
+    {
         cout<<"failed to create timer!"<<endl;
     }
 
-    if(!al_install_keyboard()) {
-      cout<<"failed to initialize the keyboard!"<<endl;
+    if(!al_install_keyboard())
+    {
+        cout<<"failed to initialize the keyboard!"<<endl;
     }
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
@@ -90,7 +92,7 @@ void teclaPresionada(int keycode, bool *variable)
         if(ev.keyboard.keycode==keycode)
             *variable = true;
     }
-     if(ev.type == ALLEGRO_EVENT_KEY_UP)
+    if(ev.type == ALLEGRO_EVENT_KEY_UP)
     {
         if(ev.keyboard.keycode==keycode)
             *variable = false;
