@@ -3,6 +3,8 @@
 #include <allegro5/allegro.h>
 #include "allegro5/allegro_image.h"
 #include "allegro5/allegro_native_dialog.h"
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 #include "Box.h"
 using namespace std;
 
@@ -10,13 +12,19 @@ const float FPS = 60;
 
 ALLEGRO_DISPLAY *display = NULL;
 ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-ALLEGRO_BITMAP  *logo   = NULL;
 
 //EVENTOS Y TIMERS
 ALLEGRO_EVENT ev;
 ALLEGRO_TIMEOUT timeout;
 ALLEGRO_TIMER *timer = NULL;
+
+//Elementos Generales
 Box *blogo = NULL;
+ALLEGRO_BITMAP  *logo   = NULL;
+ALLEGRO_SAMPLE *music = NULL;
+ALLEGRO_SAMPLE_ID imusic;
+ALLEGRO_SAMPLE *effect = NULL;
+ALLEGRO_SAMPLE_ID ieffect;
 
 //Constantes
 int splashTime = 1;
@@ -62,6 +70,11 @@ int initAllegro()
         cout<<"failed to initialize the keyboard!"<<endl;
     }
 
+    if(!al_install_audio() || !al_init_acodec_addon() || !al_reserve_samples(10))
+    {
+        cout<<"failed to initialize Audio!"<<endl;
+    }
+
     al_register_event_source(event_queue, al_get_display_event_source(display));
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
@@ -101,13 +114,14 @@ void teclaPresionada(int keycode, bool *variable)
     }
 }
 
-bool teclaDownEvent(int keycode){
+bool teclaDownEvent(int keycode)
+{
     if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
     {
         if(ev.keyboard.keycode==keycode)
             return true;
-        return false;
     }
+    return false;
 }
 
 void showSplash()
@@ -121,6 +135,9 @@ void showSplash()
 void mainMenu()
 {
     ALLEGRO_BITMAP *select = NULL, *options = NULL;
+    music = al_load_sample("music/So, let see, what you can_0.wav");
+    effect = al_load_sample("music/sfx_laser1.wav");
+    al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
     Box *bselect = NULL, *boptions = NULL;
     int uPosy, uPosyOriginal;
 
@@ -148,9 +165,32 @@ void mainMenu()
             break;
         }
         if(teclaDownEvent(ALLEGRO_KEY_DOWN))
-                uPosy += 50;
-        if(teclaDownEvent(ALLEGRO_KEY_UP))
-                uPosy -= 50;
+        {
+            al_stop_sample(&ieffect);
+            al_play_sample(effect, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&ieffect);
+            cout<<"ABAJO"<<endl;
+            uPosy += 50;
+        }
+        else if(teclaDownEvent(ALLEGRO_KEY_UP))
+        {
+            al_stop_sample(&ieffect);
+            al_play_sample(effect, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&ieffect);
+            cout<<"ARRIBA"<<endl;
+            uPosy -= 50;
+        }else if(teclaDownEvent(ALLEGRO_KEY_ENTER)){
+            if (uPosy == uPosyOriginal)
+                //llamar el loop del juego
+                showSplash();
+            else if (uPosy == uPosyOriginal+50)
+                //llamar el loop de instrucciones
+                showSplash();
+            else if(uPosy == uPosyOriginal+100)
+                //llamar el loop de Scores
+                showSplash();
+            else
+                //salir del juego
+                break;
+        }
         if (uPosy>uPosyOriginal+150)
             uPosy = uPosyOriginal;
         if (uPosy<uPosyOriginal)
