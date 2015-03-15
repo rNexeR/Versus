@@ -20,7 +20,7 @@ Box *blogo = NULL;
 
 //Constantes
 int splashTime = 1;
-int width = 500, height = 900;
+int width = 500, height = 650;
 
 int initAllegro()
 {
@@ -86,39 +86,6 @@ int initLogo()
     return 0;
 }
 
-void mainMenu()
-{
-    ALLEGRO_BITMAP *select = NULL, *options = NULL;
-    Box *bselect = NULL, *boptions = NULL;
-
-    select = al_load_bitmap("GameFiles/assets/menu/uselect.png");
-    bselect = new Box(0,0,al_get_bitmap_width(select), al_get_bitmap_height(select));
-    bselect->x = (width-bselect->width)/2;
-    bselect->y = (height-bselect->height)/2;
-
-    options = al_load_bitmap("GameFiles/assets/menu/opciones.png");
-    boptions = new Box(0,0,al_get_bitmap_width(options), al_get_bitmap_height(options));
-    boptions->x = (width-boptions->width)/2;
-    boptions->y = (height-boptions->height)/2;
-    cout<<"Paso"<<endl;
-
-    if (!select || !options)
-        return;
-
-    while(true)
-    {
-        bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
-        if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
-        {
-            break;
-        }
-        al_clear_to_color(al_map_rgb(0,0,0));
-        al_draw_bitmap(logo,blogo->x,blogo->y,0);
-        al_draw_bitmap(options,boptions->x,boptions->y,0);
-        al_flip_display();
-    }
-}
-
 //OJO al mantener presionada, si funciona pero lo hace como 3 veces por frame
 void teclaPresionada(int keycode, bool *variable)
 {
@@ -134,12 +101,67 @@ void teclaPresionada(int keycode, bool *variable)
     }
 }
 
+bool teclaDownEvent(int keycode){
+    if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
+    {
+        if(ev.keyboard.keycode==keycode)
+            return true;
+        return false;
+    }
+}
+
 void showSplash()
 {
     al_clear_to_color(al_map_rgb(0,0,0));
-    al_draw_bitmap(logo,300,150,0);
+    al_draw_bitmap(logo,blogo->x,blogo->y,0);
     al_flip_display();
     al_rest(splashTime);
+}
+
+void mainMenu()
+{
+    ALLEGRO_BITMAP *select = NULL, *options = NULL;
+    Box *bselect = NULL, *boptions = NULL;
+    int uPosy, uPosyOriginal;
+
+    select = al_load_bitmap("GameFiles/assets/menu/uselect.png");
+    bselect = new Box(0,0,al_get_bitmap_width(select), al_get_bitmap_height(select));
+    bselect->x = (width-bselect->width)/2;
+    bselect->y = (height-bselect->height)/2;
+
+    options = al_load_bitmap("GameFiles/assets/menu/opciones.png");
+    boptions = new Box(0,0,al_get_bitmap_width(options), al_get_bitmap_height(options));
+    boptions->x = (width-boptions->width)/2;
+    boptions->y = (height-boptions->height)/2;
+
+    uPosyOriginal = (height/2)+50;
+    uPosy = uPosyOriginal;
+
+    if (!select || !options)
+        return;
+
+    while(true)
+    {
+        bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
+        if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+        {
+            break;
+        }
+        if(teclaDownEvent(ALLEGRO_KEY_DOWN))
+                uPosy += 50;
+        if(teclaDownEvent(ALLEGRO_KEY_UP))
+                uPosy -= 50;
+        if (uPosy>uPosyOriginal+150)
+            uPosy = uPosyOriginal;
+        if (uPosy<uPosyOriginal)
+            uPosy = uPosyOriginal+150;
+        al_clear_to_color(al_map_rgb(0,0,0));
+        al_draw_bitmap(logo,blogo->x,blogo->y - 100,0);
+        al_draw_bitmap(options,boptions->x,boptions->y + 100,0);
+        al_draw_bitmap(select, bselect->x, uPosy, 0);
+
+        al_flip_display();
+    }
 }
 
 int main(int argc, char **argv)

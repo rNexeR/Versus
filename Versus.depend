@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1426378019 source:/home/rnexer/Programacion 3/Versus/main.cpp
+1426378823 source:/home/rnexer/Programacion 3/Versus/main.cpp
 	<stdio.h>
 	<iostream>
 	<allegro5/allegro.h>
