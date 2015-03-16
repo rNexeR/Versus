@@ -70,7 +70,7 @@ int initAllegro()
         cout<<"failed to initialize the keyboard!"<<endl;
     }
 
-    if(!al_install_audio() || !al_init_acodec_addon() || !al_reserve_samples(10))
+    if(!al_install_audio() || !al_init_acodec_addon() || !al_reserve_samples(2))
     {
         cout<<"failed to initialize Audio!"<<endl;
     }
