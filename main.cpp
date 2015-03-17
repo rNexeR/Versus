@@ -85,7 +85,7 @@ int initAllegro()
     al_init_font_addon(); // initialize the font addon
     al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 
-    font = al_load_ttf_font("GameFiles/fonts/font.ttf",72,0 );
+    font = al_load_ttf_font("GameFiles/fonts/font.ttf",50,0 );
 
     if (!font)
     {
@@ -99,6 +99,16 @@ int initAllegro()
 
     al_init_timeout(&timeout, 0.06);
     return 0;
+}
+
+bool changeSizeFont(int x){
+    font = al_load_ttf_font("GameFiles/fonts/font.ttf",x,0 );
+
+    if (!font)
+    {
+        return false;
+    }
+    return true;
 }
 
 int initLogo()
@@ -159,6 +169,7 @@ void loopJuego()
     char x = 86;
     cout<<x<<endl;
     string hola = "";
+    changeSizeFont(20);
     while(1)
     {
         al_clear_to_color(al_map_rgb(0,0,0));
