@@ -11,12 +11,14 @@
 using namespace std;
 
 enum Estados{
+    AVANZAR,
     IZQUIERDA,
     DERECHA,
     CENTRO
 };
 
 enum Animaciones{
+    PARADO,
     CAMINANDO,
     DISPARANDO,
     REC_DANO,

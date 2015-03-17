@@ -1,10 +1,16 @@
 #include <stdio.h>
 #include <iostream>
+
+//LIBRERIAS DE ALLEGRO
 #include <allegro5/allegro.h>
 #include "allegro5/allegro_image.h"
 #include "allegro5/allegro_native_dialog.h"
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
+
+//LIBRERIAS DE PROYECTO
 #include "Box.h"
 using namespace std;
 
@@ -25,6 +31,7 @@ ALLEGRO_SAMPLE *music = NULL;
 ALLEGRO_SAMPLE_ID imusic;
 ALLEGRO_SAMPLE *effect = NULL;
 ALLEGRO_SAMPLE_ID ieffect;
+ALLEGRO_FONT *font = NULL;
 
 //Constantes
 int splashTime = 1;
@@ -73,6 +80,17 @@ int initAllegro()
     if(!al_install_audio() || !al_init_acodec_addon() || !al_reserve_samples(2))
     {
         cout<<"failed to initialize Audio!"<<endl;
+    }
+
+    al_init_font_addon(); // initialize the font addon
+    al_init_ttf_addon();// initialize the ttf (True Type Font) addon
+
+    font = al_load_ttf_font("GameFiles/fonts/font.ttf",72,0 );
+
+    if (!font)
+    {
+        cout<<"Failed to initialize the font"<<endl;
+        return -1;
     }
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
@@ -132,11 +150,40 @@ void showSplash()
     al_rest(splashTime);
 }
 
+void loopJuego()
+{
+    cout<<ALLEGRO_KEY_Q<<endl;
+    cout<<ALLEGRO_KEY_M<<endl;
+    cout<<ALLEGRO_KEY_A<<endl;
+    cout<<ALLEGRO_KEY_Z<<endl;
+    char x = 86;
+    cout<<x<<endl;
+    string hola = "";
+    while(1)
+    {
+        al_clear_to_color(al_map_rgb(0,0,0));
+        bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
+        if(get_event && ev.type == ALLEGRO_EVENT_KEY_DOWN)
+        {
+            if (teclaDownEvent(ALLEGRO_KEY_ESCAPE))
+                break;
+            for(int x = 1; x <= 26; x++)
+                if (teclaDownEvent(x)){
+                    char e = x+64;
+                    hola+=e;
+                }
+        }
+        //cout<<hola<<endl;
+        al_draw_text(font, al_map_rgb(255,255,255), 0, height/2,ALLEGRO_ALIGN_LEFT, hola.c_str());
+        al_flip_display();
+    }
+}
+
 void mainMenu()
 {
     ALLEGRO_BITMAP *select = NULL, *options = NULL;
-    music = al_load_sample("music/So, let see, what you can_0.wav");
-    effect = al_load_sample("music/sfx_laser1.wav");
+    music = al_load_sample("GameFiles/music/So, let see, what you can_0.wav");
+    effect = al_load_sample("GameFiles/music/sfx_laser1.wav");
     al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
     Box *bselect = NULL, *boptions = NULL;
     int uPosy, uPosyOriginal;
@@ -146,12 +193,13 @@ void mainMenu()
     bselect->x = (width-bselect->width)/2;
     bselect->y = (height-bselect->height)/2;
 
+    int espaciado = 35;
     options = al_load_bitmap("GameFiles/assets/menu/opciones.png");
     boptions = new Box(0,0,al_get_bitmap_width(options), al_get_bitmap_height(options));
     boptions->x = (width-boptions->width)/2;
     boptions->y = (height-boptions->height)/2;
 
-    uPosyOriginal = (height/2)+50;
+    uPosyOriginal = (height/2)+60;
     uPosy = uPosyOriginal;
 
     if (!select || !options)
@@ -169,32 +217,34 @@ void mainMenu()
             al_stop_sample(&ieffect);
             al_play_sample(effect, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&ieffect);
             cout<<"ABAJO"<<endl;
-            uPosy += 50;
+            uPosy += espaciado;
         }
         else if(teclaDownEvent(ALLEGRO_KEY_UP))
         {
             al_stop_sample(&ieffect);
             al_play_sample(effect, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&ieffect);
             cout<<"ARRIBA"<<endl;
-            uPosy -= 50;
-        }else if(teclaDownEvent(ALLEGRO_KEY_ENTER)){
+            uPosy -= espaciado;
+        }
+        else if(teclaDownEvent(ALLEGRO_KEY_ENTER))
+        {
             if (uPosy == uPosyOriginal)
                 //llamar el loop del juego
-                showSplash();
-            else if (uPosy == uPosyOriginal+50)
+                loopJuego();
+            else if (uPosy == uPosyOriginal+espaciado)
                 //llamar el loop de instrucciones
                 showSplash();
-            else if(uPosy == uPosyOriginal+100)
+            else if(uPosy == uPosyOriginal+(espaciado*2))
                 //llamar el loop de Scores
                 showSplash();
             else
                 //salir del juego
                 break;
         }
-        if (uPosy>uPosyOriginal+150)
+        if (uPosy>uPosyOriginal+(espaciado*3))
             uPosy = uPosyOriginal;
         if (uPosy<uPosyOriginal)
-            uPosy = uPosyOriginal+150;
+            uPosy = uPosyOriginal+(espaciado*3);
         al_clear_to_color(al_map_rgb(0,0,0));
         al_draw_bitmap(logo,blogo->x,blogo->y - 100,0);
         al_draw_bitmap(options,boptions->x,boptions->y + 100,0);

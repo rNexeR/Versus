@@ -34,6 +34,10 @@
 		</Compiler>
 		<Unit filename="Box.cpp" />
 		<Unit filename="Box.h" />
+		<Unit filename="ObjetosAnimados.cpp" />
+		<Unit filename="ObjetosAnimados.h" />
+		<Unit filename="PersonajesAnimados.cpp" />
+		<Unit filename="PersonajesAnimados.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
