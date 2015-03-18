@@ -8,6 +8,7 @@
 #include <allegro5/allegro_acodec.h>
 #include <iostream>
 #include <map>
+#include <list>
 using namespace std;
 
 enum Estados{
@@ -29,9 +30,15 @@ enum Animaciones{
 class PersonajesAnimados
 {
     public:
+        bool muerto;
+        bool quitarVidas;
         Box detalles();
         map<int, ALLEGRO_BITMAP*> mapa_sprites;
         PersonajesAnimados();
+        virtual void act() = 0;
+        void draw(ALLEGRO_EVENT* ev);
+        void init(list<PersonajesAnimados *> *personajes);
+        bool Colision(Box* pCaja);
         virtual ~PersonajesAnimados();
     protected:
     private:

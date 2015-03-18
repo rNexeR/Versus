@@ -162,13 +162,7 @@ void showSplash()
 
 void loopJuego()
 {
-    cout<<ALLEGRO_KEY_Q<<endl;
-    cout<<ALLEGRO_KEY_M<<endl;
-    cout<<ALLEGRO_KEY_A<<endl;
-    cout<<ALLEGRO_KEY_Z<<endl;
-    char x = 86;
-    cout<<x<<endl;
-    string hola = "";
+    string name = "";
     changeSizeFont(20);
     while(1)
     {
@@ -181,11 +175,11 @@ void loopJuego()
             for(int x = 1; x <= 26; x++)
                 if (teclaDownEvent(x)){
                     char e = x+64;
-                    hola+=e;
+                    name+=e;
                 }
         }
         //cout<<hola<<endl;
-        al_draw_text(font, al_map_rgb(255,255,255), 0, height/2,ALLEGRO_ALIGN_LEFT, hola.c_str());
+        al_draw_text(font, al_map_rgb(255,255,255), 0, height/2,ALLEGRO_ALIGN_LEFT, name.c_str());
         al_flip_display();
     }
 }

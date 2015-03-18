@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1426627347 source:/home/rnexer/Programacion 3/Versus/main.cpp
+1426643882 source:/home/rnexer/Programacion 3/Versus/main.cpp
 	<stdio.h>
 	<iostream>
 	<allegro5/allegro.h>
@@ -19,7 +19,7 @@
 1426467797 source:/home/rnexer/Programacion 3/Versus/ObjetosAnimados.cpp
 	"ObjetosAnimados.h"
 
-1426470702 /home/rnexer/Programacion 3/Versus/ObjetosAnimados.h
+1426641967 /home/rnexer/Programacion 3/Versus/ObjetosAnimados.h
 	"Box.h"
 	<allegro5/allegro.h>
 	"allegro5/allegro_image.h"
@@ -27,12 +27,12 @@
 	<allegro5/allegro_audio.h>
 	<allegro5/allegro_acodec.h>
 	<iostream>
-	<map>
+	<vector>
 
 1426470603 source:/home/rnexer/Programacion 3/Versus/PersonajesAnimados.cpp
 	"PersonajesAnimados.h"
 
-1426622811 /home/rnexer/Programacion 3/Versus/PersonajesAnimados.h
+1426641992 /home/rnexer/Programacion 3/Versus/PersonajesAnimados.h
 	"Box.h"
 	<allegro5/allegro.h>
 	"allegro5/allegro_image.h"
@@ -41,4 +41,5 @@
 	<allegro5/allegro_acodec.h>
 	<iostream>
 	<map>
+	<list>
 

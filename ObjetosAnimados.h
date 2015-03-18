@@ -7,15 +7,18 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 #include <iostream>
-#include <map>
+#include <vector>
 using namespace std;
 
 class ObjetosAnimados
 {
     public:
+        bool destroy;
         Box detalles();
-        map<int, ALLEGRO_BITMAP*> mapa_sprites;
+        vector<ALLEGRO_BITMAP*>* sprites;
         ObjetosAnimados();
+        virtual void act() = 0;
+        void draw(ALLEGRO_EVENT* ev);
         virtual ~ObjetosAnimados();
     protected:
     private:
