@@ -160,8 +160,10 @@ void showSplash()
     al_rest(splashTime);
 }
 
-void loopJuego()
+string ingresarNombre()
 {
+    cout<<ALLEGRO_KEY_A<<endl;
+    cout<<ALLEGRO_KEY_Z<<endl;
     string name = "";
     changeSizeFont(20);
     while(1)
@@ -170,7 +172,7 @@ void loopJuego()
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
         if(get_event && ev.type == ALLEGRO_EVENT_KEY_DOWN)
         {
-            if (teclaDownEvent(ALLEGRO_KEY_ESCAPE))
+            if (teclaDownEvent(ALLEGRO_KEY_ESCAPE) || teclaDownEvent(ALLEGRO_KEY_ENTER))
                 break;
             for(int x = 1; x <= 26; x++)
                 if (teclaDownEvent(x)){
@@ -179,9 +181,18 @@ void loopJuego()
                 }
         }
         //cout<<hola<<endl;
-        al_draw_text(font, al_map_rgb(255,255,255), 0, height/2,ALLEGRO_ALIGN_LEFT, name.c_str());
+        al_draw_text(font, al_map_rgb(0,0,255), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "Ingrese nombre de Usuario:");
+        al_draw_text(font, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, name.c_str());
         al_flip_display();
     }
+    return name;
+}
+
+void loopJuego(){
+    string nombre;
+    nombre = ingresarNombre();
+    cout<<nombre<<endl;
+    showSplash();
 }
 
 void mainMenu()
