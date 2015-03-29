@@ -160,10 +160,7 @@ void showSplash()
     al_rest(splashTime);
 }
 
-string ingresarNombre()
-{
-    cout<<ALLEGRO_KEY_A<<endl;
-    cout<<ALLEGRO_KEY_Z<<endl;
+string ingresarNombre(){
     string name = "";
     changeSizeFont(20);
     while(1)
@@ -181,7 +178,7 @@ string ingresarNombre()
                 }
         }
         //cout<<hola<<endl;
-        al_draw_text(font, al_map_rgb(0,0,255), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "Ingrese nombre de Usuario:");
+        al_draw_text(font, al_map_rgb(0,0,255), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "Ingrese su nombre:");
         al_draw_text(font, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, name.c_str());
         al_flip_display();
     }
@@ -228,21 +225,19 @@ void mainMenu()
         {
             break;
         }
-        if(teclaDownEvent(ALLEGRO_KEY_DOWN))
+        if(get_event && teclaDownEvent(ALLEGRO_KEY_DOWN))
         {
             al_stop_sample(&ieffect);
             al_play_sample(effect, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&ieffect);
-            cout<<"ABAJO"<<endl;
             uPosy += espaciado;
         }
-        else if(teclaDownEvent(ALLEGRO_KEY_UP))
+        else if(get_event && teclaDownEvent(ALLEGRO_KEY_UP))
         {
             al_stop_sample(&ieffect);
             al_play_sample(effect, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&ieffect);
-            cout<<"ARRIBA"<<endl;
             uPosy -= espaciado;
         }
-        else if(teclaDownEvent(ALLEGRO_KEY_ENTER))
+        else if(get_event && teclaDownEvent(ALLEGRO_KEY_ENTER))
         {
             if (uPosy == uPosyOriginal)
                 //llamar el loop del juego

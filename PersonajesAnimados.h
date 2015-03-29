@@ -14,7 +14,6 @@
 using namespace std;
 
 enum Estados{
-    AVANZAR,
     IZQUIERDA,
     DERECHA,
     CENTRO
@@ -51,7 +50,8 @@ class PersonajesAnimados
         virtual void act() = 0;
         void draw(ALLEGRO_EVENT* ev);
         void init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*disparos_principal, list<ObjetosAnimados*>*disparos_enemigos, list<ObjetosAnimados*>*obstaculos);
-        bool Colision(Box* pCaja);
+        void defenseCheck();
+        bool colision(Box* pCaja);
         void setAnimacion(int nombre);
         int enumToInt();
         virtual ~PersonajesAnimados();

@@ -34,7 +34,7 @@ void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes, list<Objet
     colisionado = false;
 }
 
-bool PersonajesAnimados::Colision(Box* pCaja){
+bool PersonajesAnimados::colision(Box* pCaja){
     if(pCaja->x + pCaja->width < detalles->x
         || pCaja->x > detalles->x + pCaja->width
         || pCaja->y + pCaja->height < detalles->y
@@ -50,8 +50,21 @@ void PersonajesAnimados::setAnimacion(int nombre){
     this->animacion_actual = nombre;
 }
 
-void defenseCheck(){
+void PersonajesAnimados::defenseCheck(){
+    if (clase=="principal"){
+        list<ObjetosAnimados*>::iterator i;
+        for(i=disparos_enemigos->begin(); i != disparos_enemigos->end(); i++){
+            if (colision((*i)->detalles))
+                colisionado =true;
+        }
+    }else if(clase=="enemigo"){
+        list<ObjetosAnimados*>::iterator i;
+        for(i=disparos_principal->begin(); i != disparos_principal->end(); i++){
+            if (colision((*i)->detalles))
+                colisionado =true;
+        }
 
+    }
 }
 
 int enumToInt(string animacion){

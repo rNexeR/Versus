@@ -14,7 +14,7 @@ class ObjetosAnimados
 {
     public:
         bool destroy;
-        Box detalles();
+        Box *detalles = new Box(0,0,0,0);
         vector<ALLEGRO_BITMAP*>* sprites;
         ObjetosAnimados();
         virtual void act() = 0;
