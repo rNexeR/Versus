@@ -31,10 +31,10 @@
 	<iostream>
 	<vector>
 
-1427763457 source:/home/rnexer/Programacion 3/Versus/PersonajesAnimados.cpp
+1427766808 source:/home/rnexer/Programacion 3/Versus/PersonajesAnimados.cpp
 	"PersonajesAnimados.h"
 
-1427762750 /home/rnexer/Programacion 3/Versus/PersonajesAnimados.h
+1427766747 /home/rnexer/Programacion 3/Versus/PersonajesAnimados.h
 	"Box.h"
 	<allegro5/allegro.h>
 	"allegro5/allegro_image.h"
@@ -48,10 +48,10 @@
 	<list>
 	<fstream>
 
-1427764834 source:/home/rnexer/Programacion 3/Versus/PerPrincipal.cpp
+1427766773 source:/home/rnexer/Programacion 3/Versus/PerPrincipal.cpp
 	"PerPrincipal.h"
 
-1427760268 /home/rnexer/Programacion 3/Versus/PerPrincipal.h
+1427767070 /home/rnexer/Programacion 3/Versus/PerPrincipal.h
 	"PersonajesAnimados.h"
 	"ObjetosAnimados.h"
 

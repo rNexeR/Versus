@@ -14,7 +14,7 @@ void PersonajesAnimados::draw(){
             animacion_actual = 0;
     }
 
-    al_draw_bitmap(temp,200,200,0);
+    al_draw_bitmap(temp,detalles->x, detalles->y,0);
 //    al_draw_scaled_bitmap(image[animacion],0,0,196,397,caja->x,caja->y,196,397,0);
 
     frame++;
@@ -44,6 +44,7 @@ void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes){
     frame = 0;
     colisionado = false;
     muerto = false;
+    al_init_timeout(&timeout, 0.06);
 }
 
 bool PersonajesAnimados::colision(Box* pCaja){
@@ -62,6 +63,31 @@ void PersonajesAnimados::setAnimacion(int nombre){
         this->animacion_actual = 0;
     }
 }
+
+void PersonajesAnimados::teclaPresionada(int keycode, bool *variable)
+{
+    if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
+    {
+        if(ev.keyboard.keycode==keycode)
+            *variable = true;
+    }
+    if(ev.type == ALLEGRO_EVENT_KEY_UP)
+    {
+        if(ev.keyboard.keycode==keycode)
+            *variable = false;
+    }
+}
+
+bool PersonajesAnimados::teclaDownEvent(int keycode)
+{
+    if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
+    {
+        if(ev.keyboard.keycode==keycode)
+            return true;
+    }
+    return false;
+}
+
 
 void PersonajesAnimados::defenseCheck(){
 //    if (clase=="principal"){

@@ -14,6 +14,10 @@
 #include <fstream>
 using namespace std;
 
+enum MYKEYS {
+    KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
+};
+
 enum Estados{
     IZQUIERDA,
     DERECHA,
@@ -41,11 +45,16 @@ class PersonajesAnimados
         int mapa_actual;
         int frame;
         int animacion_actual;
+        int var = 6;
         string clase;
         map<int, vector<ALLEGRO_BITMAP*>*> mapa_sprites;
         list<PersonajesAnimados*>*personajes;
         list<ObjetosAnimados*>*obstaculos;
+
         ALLEGRO_TIMER *timer = NULL;
+        ALLEGRO_EVENT ev;
+        ALLEGRO_TIMEOUT timeout;
+        ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 
         PersonajesAnimados();
         virtual void act(ALLEGRO_EVENT* ev) = 0;
@@ -53,8 +62,11 @@ class PersonajesAnimados
         void init(list<PersonajesAnimados *> *personajes);
         void init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos);
         void defenseCheck();
+        bool key[4] = { false, false, false, false };
         bool colision(Box* pCaja);
         void setAnimacion(int nombre);
+        void teclaPresionada(int keycode, bool *variable);
+        bool teclaDownEvent(int keycode);
         int enumToInt(string animacion);
         virtual ~PersonajesAnimados();
     protected:
