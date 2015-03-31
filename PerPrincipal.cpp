@@ -48,17 +48,15 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 
 void PerPrincipal::act(ALLEGRO_EVENT* ev)
 {
-    cout<<jump<<endl;
     bool entro = false;
     validarTeclas(ev);
 
-    velocidad_y+=aceleracion_y;
-    detalles->y+=velocidad_y;
-    aceleracion_y+=gravedad;
+
 
     //gravedad en el salto
     if (detalles->y > 600)
     {
+        cout<<"gravedad"<<endl;
         detalles->y = 600;
         aceleracion_y = 0;
         setAnimacion(orientacion == 'r' ? PARADO_DERECHA : PARADO_IZQUIERDA);
@@ -68,6 +66,9 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
     //para no poder moverse mientras se salta
     if(jump)
     {
+        velocidad_y+=aceleracion_y;
+        detalles->y+=velocidad_y;
+        aceleracion_y+=gravedad;
         entro = true;
     }
     else if(key[KEY_UP])
@@ -83,7 +84,7 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
     {
         cout<<"Saltando"<<endl;
         velocidad_y = 0;
-        aceleracion_y = -5;
+        aceleracion_y = -4.5;
         setAnimacion(orientacion == 'r' ? SALTANDO_DERECHA : SALTANDO_IZQUIERDA);
         jump = true;
         entro = true;
