@@ -179,9 +179,10 @@ string ingresarNombre(){
         {
             if (teclaDownEvent(ALLEGRO_KEY_ESCAPE) || teclaDownEvent(ALLEGRO_KEY_ENTER))
                 break;
-            for(int x = 1; x <= 26; x++)
+            for(int x = 1; x <= 27; x++)
                 if (teclaDownEvent(x)){
                     char e = x+64;
+                    cout<<e<<endl;
                     name+=e;
                 }
 
@@ -201,6 +202,7 @@ string ingresarNombre(){
 }
 
 void initGame(){
+    personajes.clear();
     personajes.push_back(new PerPrincipal(event_queue, &personajes, &obstaculos));
 }
 
