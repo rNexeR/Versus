@@ -35,6 +35,7 @@ void PersonajesAnimados::draw(){
 //    al_draw_scaled_bitmap(image[animacion],0,0,196,397,caja->x,caja->y,196,397,0);
 
     frame++;
+    limpiarEnemigos();
 }
 void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos){
     this->personajes = personajes;
@@ -172,4 +173,20 @@ PersonajesAnimados::~PersonajesAnimados()
     }
     delete detalles;
     cout<<"BIEN"<<endl;
+}
+
+void PersonajesAnimados::limpiarEnemigos(){
+    vector<list<PersonajesAnimados*>::iterator>borrar;
+    for(list<PersonajesAnimados*>::iterator i=personajes->begin(); i != personajes->end(); i++){
+        //cout<<"entro"<<endl;
+        if ((*i)->clase == "Enemigo" && ((*i)->muerto == true || (*i)->detalles->y > 600)){
+//            personajes->erase(i);
+            delete (*i);
+            borrar.push_back(i);
+        }
+    }
+    for(int x = 0; x < borrar.size(); x++){
+        personajes->erase(borrar[x]);
+    }
+    cout<<personajes->size()<<endl;
 }

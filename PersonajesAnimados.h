@@ -81,6 +81,7 @@ class PersonajesAnimados
         void teclaPresionada(int keycode, bool *variable);
         bool teclaDownEvent(int keycode);
         int enumToInt(string animacion);
+        void limpiarEnemigos();
 
         virtual ~PersonajesAnimados();
     protected:
