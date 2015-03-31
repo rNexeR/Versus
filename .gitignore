@@ -27,6 +27,11 @@
 *.out
 *.app
 
+#Linker settings
+Versus.depend
+Versus.layout
+bin/**/*
+
 bin/*
 obj/*
 *.depend
