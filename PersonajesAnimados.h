@@ -36,15 +36,18 @@ enum Animaciones{
 class PersonajesAnimados
 {
     public:
+        //estados del personaje
         int vidas;
         bool muerto;
         bool colisionado;
-//        bool quitarVidas;
-//        bool protegido;
-        Box *detalles = new Box(0,0,0,0);
+        char orientacion;
         int mapa_actual;
-        int frame;
         int animacion_actual;
+
+        Box *detalles = new Box(0,0,0,0);
+        bool key[4] = { false, false, false, false };
+
+        int frame;
         int var = 6;
         string clase;
         map<int, vector<ALLEGRO_BITMAP*>*> mapa_sprites;
@@ -62,12 +65,12 @@ class PersonajesAnimados
         void init(list<PersonajesAnimados *> *personajes);
         void init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos);
         void defenseCheck();
-        bool key[4] = { false, false, false, false };
         bool colision(Box* pCaja);
         void setAnimacion(int nombre);
         void teclaPresionada(int keycode, bool *variable);
         bool teclaDownEvent(int keycode);
         int enumToInt(string animacion);
+
         virtual ~PersonajesAnimados();
     protected:
     private:

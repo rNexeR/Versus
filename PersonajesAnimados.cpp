@@ -45,6 +45,7 @@ void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes){
     frame = 0;
     colisionado = false;
     muerto = false;
+    orientacion = 'r';
     al_init_timeout(&timeout, 0.06);
 }
 

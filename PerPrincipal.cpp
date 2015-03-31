@@ -52,26 +52,37 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 
 void PerPrincipal::act(ALLEGRO_EVENT* ev)
 {
+    bool entro = false;
     validarTeclas(ev);
     if(key[KEY_UP])
     {
         detalles->y -= var;
+        entro = true;
     }
 
     if(key[KEY_DOWN])
     {
         detalles->y += var;
+        entro = true;
     }
 
     if(key[KEY_LEFT])
     {
         detalles->x -= var;
+        setAnimacion(CAMINANDO_IZQUIERDA);
+        orientacion = 'l';
+        entro = true;
     }
 
     if(key[KEY_RIGHT])
     {
         detalles->x += var;
+        setAnimacion(CAMINANDO_DERECHA);
+        orientacion = 'r';
+        entro = true;
     }
+    if (!entro)
+        setAnimacion(orientacion == 'r' ? PARADO_DERECHA : PARADO_IZQUIERDA);
 }
 
 void PerPrincipal::validarTeclas(ALLEGRO_EVENT* ev){
