@@ -109,7 +109,8 @@ int initAllegro()
     return 0;
 }
 
-bool changeSizeFont(int x){
+bool changeSizeFont(int x)
+{
     font = al_load_ttf_font("GameFiles/fonts/font.ttf",x,0 );
 
     if (!font)
@@ -168,7 +169,9 @@ void showSplash()
     al_rest(splashTime);
 }
 
-string ingresarNombre(){
+
+string ingresarNombre()
+{
     string name = "";
     changeSizeFont(20);
     while(1)
@@ -180,13 +183,14 @@ string ingresarNombre(){
             if (teclaDownEvent(ALLEGRO_KEY_ESCAPE) || teclaDownEvent(ALLEGRO_KEY_ENTER))
                 break;
             for(int x = 1; x <= 27; x++)
-                if (teclaDownEvent(x)){
+                if (teclaDownEvent(x))
+                {
                     char e = x+64;
-                    cout<<e<<endl;
                     name+=e;
                 }
 
-            if (teclaDownEvent(ALLEGRO_KEY_BACKSPACE) && name.size()>0){
+            if (teclaDownEvent(ALLEGRO_KEY_BACKSPACE) && name.size()>0)
+            {
                 string temp = name;
                 name = "";
                 for(int x = 0; x<temp.size()-1; x++)
@@ -201,25 +205,38 @@ string ingresarNombre(){
     return name;
 }
 
-void initGame(){
+void cleanPersonajes()
+{
+    for(list<PersonajesAnimados*>::iterator i = personajes.begin(); i!=personajes.end(); i++)
+    {
+        delete (*i);
+    }
+}
+
+void initGame()
+{
+    cleanPersonajes();
     personajes.clear();
     personajes.push_back(new PerPrincipal(event_queue, &personajes, &obstaculos));
 }
 
-void loopJuego(){
-    string nombre;
-    nombre = ingresarNombre();
-    cout<<nombre<<endl;
+void loopJuego()
+{
+//    string nombre;
+//    nombre = ingresarNombre();
+//    cout<<nombre<<endl;
     initGame();
 
-    while(1){
+    while(1)
+    {
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
         if(get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE || teclaDownEvent(ALLEGRO_KEY_ESCAPE)))
         {
             break;
         }
         al_clear_to_color(al_map_rgb(0,0,0));
-        for(list<PersonajesAnimados*>::iterator i = personajes.begin(); i!=personajes.end(); i++){
+        for(list<PersonajesAnimados*>::iterator i = personajes.begin(); i!=personajes.end(); i++)
+        {
             (*i)->draw();
             (*i)->act(&ev);
         }
@@ -274,22 +291,28 @@ void mainMenu()
         }
         else if(get_event && teclaDownEvent(ALLEGRO_KEY_ENTER))
         {
-            if (uPosy == uPosyOriginal){
+            if (uPosy == uPosyOriginal)
+            {
                 //llamar el loop del juego
                 al_stop_samples();
                 loopJuego();
                 al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
-            }else if (uPosy == uPosyOriginal+espaciado){
+            }
+            else if (uPosy == uPosyOriginal+espaciado)
+            {
                 //llamar el loop de instrucciones
                 al_stop_samples();
                 showSplash();
                 al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
-            }else if(uPosy == uPosyOriginal+(espaciado*2)){
+            }
+            else if(uPosy == uPosyOriginal+(espaciado*2))
+            {
                 //llamar el loop de Scores
                 al_stop_samples();
                 showSplash();
                 al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
-            }else
+            }
+            else
                 //salir del juego
                 break;
         }

@@ -14,7 +14,8 @@ void PersonajesAnimados::draw(){
             animacion_actual = 0;
     }
 
-    al_draw_bitmap(temp,detalles->x, detalles->y,0);
+    if (temp)
+        al_draw_bitmap(temp,detalles->x, detalles->y,0);
 //    al_draw_scaled_bitmap(image[animacion],0,0,196,397,caja->x,caja->y,196,397,0);
 
     frame++;
