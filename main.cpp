@@ -184,6 +184,13 @@ string ingresarNombre(){
                     char e = x+64;
                     name+=e;
                 }
+
+            if (teclaDownEvent(ALLEGRO_KEY_BACKSPACE && name.size()>0)){
+                string temp = name;
+                name = "";
+                for(int x = 0; x<temp.size()-1; x++)
+                    name+=temp[x];
+            }
         }
         //cout<<hola<<endl;
         al_draw_text(font, al_map_rgb(0,0,255), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "Ingrese su nombre:");
@@ -194,21 +201,25 @@ string ingresarNombre(){
 }
 
 void initGame(){
-    personajes.push_back(new PerPrincipal(event_queue, &personajes, &disparos_aliados, &disparos_enemigos, &obstaculos));
+    personajes.push_back(new PerPrincipal(event_queue, &personajes, &obstaculos));
 }
 
 void loopJuego(){
     string nombre;
     nombre = ingresarNombre();
     cout<<nombre<<endl;
-    cout<<"Asta aki bien"<<endl;
     initGame();
 
     while(1){
+        bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
+        if(get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE || teclaDownEvent(ALLEGRO_KEY_ESCAPE)))
+        {
+            break;
+        }
         al_clear_to_color(al_map_rgb(0,0,0));
         for(list<PersonajesAnimados*>::iterator i = personajes.begin(); i!=personajes.end(); i++){
-            (*i)->act(&ev);
             (*i)->draw();
+            (*i)->act(&ev);
         }
         al_flip_display();
     }
@@ -261,16 +272,22 @@ void mainMenu()
         }
         else if(get_event && teclaDownEvent(ALLEGRO_KEY_ENTER))
         {
-            if (uPosy == uPosyOriginal)
+            if (uPosy == uPosyOriginal){
                 //llamar el loop del juego
+                al_stop_samples();
                 loopJuego();
-            else if (uPosy == uPosyOriginal+espaciado)
+                al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
+            }else if (uPosy == uPosyOriginal+espaciado){
                 //llamar el loop de instrucciones
+                al_stop_samples();
                 showSplash();
-            else if(uPosy == uPosyOriginal+(espaciado*2))
+                al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
+            }else if(uPosy == uPosyOriginal+(espaciado*2)){
                 //llamar el loop de Scores
+                al_stop_samples();
                 showSplash();
-            else
+                al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
+            }else
                 //salir del juego
                 break;
         }

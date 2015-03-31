@@ -6,8 +6,6 @@ PersonajesAnimados::PersonajesAnimados()
 }
 
 void PersonajesAnimados::draw(){
-    cout<<"Dibujando: x:"<<detalles->x<<" y:"<<detalles->y<<endl;
-    cout<<"Mapa: "<<mapa_actual<<" Animacion: "<<animacion_actual<<endl;
     vector<ALLEGRO_BITMAP*> *vector_textura_actual_temp = mapa_sprites[mapa_actual];
     ALLEGRO_BITMAP* temp = (*vector_textura_actual_temp)[animacion_actual];
     if (frame%3==0){
@@ -21,16 +19,31 @@ void PersonajesAnimados::draw(){
 
     frame++;
 }
-void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*disparos_principal, list<ObjetosAnimados*>*disparos_enemigos, list<ObjetosAnimados*>*obstaculos){
+void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos){
     this->personajes = personajes;
-    this->disparos_principal = disparos_principal;
-    this->disparos_enemigos = disparos_enemigos;
     this->obstaculos = obstaculos;
+
+    setAnimacion(PARADO_DERECHA);
+    detalles->x = 50;
+    detalles->y = 50;
+    detalles->width = 50;
+    detalles->height = 50;
+    frame = 0;
+    colisionado = false;
+    muerto = false;
     //colisionado = false;
 }
 
 void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes){
     this->personajes = personajes;
+    setAnimacion(PARADO_DERECHA);
+    detalles->x = 50;
+    detalles->y = 50;
+    detalles->width = 50;
+    detalles->height = 50;
+    frame = 0;
+    colisionado = false;
+    muerto = false;
 }
 
 bool PersonajesAnimados::colision(Box* pCaja){
@@ -44,26 +57,27 @@ bool PersonajesAnimados::colision(Box* pCaja){
 }
 
 void PersonajesAnimados::setAnimacion(int nombre){
-    if(this->animacion_actual != nombre)
+    if(this->mapa_actual != nombre){
         this->mapa_actual = nombre;
-    this->animacion_actual = 0;
+        this->animacion_actual = 0;
+    }
 }
 
 void PersonajesAnimados::defenseCheck(){
-    if (clase=="principal"){
-        list<ObjetosAnimados*>::iterator i;
-        for(i=disparos_enemigos->begin(); i != disparos_enemigos->end(); i++){
-            if (colision((*i)->detalles))
-                colisionado =true;
-        }
-    }else if(clase=="enemigo"){
-        list<ObjetosAnimados*>::iterator i;
-        for(i=disparos_principal->begin(); i != disparos_principal->end(); i++){
-            if (colision((*i)->detalles))
-                colisionado =true;
-        }
-
-    }
+//    if (clase=="principal"){
+//        list<ObjetosAnimados*>::iterator i;
+//        for(i=disparos_enemigos->begin(); i != disparos_enemigos->end(); i++){
+//            if (colision((*i)->detalles))
+//                colisionado =true;
+//        }
+//    }else if(clase=="enemigo"){
+//        list<ObjetosAnimados*>::iterator i;
+//        for(i=disparos_principal->begin(); i != disparos_principal->end(); i++){
+//            if (colision((*i)->detalles))
+//                colisionado =true;
+//        }
+//
+//    }
 }
 
 int PersonajesAnimados::enumToInt(string animacion){

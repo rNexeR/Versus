@@ -1,43 +1,43 @@
 PARADO_DERECHA
 {
-	GameFiles/assets/personajes/principal/stand_right
+	GameFiles/assets/personajes/principal/stand_right.png
 }
 
 PARADO_IZQUIERDA
 {
-	GameFiles/assets/personajes/principal/stand_left
+	GameFiles/assets/personajes/principal/stand_left.png
 }
 
 CAMINANDO_DERECHA
 {
-	GameFiles/assets/personajes/principal/run_right1
-	GameFiles/assets/personajes/principal/run_right2
-	GameFiles/assets/personajes/principal/run_right3
-	GameFiles/assets/personajes/principal/run_right4
-	GameFiles/assets/personajes/principal/run_right5
-	GameFiles/assets/personajes/principal/run_right6
-	GameFiles/assets/personajes/principal/run_right7
-	GameFiles/assets/personajes/principal/run_right8
+	GameFiles/assets/personajes/principal/run_right_1.png
+	GameFiles/assets/personajes/principal/run_right_2.png
+	GameFiles/assets/personajes/principal/run_right_3.png
+	GameFiles/assets/personajes/principal/run_right_4.png
+	GameFiles/assets/personajes/principal/run_right_5.png
+	GameFiles/assets/personajes/principal/run_right_6.png
+	GameFiles/assets/personajes/principal/run_right_7.png
+	GameFiles/assets/personajes/principal/run_right_8.png
 }
 
 CAMINANDO_IZQUIERDA
 {
-	GameFiles/assets/personajes/principal/run_left1
-	GameFiles/assets/personajes/principal/run_left2
-	GameFiles/assets/personajes/principal/run_left3
-	GameFiles/assets/personajes/principal/run_left4
-	GameFiles/assets/personajes/principal/run_left5
-	GameFiles/assets/personajes/principal/run_left6
-	GameFiles/assets/personajes/principal/run_left7
-	GameFiles/assets/personajes/principal/run_left8
+	GameFiles/assets/personajes/principal/run_left_1.png
+	GameFiles/assets/personajes/principal/run_left_2.png
+	GameFiles/assets/personajes/principal/run_left_3.png
+	GameFiles/assets/personajes/principal/run_left_4.png
+	GameFiles/assets/personajes/principal/run_left_5.png
+	GameFiles/assets/personajes/principal/run_left_6.png
+	GameFiles/assets/personajes/principal/run_left_7.png
+	GameFiles/assets/personajes/principal/run_left_8.png
 }
 
 DISPARANDO_DERECHA
 {
-	GameFiles/assets/personajes/principal/shoot_up_right
+	GameFiles/assets/personajes/principal/shoot_up_right.png
 }
 
 DISPARANDO_IZQUIERDA
 {
-	GameFiles/assets/personajes/principal/shoot_up_left
+	GameFiles/assets/personajes/principal/shoot_up_left.png
 }

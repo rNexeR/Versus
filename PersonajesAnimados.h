@@ -37,15 +37,13 @@ class PersonajesAnimados
         bool colisionado;
 //        bool quitarVidas;
 //        bool protegido;
-        Box *detalles;
+        Box *detalles = new Box(0,0,0,0);
         int mapa_actual;
         int frame;
         int animacion_actual;
         string clase;
         map<int, vector<ALLEGRO_BITMAP*>*> mapa_sprites;
         list<PersonajesAnimados*>*personajes;
-        list<ObjetosAnimados*>*disparos_principal;
-        list<ObjetosAnimados*>*disparos_enemigos;
         list<ObjetosAnimados*>*obstaculos;
         ALLEGRO_TIMER *timer = NULL;
 
@@ -53,7 +51,7 @@ class PersonajesAnimados
         virtual void act(ALLEGRO_EVENT* ev) = 0;
         void draw();
         void init(list<PersonajesAnimados *> *personajes);
-        void init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*disparos_principal, list<ObjetosAnimados*>*disparos_enemigos, list<ObjetosAnimados*>*obstaculos);
+        void init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos);
         void defenseCheck();
         bool colision(Box* pCaja);
         void setAnimacion(int nombre);
