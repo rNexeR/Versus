@@ -5,6 +5,22 @@ PersonajesAnimados::PersonajesAnimados()
 
 }
 
+string PersonajesAnimados::toString(int number)
+{
+    if (number == 0)
+        return "0";
+    std::string temp="";
+    std::string returnvalue="";
+    while (number>0)
+    {
+        temp+=number%10+48;
+        number/=10;
+    }
+    for (int i=0;i<(int)temp.length();i++)
+        returnvalue+=temp[temp.length()-i-1];
+    return returnvalue;
+}
+
 void PersonajesAnimados::draw(){
     vector<ALLEGRO_BITMAP*> *vector_textura_actual_temp = mapa_sprites[mapa_actual];
     ALLEGRO_BITMAP* temp = (*vector_textura_actual_temp)[animacion_actual];
@@ -42,6 +58,7 @@ void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes, list<Objet
 
 void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes){
     this->personajes = personajes;
+    disparos = NULL;
     setAnimacion(PARADO_DERECHA);
     detalles->width = 50;
     detalles->height = 50;
@@ -143,9 +160,10 @@ int PersonajesAnimados::enumToInt(string animacion){
 
 PersonajesAnimados::~PersonajesAnimados()
 {
-    for(list<ObjetosAnimados*>::iterator i=disparos->begin(); i != disparos->end(); i++){
-            delete (*i);
-    }
+    if (disparos != NULL && disparos->size() > 0)
+        for(list<ObjetosAnimados*>::iterator i=disparos->begin(); i != disparos->end(); i++)
+                delete (*i);
+
     for(int x = 0; x<mapa_sprites.size(); x++){
             vector<ALLEGRO_BITMAP*> *vector_temp = mapa_sprites[x];
             for(int y = 0; y<vector_temp->size();y++){
@@ -153,4 +171,5 @@ PersonajesAnimados::~PersonajesAnimados()
             }
     }
     delete detalles;
+    cout<<"BIEN"<<endl;
 }

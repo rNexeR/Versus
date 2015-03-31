@@ -1,0 +1,70 @@
+PARADO_DERECHA
+{
+	GameFiles/assets/personajes/principal/stand_right.png
+}
+
+PARADO_IZQUIERDA
+{
+	GameFiles/assets/personajes/principal/stand_left.png
+}
+
+CAMINANDO_DERECHA
+{
+	GameFiles/assets/personajes/principal/run_right_1.png
+	GameFiles/assets/personajes/principal/run_right_2.png
+	GameFiles/assets/personajes/principal/run_right_3.png
+	GameFiles/assets/personajes/principal/run_right_4.png
+	GameFiles/assets/personajes/principal/run_right_5.png
+	GameFiles/assets/personajes/principal/run_right_6.png
+	GameFiles/assets/personajes/principal/run_right_7.png
+	GameFiles/assets/personajes/principal/run_right_8.png
+}
+
+CAMINANDO_IZQUIERDA
+{
+	GameFiles/assets/personajes/principal/run_left_1.png
+	GameFiles/assets/personajes/principal/run_left_2.png
+	GameFiles/assets/personajes/principal/run_left_3.png
+	GameFiles/assets/personajes/principal/run_left_4.png
+	GameFiles/assets/personajes/principal/run_left_5.png
+	GameFiles/assets/personajes/principal/run_left_6.png
+	GameFiles/assets/personajes/principal/run_left_7.png
+	GameFiles/assets/personajes/principal/run_left_8.png
+}
+
+DISPARANDO_DERECHA
+{
+	GameFiles/assets/personajes/principal/shoot_up_right.png
+}
+
+DISPARANDO_IZQUIERDA
+{
+	GameFiles/assets/personajes/principal/shoot_up_left.png
+}
+
+SALTANDO_DERECHA
+{
+	GameFiles/assets/personajes/principal/jump_right_1.png
+	GameFiles/assets/personajes/principal/jump_right_2.png
+	GameFiles/assets/personajes/principal/jump_right_3.png
+	GameFiles/assets/personajes/principal/jump_right_4.png
+	
+}
+
+SALTANDO_IZQUIERDA
+{
+	GameFiles/assets/personajes/principal/jump_left_1.png
+	GameFiles/assets/personajes/principal/jump_left_2.png
+	GameFiles/assets/personajes/principal/jump_left_3.png
+	GameFiles/assets/personajes/principal/jump_left_4.png
+}
+
+CAYENDO_DERECHA
+{
+	GameFiles/assets/personajes/principal/down_right.png
+}
+
+CAYENDO_IZQUIERDA
+{
+	GameFiles/assets/personajes/principal/down_left.png
+}

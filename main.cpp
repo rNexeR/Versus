@@ -15,6 +15,7 @@ using namespace std;
 #include "Box.h"
 #include "PersonajesAnimados.h"
 #include "PerPrincipal.h"
+#include "EnemigoNegro.h"
 
 const float FPS = 60;
 
@@ -246,6 +247,7 @@ void initGame()
     cleanPersonajes();
     personajes.clear();
     personajes.push_back(new PerPrincipal(event_queue, &personajes, &obstaculos));
+    personajes.push_back(new EnemigoNegro(event_queue, &personajes, &obstaculos, 1));
 }
 
 void loopJuego()

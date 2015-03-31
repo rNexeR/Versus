@@ -69,6 +69,7 @@ class PersonajesAnimados
         ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 
         PersonajesAnimados();
+        string toString(int number);
         virtual void act(ALLEGRO_EVENT* ev) = 0;
         virtual int getTime() = 0;
         void draw();
