@@ -12,11 +12,11 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
         cout<<"failed to initialize image addon!"<<endl;
     }
 
-    timer = al_create_timer(1.0 / 60);
-    if(!timer)
-    {
-        cout<<"failed to create timer!"<<endl;
-    }
+//    timer = al_create_timer(1.0 / 60);
+//    if(!timer)
+//    {
+//        cout<<"failed to create timer!"<<endl;
+//    }
 
     //carga de imagenes
     ifstream in("GameFiles/initImages/principal.txt");
@@ -43,7 +43,7 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 
 
     al_register_event_source(event_queue, al_get_keyboard_event_source());
-    al_register_event_source(event_queue, al_get_timer_event_source(timer));
+//    al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
     //init(personajes, disparos_principal, disparos_enemigos, obstaculos);
     this->event_queue = event_queue;
@@ -56,7 +56,8 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
     validarTeclas(ev);
     if(key[KEY_UP])
     {
-        detalles->y -= var;
+        //detalles->y -= var;
+        setAnimacion(orientacion == 'r' ? DISPARANDO_DERECHA : DISPARANDO_IZQUIERDA);
         entro = true;
     }
 
