@@ -36,6 +36,8 @@
 		<Unit filename="Box.h" />
 		<Unit filename="ObjetosAnimados.cpp" />
 		<Unit filename="ObjetosAnimados.h" />
+		<Unit filename="PerPrincipal.cpp" />
+		<Unit filename="PerPrincipal.h" />
 		<Unit filename="PersonajesAnimados.cpp" />
 		<Unit filename="PersonajesAnimados.h" />
 		<Unit filename="main.cpp" />

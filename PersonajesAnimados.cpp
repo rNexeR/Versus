@@ -2,17 +2,12 @@
 
 PersonajesAnimados::PersonajesAnimados()
 {
-    animacion_actual = 0;
-    frame = 0;
-    mapa_actual = 0;
 
-    protegido = false;
-    colisionado = false;
-    muerto = false;
-    quitarVidas = false;
 }
 
-void PersonajesAnimados::draw(ALLEGRO_EVENT* ev){
+void PersonajesAnimados::draw(){
+    cout<<"Dibujando: x:"<<detalles->x<<" y:"<<detalles->y<<endl;
+    cout<<"Mapa: "<<mapa_actual<<" Animacion: "<<animacion_actual<<endl;
     vector<ALLEGRO_BITMAP*> *vector_textura_actual_temp = mapa_sprites[mapa_actual];
     ALLEGRO_BITMAP* temp = (*vector_textura_actual_temp)[animacion_actual];
     if (frame%3==0){
@@ -31,7 +26,11 @@ void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes, list<Objet
     this->disparos_principal = disparos_principal;
     this->disparos_enemigos = disparos_enemigos;
     this->obstaculos = obstaculos;
-    colisionado = false;
+    //colisionado = false;
+}
+
+void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes){
+    this->personajes = personajes;
 }
 
 bool PersonajesAnimados::colision(Box* pCaja){
@@ -46,8 +45,8 @@ bool PersonajesAnimados::colision(Box* pCaja){
 
 void PersonajesAnimados::setAnimacion(int nombre){
     if(this->animacion_actual != nombre)
-        this->mapa_actual = 0;
-    this->animacion_actual = nombre;
+        this->mapa_actual = nombre;
+    this->animacion_actual = 0;
 }
 
 void PersonajesAnimados::defenseCheck(){
@@ -67,18 +66,18 @@ void PersonajesAnimados::defenseCheck(){
     }
 }
 
-int enumToInt(string animacion){
-        if (animacion=="PARADO")
+int PersonajesAnimados::enumToInt(string animacion){
+        if (animacion=="PARADO_DERECHA")
             return 0;
-        else if (animacion=="CAMINANDO_DERECHA")
+        else if (animacion == "PARADO_IZQUIERDA")
             return 1;
-        else if (animacion=="CAMINANDO_IZQUIERDA")
+        else if (animacion=="CAMINANDO_DERECHA")
             return 2;
-        else if (animacion=="DISPARANDO_DERECHA")
+        else if (animacion=="CAMINANDO_IZQUIERDA")
             return 3;
-        else if (animacion=="DISPARANDO_IZQUIERDA")
+        else if (animacion=="DISPARANDO_DERECHA")
             return 4;
-        else if (animacion=="MUERTO")
+        else if (animacion=="DISPARANDO_IZQUIERDA")
             return 5;
         else
             return -1;

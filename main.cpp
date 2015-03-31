@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <iostream>
+using namespace std;
 
 //LIBRERIAS DE ALLEGRO
 #include <allegro5/allegro.h>
@@ -12,7 +13,8 @@
 
 //LIBRERIAS DE PROYECTO
 #include "Box.h"
-using namespace std;
+#include "PersonajesAnimados.h"
+#include "PerPrincipal.h"
 
 const float FPS = 60;
 
@@ -36,6 +38,12 @@ ALLEGRO_FONT *font = NULL;
 //Constantes
 int splashTime = 1;
 int width = 500, height = 650;
+
+//Listas
+list<PersonajesAnimados*> personajes;
+list<ObjetosAnimados*> disparos_aliados;
+list<ObjetosAnimados*> disparos_enemigos;
+list<ObjetosAnimados*> obstaculos;
 
 int initAllegro()
 {
@@ -185,11 +193,25 @@ string ingresarNombre(){
     return name;
 }
 
+void initGame(){
+    personajes.push_back(new PerPrincipal(event_queue, &personajes, &disparos_aliados, &disparos_enemigos, &obstaculos));
+}
+
 void loopJuego(){
     string nombre;
     nombre = ingresarNombre();
     cout<<nombre<<endl;
-    showSplash();
+    cout<<"Asta aki bien"<<endl;
+    initGame();
+
+    while(1){
+        al_clear_to_color(al_map_rgb(0,0,0));
+        for(list<PersonajesAnimados*>::iterator i = personajes.begin(); i!=personajes.end(); i++){
+            (*i)->act(&ev);
+            (*i)->draw();
+        }
+        al_flip_display();
+    }
 }
 
 void mainMenu()

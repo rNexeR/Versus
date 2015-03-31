@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1427660692 source:/home/rnexer/Programacion 3/Versus/main.cpp
+1427759671 source:/home/rnexer/Programacion 3/Versus/main.cpp
 	<stdio.h>
 	<iostream>
 	<allegro5/allegro.h>
@@ -10,6 +10,8 @@
 	<allegro5/allegro_font.h>
 	<allegro5/allegro_ttf.h>
 	"Box.h"
+	"PersonajesAnimados.h"
+	"PerPrincipal.h"
 
 1426682103 source:/home/rnexer/Programacion 3/Versus/Box.cpp
 	"Box.h"
@@ -19,7 +21,7 @@
 1426682104 source:/home/rnexer/Programacion 3/Versus/ObjetosAnimados.cpp
 	"ObjetosAnimados.h"
 
-1426884914 /home/rnexer/Programacion 3/Versus/ObjetosAnimados.h
+1427661578 /home/rnexer/Programacion 3/Versus/ObjetosAnimados.h
 	"Box.h"
 	<allegro5/allegro.h>
 	"allegro5/allegro_image.h"
@@ -29,10 +31,10 @@
 	<iostream>
 	<vector>
 
-1426886639 source:/home/rnexer/Programacion 3/Versus/PersonajesAnimados.cpp
+1427759725 source:/home/rnexer/Programacion 3/Versus/PersonajesAnimados.cpp
 	"PersonajesAnimados.h"
 
-1427660486 /home/rnexer/Programacion 3/Versus/PersonajesAnimados.h
+1427759495 /home/rnexer/Programacion 3/Versus/PersonajesAnimados.h
 	"Box.h"
 	<allegro5/allegro.h>
 	"allegro5/allegro_image.h"
@@ -44,4 +46,12 @@
 	<map>
 	<vector>
 	<list>
+	<fstream>
+
+1427759573 source:/home/rnexer/Programacion 3/Versus/PerPrincipal.cpp
+	"PerPrincipal.h"
+
+1427757627 /home/rnexer/Programacion 3/Versus/PerPrincipal.h
+	"PersonajesAnimados.h"
+	"ObjetosAnimados.h"
 

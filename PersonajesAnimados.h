@@ -11,6 +11,7 @@
 #include <map>
 #include <vector>
 #include <list>
+#include <fstream>
 using namespace std;
 
 enum Estados{
@@ -20,21 +21,22 @@ enum Estados{
 };
 
 enum Animaciones{
-    PARADO,
+    PARADO_DERECHA,
+    PARADO_IZQUIERDA,
     CAMINANDO_DERECHA,
     CAMINANDO_IZQUIERDA,
     DISPARANDO_DERECHA,
-    DISPARANDO_IZQUIERDA,
-    MUERTO
+    DISPARANDO_IZQUIERDA
 };
 
 class PersonajesAnimados
 {
     public:
+        int vidas;
         bool muerto;
         bool colisionado;
-        bool quitarVidas;
-        bool protegido;
+//        bool quitarVidas;
+//        bool protegido;
         Box *detalles;
         int mapa_actual;
         int frame;
@@ -45,15 +47,17 @@ class PersonajesAnimados
         list<ObjetosAnimados*>*disparos_principal;
         list<ObjetosAnimados*>*disparos_enemigos;
         list<ObjetosAnimados*>*obstaculos;
+        ALLEGRO_TIMER *timer = NULL;
 
         PersonajesAnimados();
-        virtual void act() = 0;
-        void draw(ALLEGRO_EVENT* ev);
+        virtual void act(ALLEGRO_EVENT* ev) = 0;
+        void draw();
+        void init(list<PersonajesAnimados *> *personajes);
         void init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*disparos_principal, list<ObjetosAnimados*>*disparos_enemigos, list<ObjetosAnimados*>*obstaculos);
         void defenseCheck();
         bool colision(Box* pCaja);
         void setAnimacion(int nombre);
-        int enumToInt();
+        int enumToInt(string animacion);
         virtual ~PersonajesAnimados();
     protected:
     private:
