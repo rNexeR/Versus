@@ -186,7 +186,7 @@ string ingresarNombre(){
                     name+=e;
                 }
 
-            if (teclaDownEvent(ALLEGRO_KEY_BACKSPACE && name.size()>0)){
+            if (teclaDownEvent(ALLEGRO_KEY_BACKSPACE) && name.size()>0){
                 string temp = name;
                 name = "";
                 for(int x = 0; x<temp.size()-1; x++)
