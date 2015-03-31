@@ -48,15 +48,13 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 
 void PerPrincipal::act(ALLEGRO_EVENT* ev)
 {
+    if (frame%100 == 0)
+        cout<<frame/100<<endl;
     bool entro = false;
     validarTeclas(ev);
 
-
-
     //gravedad en el salto
-    if (detalles->y > 600)
-    {
-        cout<<"gravedad"<<endl;
+    if (detalles->y > 600){
         detalles->y = 600;
         aceleracion_y = 0;
         setAnimacion(orientacion == 'r' ? PARADO_DERECHA : PARADO_IZQUIERDA);
@@ -64,15 +62,13 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
     }
 
     //para no poder moverse mientras se salta
-    if(jump)
-    {
+    if(jump){
         velocidad_y+=aceleracion_y;
         detalles->y+=velocidad_y;
         aceleracion_y+=gravedad;
         entro = true;
     }
-    else if(key[KEY_UP])
-    {
+    if(key[KEY_UP]){
         //detalles->y -= var;
         if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_P)
             cout<<"Disparando"<<endl;
@@ -80,8 +76,7 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
         entro = true;
 
     }
-    else if(ev->type == ALLEGRO_EVENT_KEY_DOWN && !jump && ev->keyboard.keycode == ALLEGRO_KEY_SPACE)
-    {
+    if(ev->type == ALLEGRO_EVENT_KEY_DOWN && !jump && ev->keyboard.keycode == ALLEGRO_KEY_SPACE){
         cout<<"Saltando"<<endl;
         velocidad_y = 0;
         aceleracion_y = -4.5;
@@ -89,8 +84,11 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
         jump = true;
         entro = true;
     }
-    else if(detalles->y == 600 || detalles->y == 500)
-    {
+    if (ev->type == ALLEGRO_EVENT_KEY_DOWN && !down && ev->keyboard.keycode == ALLEGRO_KEY_S){
+        //falta validar que este sobre una superficie
+        cout<<"CAYENDO"<<endl;
+    }
+    //if(detalles->y == 600 || detalles->y == 500){
 
 //    if(key[KEY_DOWN]){
 //        detalles->y += var;
@@ -100,7 +98,8 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
         if(key[KEY_LEFT] && detalles->x > 0)
         {
             detalles->x -= var;
-            setAnimacion(CAMINANDO_IZQUIERDA);
+            if(!jump && !down)
+                setAnimacion(CAMINANDO_IZQUIERDA);
             orientacion = 'l';
             entro = true;
         }
@@ -108,11 +107,12 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
         if(key[KEY_RIGHT] & detalles->x < 450)
         {
             detalles->x += var;
-            setAnimacion(CAMINANDO_DERECHA);
+            if(!jump && !down)
+                setAnimacion(CAMINANDO_DERECHA);
             orientacion = 'r';
             entro = true;
         }
-    }
+    //}
     if (!entro)
         setAnimacion(orientacion == 'r' ? PARADO_DERECHA : PARADO_IZQUIERDA);
 }

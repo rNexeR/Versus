@@ -53,6 +53,7 @@ void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes){
     aceleracion_y = 0;
     gravedad = 0.8;
     jump = false;
+    down = false;
     al_init_timeout(&timeout, 0.06);
 }
 

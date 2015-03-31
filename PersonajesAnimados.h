@@ -57,7 +57,7 @@ class PersonajesAnimados
         float velocidad_y;
         float aceleracion_y;
         float gravedad;
-        bool jump;
+        bool jump, down;
 
         map<int, vector<ALLEGRO_BITMAP*>*> mapa_sprites;
         list<PersonajesAnimados*>*personajes;
