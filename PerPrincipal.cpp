@@ -2,6 +2,7 @@
 
 PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos)
 {
+    clase = "Principal";
     if(!al_install_keyboard())
     {
         cout<<"failed to initialize the keyboard!"<<endl;
@@ -46,10 +47,13 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
     init(personajes);
 }
 
+int PerPrincipal::getTime(){
+    return frame/60;
+}
+
 void PerPrincipal::act(ALLEGRO_EVENT* ev)
 {
-    if (frame%100 == 0)
-        cout<<frame/100<<endl;
+
     bool entro = false;
     validarTeclas(ev);
 

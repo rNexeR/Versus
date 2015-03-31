@@ -70,6 +70,7 @@ class PersonajesAnimados
 
         PersonajesAnimados();
         virtual void act(ALLEGRO_EVENT* ev) = 0;
+        virtual int getTime() = 0;
         void draw();
         void init(list<PersonajesAnimados *> *personajes);
         void init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos);

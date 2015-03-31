@@ -33,7 +33,7 @@ ALLEGRO_SAMPLE *music = NULL;
 ALLEGRO_SAMPLE_ID imusic;
 ALLEGRO_SAMPLE *effect = NULL;
 ALLEGRO_SAMPLE_ID ieffect;
-ALLEGRO_FONT *font = NULL;
+ALLEGRO_FONT *normalFont = NULL, *cartoonFont = NULL;
 
 //Constantes
 int splashTime = 1;
@@ -44,6 +44,22 @@ list<PersonajesAnimados*> personajes;
 list<ObjetosAnimados*> disparos_aliados;
 list<ObjetosAnimados*> disparos_enemigos;
 list<ObjetosAnimados*> obstaculos;
+
+string toString(int number)
+{
+    if (number == 0)
+        return "0";
+    std::string temp="";
+    std::string returnvalue="";
+    while (number>0)
+    {
+        temp+=number%10+48;
+        number/=10;
+    }
+    for (int i=0;i<(int)temp.length();i++)
+        returnvalue+=temp[temp.length()-i-1];
+    return returnvalue;
+}
 
 int initAllegro()
 {
@@ -93,9 +109,10 @@ int initAllegro()
     al_init_font_addon(); // initialize the font addon
     al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 
-    font = al_load_ttf_font("GameFiles/fonts/font.ttf",50,0 );
+    normalFont = al_load_ttf_font("GameFiles/fonts/font.ttf",50,0 );
+    cartoonFont = al_load_ttf_font("GameFiles/fonts/cartoon.ttf",50,0 );
 
-    if (!font)
+    if (!normalFont || !cartoonFont)
     {
         cout<<"Failed to initialize the font"<<endl;
         return -1;
@@ -109,11 +126,22 @@ int initAllegro()
     return 0;
 }
 
-bool changeSizeFont(int x)
+bool changeSizenormalFont(int x)
 {
-    font = al_load_ttf_font("GameFiles/fonts/font.ttf",x,0 );
+    normalFont = al_load_ttf_font("GameFiles/fonts/font.ttf",x,0 );
 
-    if (!font)
+    if (!normalFont)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool changeSizeCartoonFont(int x)
+{
+    cartoonFont = al_load_ttf_font("GameFiles/fonts/cartoon.ttf",x,0 );
+
+    if (!cartoonFont)
     {
         return false;
     }
@@ -173,7 +201,7 @@ void showSplash()
 string ingresarNombre()
 {
     string name = "";
-    changeSizeFont(20);
+    changeSizenormalFont(20);
     while(1)
     {
         al_clear_to_color(al_map_rgb(0,0,0));
@@ -198,8 +226,8 @@ string ingresarNombre()
             }
         }
         //cout<<hola<<endl;
-        al_draw_text(font, al_map_rgb(0,0,255), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "Ingrese su nombre:");
-        al_draw_text(font, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, name.c_str());
+        al_draw_text(normalFont, al_map_rgb(0,0,255), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "Ingrese su nombre:");
+        al_draw_text(normalFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, name.c_str());
         al_flip_display();
     }
     return name;
@@ -223,11 +251,13 @@ void initGame()
 void loopJuego()
 {
     string nombre;
+    int seg = 0;
     nombre = ingresarNombre();
     cout<<nombre<<endl;
     initGame();
 
-    changeSizeFont(15);
+    changeSizenormalFont(15);
+    changeSizeCartoonFont(20);
     while(1)
     {
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
@@ -236,9 +266,12 @@ void loopJuego()
             break;
         }
         al_clear_to_color(al_map_rgb(0,0,0));
-        al_draw_text(font, al_map_rgb(255,255,255), 0, 0,ALLEGRO_ALIGN_LEFT, nombre.c_str());
+        al_draw_text(normalFont, al_map_rgb(255,255,255), 0, 0,ALLEGRO_ALIGN_LEFT, nombre.c_str());
+        al_draw_text(cartoonFont, al_map_rgb(255,255,255), width, 5,ALLEGRO_ALIGN_RIGHT, toString(seg).c_str());
         for(list<PersonajesAnimados*>::iterator i = personajes.begin(); i!=personajes.end(); i++)
         {
+            if ((*i)->clase == "Principal")
+                seg = (*i)->getTime();
             (*i)->draw();
             (*i)->act(&ev);
         }
