@@ -222,11 +222,12 @@ void initGame()
 
 void loopJuego()
 {
-//    string nombre;
-//    nombre = ingresarNombre();
-//    cout<<nombre<<endl;
+    string nombre;
+    nombre = ingresarNombre();
+    cout<<nombre<<endl;
     initGame();
 
+    changeSizeFont(15);
     while(1)
     {
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
@@ -235,6 +236,7 @@ void loopJuego()
             break;
         }
         al_clear_to_color(al_map_rgb(0,0,0));
+        al_draw_text(font, al_map_rgb(255,255,255), 0, 0,ALLEGRO_ALIGN_LEFT, nombre.c_str());
         for(list<PersonajesAnimados*>::iterator i = personajes.begin(); i!=personajes.end(); i++)
         {
             (*i)->draw();

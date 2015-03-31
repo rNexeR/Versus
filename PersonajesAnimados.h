@@ -15,7 +15,7 @@
 using namespace std;
 
 enum MYKEYS {
-    KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
+    KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_SPACE, KEY_SHOOT
 };
 
 enum Estados{
@@ -30,7 +30,11 @@ enum Animaciones{
     CAMINANDO_DERECHA,
     CAMINANDO_IZQUIERDA,
     DISPARANDO_DERECHA,
-    DISPARANDO_IZQUIERDA
+    DISPARANDO_IZQUIERDA,
+    SALTANDO_DERECHA,
+    SALTANDO_IZQUIERDA,
+    CAYENDO_DERECHA,
+    CAYENDO_IZQUIERDA
 };
 
 class PersonajesAnimados
@@ -45,16 +49,21 @@ class PersonajesAnimados
         int animacion_actual;
 
         Box *detalles = new Box(0,0,0,0);
-        bool key[4] = { false, false, false, false };
+        bool key[6] = { false, false, false, false,false,false};
 
         int frame;
         int var = 6;
         string clase;
+        float velocidad_y;
+        float aceleracion_y;
+        float gravedad;
+        bool jump;
+
         map<int, vector<ALLEGRO_BITMAP*>*> mapa_sprites;
         list<PersonajesAnimados*>*personajes;
         list<ObjetosAnimados*>*obstaculos;
+        list<ObjetosAnimados*>*disparos;
 
-        ALLEGRO_TIMER *timer = NULL;
         ALLEGRO_EVENT ev;
         ALLEGRO_TIMEOUT timeout;
         ALLEGRO_EVENT_QUEUE *event_queue = NULL;

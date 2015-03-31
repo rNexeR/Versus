@@ -32,20 +32,27 @@ void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes, list<Objet
     frame = 0;
     colisionado = false;
     muerto = false;
+    orientacion = 'r';
+    velocidad_y = 0;
+    aceleracion_y = 0;
+    gravedad = 0.5;
+    al_init_timeout(&timeout, 0.06);
     //colisionado = false;
 }
 
 void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes){
     this->personajes = personajes;
     setAnimacion(PARADO_DERECHA);
-    detalles->x = 50;
-    detalles->y = 50;
     detalles->width = 50;
     detalles->height = 50;
     frame = 0;
     colisionado = false;
     muerto = false;
     orientacion = 'r';
+    velocidad_y = 0;
+    aceleracion_y = 0;
+    gravedad = 0.8;
+    jump = false;
     al_init_timeout(&timeout, 0.06);
 }
 
@@ -121,11 +128,28 @@ int PersonajesAnimados::enumToInt(string animacion){
             return 4;
         else if (animacion=="DISPARANDO_IZQUIERDA")
             return 5;
+        else if (animacion=="SALTANDO_DERECHA")
+            return 6;
+        else if (animacion=="SALTANDO_IZQUIERDA")
+            return 7;
+        else if (animacion=="CAYENDO_DERECHA")
+            return 8;
+        else if (animacion=="CAYENDO_IZQUIERDA")
+            return 9;
         else
             return -1;
 }
 
 PersonajesAnimados::~PersonajesAnimados()
 {
-    //dtor
+    for(list<ObjetosAnimados*>::iterator i=disparos->begin(); i != disparos->end(); i++){
+            delete (*i);
+    }
+    for(int x = 0; x<mapa_sprites.size(); x++){
+            vector<ALLEGRO_BITMAP*> *vector_temp = mapa_sprites[x];
+            for(int y = 0; y<vector_temp->size();y++){
+                delete (*vector_temp)[y];
+            }
+    }
+    delete detalles;
 }
