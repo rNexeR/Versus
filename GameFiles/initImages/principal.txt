@@ -68,3 +68,13 @@ CAYENDO_IZQUIERDA
 {
 	GameFiles/assets/personajes/principal/down_left.png
 }
+
+MUERTO_DERECHA
+{
+	GameFiles/assets/personajes/principal/muerto_right.png
+}
+
+MUERTO_IZQUIERDA
+{
+	GameFiles/assets/personajes/principal/muerto_left.png
+}

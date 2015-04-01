@@ -22,6 +22,7 @@ string PersonajesAnimados::toString(int number)
 }
 
 void PersonajesAnimados::draw(){
+    cout<<mapa_actual<<endl;
     vector<ALLEGRO_BITMAP*> *vector_textura_actual_temp = mapa_sprites[mapa_actual];
     ALLEGRO_BITMAP* temp = (*vector_textura_actual_temp)[animacion_actual];
     if (frame%3==0){
@@ -72,6 +73,7 @@ void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes){
     gravedad = 0.8;
     jump = false;
     down = false;
+    damage = NULL;
     al_init_timeout(&timeout, 0.06);
 }
 
@@ -155,6 +157,10 @@ int PersonajesAnimados::enumToInt(string animacion){
             return 8;
         else if (animacion=="CAYENDO_IZQUIERDA")
             return 9;
+        else if (animacion=="MUERTO_DERECHA")
+            return 10;
+        else if (animacion=="MUERTO_IZQUIERDA")
+            return 11;
         else
             return -1;
 }
@@ -173,6 +179,8 @@ PersonajesAnimados::~PersonajesAnimados()
             delete vector_temp;
     }
     delete detalles;
+    if(damage!=NULL)
+        al_destroy_bitmap(damage);
 }
 
 void PersonajesAnimados::limpiarEnemigos(){
