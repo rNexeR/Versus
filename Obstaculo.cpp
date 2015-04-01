@@ -1,13 +1,13 @@
 #include "Obstaculo.h"
 
-Obstaculo::Obstaculo()
+Obstaculo::Obstaculo(int variacion)
 {
     if(!al_init_image_addon())//chequear si se pudo inicializar para las imágenes
     {
         cout<<"failed to initialize image addon!"<<endl;
     }
     //Inicialización de la posición de la cajita
-    detalles->x = 200;
+    detalles->x = 200 + variacion;
     detalles->y = 575;
     tipo = "obstaculo";//declarar el tipo de ObjetoAnimado
     string path = "GameFiles/assets/fondos/Lift.png";

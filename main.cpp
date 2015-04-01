@@ -14,6 +14,8 @@ using namespace std;
 //LIBRERIAS DE PROYECTO
 #include "Box.h"
 #include "PersonajesAnimados.h"
+#include "ObjetosAnimados.h"
+#include "Obstaculo.h"
 #include "PerPrincipal.h"
 #include "EnemigoNegro.h"
 
@@ -42,7 +44,7 @@ int width = 500, height = 650;
 
 //Listas
 list<PersonajesAnimados*> *personajes = new list<PersonajesAnimados*>();
-list<ObjetosAnimados*> *obstaculos;
+list<ObjetosAnimados*> *obstaculos =  new list<ObjetosAnimados*>();;
 
 string toString(int number)
 {
@@ -240,12 +242,21 @@ void cleanPersonajes()
     }
 }
 
+void cleanObstaculos(){
+    for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i != obstaculos->end(); i++)
+        delete (*i);
+}
+
 void initGame()
 {
     cleanPersonajes();
+    cleanObstaculos();//limpiar obstacles
     personajes->clear();
+    obstaculos->clear();
     personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos));
     personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
+    obstaculos->push_back(new Obstaculo(0));
+    obstaculos->push_back(new Obstaculo(100));
 }
 
 void loopJuego()
@@ -275,6 +286,17 @@ void loopJuego()
             (*i)->draw();
             (*i)->act(&ev);
         }
+
+
+        //OBJETOS ANIMADOS
+        for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i!=obstaculos->end(); i++)
+        {
+//            if ((*i)->clase == "Principal")
+//                seg = (*i)->getTime();
+            (*i)->draw();
+            (*i)->act();
+        }
+
         al_flip_display();
     }
 }
