@@ -16,12 +16,3 @@ void ObjetosAnimados::draw(){
         al_draw_bitmap(sprite, detalles->x, detalles->y, 0);
 }
 
-bool ObjetosAnimados::collision(Box* pCaja){//para comparar colisiones...quizá
-    if(pCaja->x + pCaja->width < detalles->x
-        || pCaja->x > detalles->x + pCaja->width
-        || pCaja->y + pCaja->height < detalles->y
-        || pCaja->y > detalles->y + pCaja->height)
-        return false;
-    else
-        return true;
-}

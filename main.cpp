@@ -294,7 +294,7 @@ void loopJuego()
 //            if ((*i)->clase == "Principal")
 //                seg = (*i)->getTime();
             (*i)->draw();
-            (*i)->act();
+            (*i)->act(NULL);
         }
 
         al_flip_display();

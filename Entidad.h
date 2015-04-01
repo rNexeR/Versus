@@ -7,12 +7,13 @@
 #include "allegro5/allegro_native_dialog.h"
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
-#include "ObjetosAnimados.h"
 #include <iostream>
 #include <map>
 #include <vector>
 #include <list>
 #include <fstream>
+
+using namespace std;
 
 class Entidad
 {
