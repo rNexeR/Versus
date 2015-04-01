@@ -60,6 +60,7 @@ int PerPrincipal::isOnSolidGround(){
     if (detalles->y > piso)
         return piso;
     for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++){
+        cout<<"entro"<<endl;
         if ((*i)->tipoObjeto == "Obstaculo"){
             if (colision((*i)->detalles)){
                 Box temp((*i)->detalles->x,(*i)->detalles->y,(*i)->detalles->width, 1);
