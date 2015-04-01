@@ -2,7 +2,8 @@
 
 PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos)
 {
-    clase = "Principal";
+    tipoObjeto = "Principal";
+    velocity = 5;
     init(personajes);
     if(!al_install_keyboard())
     {
@@ -109,7 +110,7 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
 
         if(key[KEY_LEFT] && detalles->x > 0)
         {
-            detalles->x -= var;
+            detalles->x -= velocity;
             if(!jump && !down)
                 setAnimacion(CAMINANDO_IZQUIERDA);
             orientacion = 'l';
@@ -118,7 +119,7 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
 
         if(key[KEY_RIGHT] & detalles->x < 450)
         {
-            detalles->x += var;
+            detalles->x += velocity;
             if(!jump && !down)
                 setAnimacion(CAMINANDO_DERECHA);
             orientacion = 'r';

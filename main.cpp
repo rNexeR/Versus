@@ -281,7 +281,7 @@ void loopJuego()
         al_draw_text(cartoonFont, al_map_rgb(255,255,255), width, 5,ALLEGRO_ALIGN_RIGHT, toString(seg).c_str());
         for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++)
         {
-            if ((*i)->clase == "Principal")
+            if ((*i)->tipoObjeto == "Principal")
                 seg = (*i)->getTime();
             (*i)->draw();
             (*i)->act(&ev);

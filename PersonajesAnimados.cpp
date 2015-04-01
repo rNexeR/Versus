@@ -77,16 +77,6 @@ void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes){
     al_init_timeout(&timeout, 0.06);
 }
 
-bool PersonajesAnimados::colision(Box* pCaja){
-    if(pCaja->x + pCaja->width < detalles->x
-        || pCaja->x > detalles->x + pCaja->width
-        || pCaja->y + pCaja->height < detalles->y
-        || pCaja->y > detalles->y + pCaja->height)
-        return false;
-    else
-        return true;
-}
-
 void PersonajesAnimados::setAnimacion(int nombre){
     if(this->mapa_actual != nombre){
         this->mapa_actual = nombre;
@@ -187,7 +177,7 @@ void PersonajesAnimados::limpiarEnemigos(){
     vector<list<PersonajesAnimados*>::iterator>borrar;
     for(list<PersonajesAnimados*>::iterator i=personajes->begin(); i != personajes->end(); i++){
         //cout<<"entro"<<endl;
-        if ((*i)->clase == "Enemigo" && ((*i)->muerto == true || (*i)->detalles->y > 600)){
+        if ((*i)->tipoObjeto == "Enemigo" && ((*i)->muerto == true || (*i)->detalles->y > 600)){
 //            personajes->erase(i);
             borrar.push_back(i);
         }

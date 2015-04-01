@@ -1,18 +1,8 @@
 #ifndef PERSONAJESANIMADOS_H
 #define PERSONAJESANIMADOS_H
-#include "Box.h"
-#include <allegro5/allegro.h>
-#include "allegro5/allegro_image.h"
-#include "allegro5/allegro_native_dialog.h"
-#include <allegro5/allegro_audio.h>
-#include <allegro5/allegro_acodec.h>
+
+#include "Entidad.h"
 #include "ObjetosAnimados.h"
-#include <iostream>
-#include <map>
-#include <vector>
-#include <list>
-#include <fstream>
-using namespace std;
 
 enum MYKEYS {
     KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_SPACE, KEY_SHOOT
@@ -39,23 +29,19 @@ enum Animaciones{
     MUERTO_IZQUIERDA
 };
 
-class PersonajesAnimados
+class PersonajesAnimados : public Entidad
 {
     public:
         //estados del personaje
         int vidas;
         bool muerto;
-        bool colisionado;
         char orientacion;
         int mapa_actual;
         int animacion_actual;
 
-        Box *detalles = new Box(0,0,0,0);
         bool key[6] = { false, false, false, false,false,false};
 
         int frame;
-        int var = 6;
-        string clase;
         float velocidad_y;
         float aceleracion_y;
         float gravedad;
@@ -73,13 +59,11 @@ class PersonajesAnimados
 
         PersonajesAnimados();
         string toString(int number);
-        virtual void act(ALLEGRO_EVENT* ev) = 0;
         virtual int getTime() = 0;
-        void draw();
+        virtual void draw();
         void init(list<PersonajesAnimados *> *personajes);
         void init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos);
         void defenseCheck();
-        bool colision(Box* pCaja);
         void setAnimacion(int nombre);
         void teclaPresionada(int keycode, bool *variable);
         bool teclaDownEvent(int keycode);

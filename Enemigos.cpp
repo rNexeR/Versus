@@ -2,7 +2,7 @@
 
 Enemigos::Enemigos()
 {
-    clase = "Enemigo";
+    tipoObjeto = "Enemigo";
     detalles->x = rand()%500;
     detalles->y = 0;
 }
