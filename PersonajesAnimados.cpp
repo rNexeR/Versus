@@ -26,7 +26,6 @@ string PersonajesAnimados::toString(int number)
 }
 
 void PersonajesAnimados::draw(){
-    cout<<mapa_actual<<endl;
     vector<ALLEGRO_BITMAP*> *vector_textura_actual_temp = mapa_sprites[mapa_actual];//setteamos un vector temporal
     //del mapa de sprites a dibujar según el mapa actual
     ALLEGRO_BITMAP* temp = (*vector_textura_actual_temp)[animacion_actual]; //el bitmap a dibujar será igual al valor
@@ -133,6 +132,15 @@ bool PersonajesAnimados::teclaDownEvent(int keycode)
     return false;
 }
 
+bool PersonajesAnimados::colision(Box* pCaja){
+    if(pCaja->x + pCaja->width < detalles->x
+        || pCaja->x > detalles->x + pCaja->width
+        || pCaja->y + pCaja->height < detalles->y
+        || pCaja->y > detalles->y + pCaja->height)
+        return false;
+    else
+        return true;
+}
 
 /**
     ???

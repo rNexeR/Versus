@@ -291,10 +291,10 @@ void initGame()
     /*
         CREACION DE PERSONAJES, ENEMIGOS Y OBSTÁCULOS
     */
-    personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos));
     personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
     obstaculos->push_back(new Obstaculo(0));
-    obstaculos->push_back(new Obstaculo(100));
+    obstaculos->push_back(new Obstaculo(200));
+    personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos));
 }
 
 /**

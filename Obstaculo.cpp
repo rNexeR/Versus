@@ -8,7 +8,7 @@ Obstaculo::Obstaculo(int variacion)
     }
     //Inicialización de la posición de la cajita
     detalles->x = 200 + variacion;
-    detalles->y = 575;
+    detalles->y = 550;
     tipoObjeto = "obstaculo";//declarar el tipo de ObjetoAnimado
     string path = "GameFiles/assets/fondos/Lift.png";
     sprite = al_load_bitmap(path.c_str());//cargar el sprite según el path dado.

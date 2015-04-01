@@ -4,6 +4,8 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 {
     tipoObjeto = "Principal";
     velocity = 5;
+    vidas = 5;
+    piso = 580;
     init(personajes);
     if(!al_install_keyboard())
     {
@@ -33,7 +35,6 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
         mapa_sprites[enumToInt(animacion)] = new vector<ALLEGRO_BITMAP*>();
         while(path!="}")
         {
-            cout<<path<<endl;
             mapa_sprites[enumToInt(animacion)]->push_back(al_load_bitmap(path.c_str()));
             in>>path;
         }
@@ -47,7 +48,7 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
     //init(personajes, disparos_principal, disparos_enemigos, obstaculos);
     this->event_queue = event_queue;
     detalles->x = 250;
-    detalles->y = 600;
+    detalles->y = piso;
 }
 
 int PerPrincipal::getTime()
@@ -55,9 +56,24 @@ int PerPrincipal::getTime()
     return frame/60;
 }
 
+int PerPrincipal::isOnSolidGround(){
+    if (detalles->y > piso)
+        return piso;
+    for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++){
+        if ((*i)->tipoObjeto == "Obstaculo"){
+            if (colision((*i)->detalles)){
+                Box temp((*i)->detalles->x,(*i)->detalles->y,(*i)->detalles->width, 1);
+                if (colision(&temp))
+                    return detalles->y;
+            }
+        }
+
+    }
+    return -1;
+}
+
 void PerPrincipal::act(ALLEGRO_EVENT* ev)
 {
-
     bool entro = false;
     validarTeclas(ev);
 
@@ -69,10 +85,11 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
     }
     else
     {
-
-        if (detalles->y > 600)
+        int pos = isOnSolidGround();
+        if (jump && pos>0)
         {
-            detalles->y = 600;
+            cout<<pos<<endl;
+            detalles->y = pos;
             aceleracion_y = 0;
             setAnimacion(orientacion == 'r' ? PARADO_DERECHA : PARADO_IZQUIERDA);
             jump = false;
