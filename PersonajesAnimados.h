@@ -34,7 +34,9 @@ enum Animaciones{
     SALTANDO_DERECHA,
     SALTANDO_IZQUIERDA,
     CAYENDO_DERECHA,
-    CAYENDO_IZQUIERDA
+    CAYENDO_IZQUIERDA,
+    MUERTO_DERECHA,
+    MUERTO_IZQUIERDA
 };
 
 class PersonajesAnimados
@@ -60,6 +62,7 @@ class PersonajesAnimados
         bool jump, down;
 
         map<int, vector<ALLEGRO_BITMAP*>*> mapa_sprites;
+        ALLEGRO_BITMAP *damage;
         list<PersonajesAnimados*>*personajes;
         list<ObjetosAnimados*>*obstaculos;
         list<ObjetosAnimados*>*disparos;

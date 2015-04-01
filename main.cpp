@@ -277,7 +277,6 @@ void loopJuego()
         }
         al_flip_display();
     }
-    cout<<personajes->size()<<endl;
 }
 
 void mainMenu()
@@ -393,7 +392,6 @@ int main(int argc, char **argv)
 //    delete logo;
 //    delete music;
 //    delete effect;
-    cout<<"LLEGO AKI"<<endl;
 
     return 0;
 }
