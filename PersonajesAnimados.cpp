@@ -35,8 +35,7 @@ void PersonajesAnimados::draw(){
 //    al_draw_scaled_bitmap(image[animacion],0,0,196,397,caja->x,caja->y,196,397,0);
 
     frame++;
-    limpiarEnemigos();
-    cout<<"paso"<<endl;
+    //limpiarEnemigos();
 }
 void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos){
     this->personajes = personajes;
@@ -162,7 +161,6 @@ int PersonajesAnimados::enumToInt(string animacion){
 
 PersonajesAnimados::~PersonajesAnimados()
 {
-    cout<<"Me estoy eliminando jaja"<<endl;
     if (disparos != NULL && disparos->size() > 0)
         for(list<ObjetosAnimados*>::iterator i=disparos->begin(); i != disparos->end(); i++)
                 delete (*i);
@@ -170,11 +168,11 @@ PersonajesAnimados::~PersonajesAnimados()
     for(int x = 0; x<mapa_sprites.size(); x++){
             vector<ALLEGRO_BITMAP*> *vector_temp = mapa_sprites[x];
             for(int y = 0; y<vector_temp->size();y++){
-                delete (*vector_temp)[y];
+                al_destroy_bitmap((*vector_temp)[y]);
             }
+            delete vector_temp;
     }
     delete detalles;
-    cout<<"BIEN"<<endl;
 }
 
 void PersonajesAnimados::limpiarEnemigos(){
@@ -190,5 +188,4 @@ void PersonajesAnimados::limpiarEnemigos(){
         personajes->erase(borrar[x]);
         delete (*borrar[x]);
     }
-    cout<<personajes->size()<<endl;
 }

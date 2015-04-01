@@ -246,7 +246,6 @@ void initGame()
     personajes->clear();
     personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos));
     personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
-    personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 2));
 }
 
 void loopJuego()
@@ -363,6 +362,12 @@ void mainMenu()
 
         al_flip_display();
     }
+    al_destroy_bitmap(options);
+    al_destroy_bitmap(select);
+    delete options;
+    delete select;
+    delete boptions;
+    delete bselect;
 }
 
 int main(int argc, char **argv)
@@ -373,8 +378,21 @@ int main(int argc, char **argv)
     mainMenu();
     al_clear_to_color(al_map_rgb(0,0,0));
     al_flip_display();
+
     al_destroy_display(display);
     al_destroy_event_queue(event_queue);
+    al_destroy_timer(timer);
+    al_destroy_sample(music);
+    al_destroy_sample(effect);
+    al_destroy_bitmap(logo);
+
+    cleanPersonajes();
+    delete personajes;
+    delete obstaculos;
+    delete blogo;
+    delete logo;
+    delete music;
+    delete effect;
     cout<<"LLEGO AKI"<<endl;
 
     return 0;
