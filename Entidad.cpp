@@ -11,7 +11,7 @@ Entidad::~Entidad()
 }
 
 //Detecta si el objeto está colisionando o no
-bool PersonajesAnimados::colision(Box* pCaja){
+bool Entidad::colision(Box* pCaja){
     if(pCaja->x + pCaja->width < detalles->x
         || pCaja->x > detalles->x + pCaja->width
         || pCaja->y + pCaja->height < detalles->y
