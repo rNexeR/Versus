@@ -35,7 +35,7 @@ void PersonajesAnimados::draw(){
 //    al_draw_scaled_bitmap(image[animacion],0,0,196,397,caja->x,caja->y,196,397,0);
 
     frame++;
-    //limpiarEnemigos();
+    limpiarEnemigos();
 }
 void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos){
     this->personajes = personajes;

@@ -364,10 +364,10 @@ void mainMenu()
     }
     al_destroy_bitmap(options);
     al_destroy_bitmap(select);
-    delete options;
-    delete select;
-    delete boptions;
-    delete bselect;
+    //delete options;
+//    delete select;
+//    delete boptions;
+//    delete bselect;
 }
 
 int main(int argc, char **argv)
@@ -387,12 +387,12 @@ int main(int argc, char **argv)
     al_destroy_bitmap(logo);
 
     cleanPersonajes();
-    delete personajes;
-    delete obstaculos;
-    delete blogo;
-    delete logo;
-    delete music;
-    delete effect;
+//    delete personajes;
+//    delete obstaculos;
+//    delete blogo;
+//    delete logo;
+//    delete music;
+//    delete effect;
     cout<<"LLEGO AKI"<<endl;
 
     return 0;
