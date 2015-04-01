@@ -47,6 +47,8 @@ EnemigoNegro::EnemigoNegro(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 void EnemigoNegro::act(ALLEGRO_EVENT* ev){
     detalles->y+=var;
     frame++;
+    if (detalles->y > 600)
+        muerto = true;
 }
 
 EnemigoNegro::~EnemigoNegro()

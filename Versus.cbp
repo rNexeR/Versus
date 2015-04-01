@@ -34,6 +34,10 @@
 		</Compiler>
 		<Unit filename="Box.cpp" />
 		<Unit filename="Box.h" />
+		<Unit filename="EnemigoNegro.cpp" />
+		<Unit filename="EnemigoNegro.h" />
+		<Unit filename="Enemigos.cpp" />
+		<Unit filename="Enemigos.h" />
 		<Unit filename="ObjetosAnimados.cpp" />
 		<Unit filename="ObjetosAnimados.h" />
 		<Unit filename="PerPrincipal.cpp" />

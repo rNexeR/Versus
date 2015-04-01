@@ -36,6 +36,7 @@ void PersonajesAnimados::draw(){
 
     frame++;
     limpiarEnemigos();
+    cout<<"paso"<<endl;
 }
 void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos){
     this->personajes = personajes;
@@ -161,6 +162,7 @@ int PersonajesAnimados::enumToInt(string animacion){
 
 PersonajesAnimados::~PersonajesAnimados()
 {
+    cout<<"Me estoy eliminando jaja"<<endl;
     if (disparos != NULL && disparos->size() > 0)
         for(list<ObjetosAnimados*>::iterator i=disparos->begin(); i != disparos->end(); i++)
                 delete (*i);
@@ -181,12 +183,12 @@ void PersonajesAnimados::limpiarEnemigos(){
         //cout<<"entro"<<endl;
         if ((*i)->clase == "Enemigo" && ((*i)->muerto == true || (*i)->detalles->y > 600)){
 //            personajes->erase(i);
-            delete (*i);
             borrar.push_back(i);
         }
     }
     for(int x = 0; x < borrar.size(); x++){
         personajes->erase(borrar[x]);
+        delete (*borrar[x]);
     }
     cout<<personajes->size()<<endl;
 }

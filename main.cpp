@@ -41,10 +41,8 @@ int splashTime = 1;
 int width = 500, height = 650;
 
 //Listas
-list<PersonajesAnimados*> personajes;
-list<ObjetosAnimados*> disparos_aliados;
-list<ObjetosAnimados*> disparos_enemigos;
-list<ObjetosAnimados*> obstaculos;
+list<PersonajesAnimados*> *personajes = new list<PersonajesAnimados*>();
+list<ObjetosAnimados*> *obstaculos;
 
 string toString(int number)
 {
@@ -236,7 +234,7 @@ string ingresarNombre()
 
 void cleanPersonajes()
 {
-    for(list<PersonajesAnimados*>::iterator i = personajes.begin(); i!=personajes.end(); i++)
+    for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++)
     {
         delete (*i);
     }
@@ -245,9 +243,10 @@ void cleanPersonajes()
 void initGame()
 {
     cleanPersonajes();
-    personajes.clear();
-    personajes.push_back(new PerPrincipal(event_queue, &personajes, &obstaculos));
-    personajes.push_back(new EnemigoNegro(event_queue, &personajes, &obstaculos, 1));
+    personajes->clear();
+    personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos));
+    personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
+    personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 2));
 }
 
 void loopJuego()
@@ -270,7 +269,7 @@ void loopJuego()
         al_clear_to_color(al_map_rgb(0,0,0));
         al_draw_text(normalFont, al_map_rgb(255,255,255), 0, 0,ALLEGRO_ALIGN_LEFT, nombre.c_str());
         al_draw_text(cartoonFont, al_map_rgb(255,255,255), width, 5,ALLEGRO_ALIGN_RIGHT, toString(seg).c_str());
-        for(list<PersonajesAnimados*>::iterator i = personajes.begin(); i!=personajes.end(); i++)
+        for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++)
         {
             if ((*i)->clase == "Principal")
                 seg = (*i)->getTime();
@@ -279,6 +278,7 @@ void loopJuego()
         }
         al_flip_display();
     }
+    cout<<personajes->size()<<endl;
 }
 
 void mainMenu()
@@ -348,10 +348,9 @@ void mainMenu()
                 al_stop_samples();
                 showSplash();
                 al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
-            }
-            else
-                //salir del juego
+            }else{
                 break;
+            }
         }
         if (uPosy>uPosyOriginal+(espaciado*3))
             uPosy = uPosyOriginal;
@@ -372,8 +371,11 @@ int main(int argc, char **argv)
         return -1;
     showSplash();
     mainMenu();
+    al_clear_to_color(al_map_rgb(0,0,0));
+    al_flip_display();
     al_destroy_display(display);
     al_destroy_event_queue(event_queue);
+    cout<<"LLEGO AKI"<<endl;
 
     return 0;
 }
