@@ -45,7 +45,12 @@ int width = 500, height = 650;
 //Listas
 list<PersonajesAnimados*> *personajes = new list<PersonajesAnimados*>();
 list<ObjetosAnimados*> *obstaculos =  new list<ObjetosAnimados*>();;
+list<Entidad*> *entidades; //TO-DO, debe ser usada para reemplazar las listas anteriores
 
+
+/**
+    TO-DO: especificaciones por NXR
+**/
 string toString(int number)
 {
     if (number == 0)
@@ -62,6 +67,9 @@ string toString(int number)
     return returnvalue;
 }
 
+/**
+    Inicialización de las funciones de Allegro
+**/
 int initAllegro()
 {
     if(!al_init())
@@ -119,14 +127,17 @@ int initAllegro()
         return -1;
     }
 
-    al_register_event_source(event_queue, al_get_display_event_source(display));
-    al_register_event_source(event_queue, al_get_timer_event_source(timer));
-    al_register_event_source(event_queue, al_get_keyboard_event_source());
+    al_register_event_source(event_queue, al_get_display_event_source(display));//registrar eventos del display
+    al_register_event_source(event_queue, al_get_timer_event_source(timer));//registrar eventos del timer
+    al_register_event_source(event_queue, al_get_keyboard_event_source());//registrar eventos del teclado
 
     al_init_timeout(&timeout, 0.06);
     return 0;
 }
 
+/**
+    Cambia al font normal
+**/
 bool changeSizenormalFont(int x)
 {
     normalFont = al_load_ttf_font("GameFiles/fonts/font.ttf",x,0 );
@@ -138,6 +149,9 @@ bool changeSizenormalFont(int x)
     return true;
 }
 
+/**
+    Cambia al fonto de Cartoon
+**/
 bool changeSizeCartoonFont(int x)
 {
     cartoonFont = al_load_ttf_font("GameFiles/fonts/cartoon.ttf",x,0 );
@@ -149,6 +163,10 @@ bool changeSizeCartoonFont(int x)
     return true;
 }
 
+
+/**
+    Inicializar el logo
+**/
 int initLogo()
 {
     logo = al_load_bitmap("Versus.png");
@@ -180,6 +198,9 @@ void teclaPresionada(int keycode, bool *variable)
     }
 }
 
+/**
+    Detecta si una tecla ha sido presionada
+**/
 bool teclaDownEvent(int keycode)
 {
     if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
@@ -190,6 +211,9 @@ bool teclaDownEvent(int keycode)
     return false;
 }
 
+/**
+    Muestra la imagen inicial (comienzo del juego)
+**/
 void showSplash()
 {
     al_clear_to_color(al_map_rgb(0,0,0));
@@ -198,7 +222,9 @@ void showSplash()
     al_rest(splashTime);
 }
 
-
+/**
+    función para ingresar el nombre al comienzo del juego
+**/
 string ingresarNombre()
 {
     string name = "";
@@ -211,14 +237,14 @@ string ingresarNombre()
         {
             if (teclaDownEvent(ALLEGRO_KEY_ESCAPE) || teclaDownEvent(ALLEGRO_KEY_ENTER))
                 break;
-            for(int x = 1; x <= 27; x++)
-                if (teclaDownEvent(x))
+            for(int x = 1; x <= 27; x++)//for para obtener los valores de todas las letras
+                if (teclaDownEvent(x))//comparamos que tecla está siendo presionada
                 {
-                    char e = x+64;
-                    name+=e;
+                    char e = x+64; //de ser así, sumarle al valor ASCII equivalente
+                    name+=e;//concatenarla al nombre
                 }
 
-            if (teclaDownEvent(ALLEGRO_KEY_BACKSPACE) && name.size()>0)
+            if (teclaDownEvent(ALLEGRO_KEY_BACKSPACE) && name.size()>0)//comprar si vamos a borrar una letra
             {
                 string temp = name;
                 name = "";
@@ -228,12 +254,15 @@ string ingresarNombre()
         }
         //cout<<hola<<endl;
         al_draw_text(normalFont, al_map_rgb(0,0,255), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "Ingrese su nombre:");
-        al_draw_text(normalFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, name.c_str());
-        al_flip_display();
+        al_draw_text(normalFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, name.c_str());//dibuja el nombre
+        al_flip_display();//necesario para cambiar a la siguiente parte del buffer (que dibujará)
     }
     return name;
 }
 
+/**
+    Borra los personajes de la lista individualmente
+**/
 void cleanPersonajes()
 {
     for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++)
@@ -242,23 +271,35 @@ void cleanPersonajes()
     }
 }
 
+/**
+    Borra los obstáculos de la lista individualmente
+**/
 void cleanObstaculos(){
     for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i != obstaculos->end(); i++)
         delete (*i);
 }
 
+/**
+    Inicialización del juego (main game)
+**/
 void initGame()
 {
     cleanPersonajes();
     cleanObstaculos();//limpiar obstacles
     personajes->clear();
     obstaculos->clear();
+    /*
+        CREACION DE PERSONAJES, ENEMIGOS Y OBSTÁCULOS
+    */
     personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos));
     personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
     obstaculos->push_back(new Obstaculo(0));
     obstaculos->push_back(new Obstaculo(100));
 }
 
+/**
+    Ciclo principal del juego
+**/
 void loopJuego()
 {
     string nombre;
@@ -279,6 +320,10 @@ void loopJuego()
         al_clear_to_color(al_map_rgb(0,0,0));
         al_draw_text(normalFont, al_map_rgb(255,255,255), 0, 0,ALLEGRO_ALIGN_LEFT, nombre.c_str());
         al_draw_text(cartoonFont, al_map_rgb(255,255,255), width, 5,ALLEGRO_ALIGN_RIGHT, toString(seg).c_str());
+        /*
+            CICLOS DE LAS LISTAS DE PERSONAJES, ENEMIGOS Y OBJETOS
+            SE USAN SUS DRAWS Y ACTS
+        */
         for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++)
         {
             if ((*i)->tipoObjeto == "Principal")
@@ -301,12 +346,15 @@ void loopJuego()
     }
 }
 
+/**
+    Ciclo principal del menú
+**/
 void mainMenu()
 {
     ALLEGRO_BITMAP *select = NULL, *options = NULL;
     music = al_load_sample("GameFiles/music/So, let see, what you can_0.wav");
     effect = al_load_sample("GameFiles/music/sfx_laser1.wav");
-    al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
+    al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);//Ejecutar sonido de musica
     Box *bselect = NULL, *boptions = NULL;
     int uPosy, uPosyOriginal;
 
@@ -383,8 +431,8 @@ void mainMenu()
 
         al_flip_display();
     }
-    al_destroy_bitmap(options);
-    al_destroy_bitmap(select);
+    al_destroy_bitmap(options);//destruir bitmaps de opciones una vez no se ocupen
+    al_destroy_bitmap(select);//destruir bitmaps de select
     //delete options;
 //    delete select;
 //    delete boptions;

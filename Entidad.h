@@ -24,7 +24,7 @@ class Entidad
         int velocity = 1; //cuanto se mueve
         string tipoObjeto = ""; //muestra que objeto es: obstacle, disparo, enemy, etc.
         virtual void act(ALLEGRO_EVENT* ev) = 0;
-        virtual void draw() = 0;//dibujo
+        virtual void draw() = 0;//dibujo de la figura
         bool colision(Box* pCaja);//detectar colisiones con otros objetos
         Entidad();
         virtual ~Entidad();
