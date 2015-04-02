@@ -26,6 +26,7 @@ string PersonajesAnimados::toString(int number)
 }
 
 void PersonajesAnimados::draw(){
+    cout<<mapa_actual<<" , "<<animacion_actual<<endl;
     vector<ALLEGRO_BITMAP*> *vector_textura_actual_temp = mapa_sprites[mapa_actual];//setteamos un vector temporal
     //del mapa de sprites a dibujar según el mapa actual
     ALLEGRO_BITMAP* temp = (*vector_textura_actual_temp)[animacion_actual]; //el bitmap a dibujar será igual al valor
@@ -52,6 +53,8 @@ void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes, list<Objet
     this->obstaculos = obstaculos;//settea el apuntador a la lista de obstaculos en el juego
 
     disparos = NULL;
+    animacion_actual = 0;
+    mapa_actual = 0;
     setAnimacion(PARADO_DERECHA);
     detalles->width = 50;
     detalles->height = 50;
