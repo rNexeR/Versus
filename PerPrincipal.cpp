@@ -124,9 +124,9 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
             }
         }
 
-        if(key[KEY_UP])
+        if(key[KEY_UP] && !down && !key[KEY_LEFT] && !key[KEY_RIGHT] )
         {
-            if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_P){
+            if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_P ){
                 cout<<"Disparando"<<endl;
                 disparos->push_back(new Disparos(5, detalles->x, detalles->y, 1));
 
