@@ -8,7 +8,7 @@ EnemigoNegro::EnemigoNegro(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
         cout<<"failed to initialize image addon!"<<endl;
     }
 
-
+    alternar = false;
     //carga de imagenes
     string path = "GameFiles/assets/personajes/enemies/black/enemyBlack" + toString(level) + ".png";
     mapa_sprites[0] = vector<ALLEGRO_BITMAP*>();
@@ -24,14 +24,34 @@ EnemigoNegro::EnemigoNegro(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 void EnemigoNegro::act(ALLEGRO_EVENT* ev){
     detalles->y+=velocity;
     int randomEstado = rand() % 100000;
-    cout<<"Random Estado: "<<randomEstado<<endl;
     if(randomEstado % 57 == 0){//Si es divisible entre 31, entonces agregar el disparo
         disparos->push_back(new Disparos(1, detalles->x + 15, detalles->y + 40, 0));
     }
 
+    randomizarMovimiento();
+
     frame++;
     if (detalles->y > 600)
         muerto = true;
+}
+
+void EnemigoNegro::randomizarMovimiento(){
+    int randomNumber = rand() % 10000;
+    if (randomNumber % 100 == 0){
+        alternar = true;
+    }else if (randomNumber % 35 == 0){
+        alternar = false;
+    }
+
+    int moveBy = 5;
+
+    if(alternar & detalles->x > 0){
+        detalles->x -= moveBy;
+    }else if (!alternar & detalles->x < 450){
+        detalles->x += moveBy;
+    }
+
+
 }
 
 EnemigoNegro::~EnemigoNegro()

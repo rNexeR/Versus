@@ -7,6 +7,7 @@ class Enemigos : public PersonajesAnimados
 {
     public:
         Enemigos();
+        bool alternar = false;
         virtual void act(ALLEGRO_EVENT* ev) = 0;
         virtual int getTime();
         virtual ~Enemigos();
