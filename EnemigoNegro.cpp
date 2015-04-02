@@ -40,7 +40,7 @@ EnemigoNegro::EnemigoNegro(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     this->event_queue = event_queue;
-    init(personajes);
+    init(personajes, obstaculos);
     setAnimacion(0);
     disparos = new list<ObjetosAnimados*>;//Inicializar disparos
 }

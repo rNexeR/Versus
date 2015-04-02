@@ -74,33 +74,9 @@ void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes, list<Objet
 {
     this->personajes = personajes;//settea el apuntador a la lista de personajes en el juego
     this->obstaculos = obstaculos;//settea el apuntador a la lista de obstaculos en el juego
-
     disparos = NULL;
     animacion_actual = 0;
     mapa_actual = 0;
-    setAnimacion(PARADO_DERECHA);
-    detalles->width = 50;
-    detalles->height = 50;
-    frame = 0;
-    colisionado = false;
-    muerto = false;
-    orientacion = 'r';
-    velocidad_y = 0;
-    aceleracion_y = 0;
-    gravedad = 0.8;
-    jump = false;
-    down = false;
-    damage = NULL;
-    al_init_timeout(&timeout, 0.06);//tiempo de espera para eventos
-}
-
-/**
-    Función para inicializar los valores de un personaje
-**/
-void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes)
-{
-    this->personajes = personajes;//settea el apuntador a la lista de personajes en el juego
-    disparos = NULL;
     setAnimacion(PARADO_DERECHA);
     detalles->width = 50;
     detalles->height = 50;
@@ -198,21 +174,20 @@ void PersonajesAnimados::detectColision()
     }
 
     //disparos contra obstaculos
-    cout<<obstaculos->size()<<endl;
-//    for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i != obstaculos->end(); i++)
-//    {
-//        if ((*i)->tipoObjeto == "Obstaculo")
-//        {
-//            for(list<ObjetosAnimados*>::iterator e = disparos->begin(); e != disparos->end(); e++)
-//                {
-//                    if ((*e)->tipoObjeto == "Disparo")
-//                    {
-//                        if (colision((*e)->detalles, (*i)->detalles))
-//                            cout<<"Colision disparo-Plataforma"<<endl;
-//                    }
-//                }
-//        }
-//    }
+    for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i != obstaculos->end(); i++)
+    {
+        if ((*i)->tipoObjeto == "Obstaculo")
+        {
+            for(list<ObjetosAnimados*>::iterator e = disparos->begin(); e != disparos->end(); e++)
+                {
+                    if ((*e)->tipoObjeto == "Disparo")
+                    {
+                        if (colision((*e)->detalles, (*i)->detalles))
+                            cout<<"Colision disparo-Plataforma"<<endl;
+                    }
+                }
+        }
+    }
 }
 
 /**

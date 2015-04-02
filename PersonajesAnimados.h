@@ -65,7 +65,6 @@ class PersonajesAnimados : public Entidad
         string toString(int number);
         virtual int getTime() = 0;
         virtual void draw();
-        void init(list<PersonajesAnimados *> *personajes);
         void init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos);
         void detectColision();
         void setAnimacion(int nombre);
