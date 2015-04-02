@@ -18,11 +18,17 @@ EnemigoNegro::EnemigoNegro(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
     this->event_queue = event_queue;
     init(personajes);
     setAnimacion(0);
+    disparos = new list<ObjetosAnimados*>;//Inicializar disparos
 }
 
 void EnemigoNegro::act(ALLEGRO_EVENT* ev){
     detalles->y+=velocity;
-    int randomEstado = rand() % 100;
+    int randomEstado = rand() % 100000;
+
+    if(randomEstado % 31 == 0){//Si es divisible entre 31, entonces agregar el disparo
+        disparos->push_back(new Disparos(1, detalles->x + 15, detalles->y + 40, 0));
+    }
+
     frame++;
     if (detalles->y > 600)
         muerto = true;

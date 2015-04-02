@@ -3,7 +3,7 @@
 Enemigos::Enemigos()
 {
     tipoObjeto = "Enemigo";
-    detalles->x = rand()%500;
+    detalles->x = rand()%450;
     detalles->y = 0;
 }
 
