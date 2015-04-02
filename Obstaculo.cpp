@@ -34,6 +34,17 @@ void Obstaculo::act(ALLEGRO_EVENT* ev){
         alternar = false;
     }
 
+    for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i != obstaculos->end(); i++){
+        if((*i)->tipoObjeto == "Obstaculo" && (*i) != this){
+//            cout<<"Comparamos: "<<endl;
+            if( colision( (*i)->detalles) ){
+                cout<<(*i)->tipoObjeto<<endl;
+//                cout<<"Whoo, we crashed!"<<endl;
+                alternar = !alternar;
+            }
+        }
+    }
+
     if(alternar){
         detalles->x += velocity;//aumentar, move right
     }else{
