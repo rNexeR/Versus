@@ -46,6 +46,12 @@ void PersonajesAnimados::draw(){
         al_draw_bitmap(temp,detalles->x, detalles->y,0); //dibujar el bitmap
 //    al_draw_scaled_bitmap(image[animacion],0,0,196,397,caja->x,caja->y,196,397,0);
 
+    if (!disparos){
+        for(list<ObjetosAnimados*>::iterator i = disparos->begin(); i != disparos->end(); i++){
+            (*i)->draw();
+        }
+    }
+
     frame++;
     limpiarEnemigos();
 }

@@ -47,6 +47,7 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
     this->event_queue = event_queue;
     detalles->x = 250;
     detalles->y = piso;
+    disparos = new list<ObjetosAnimados*>;
 }
 
 int PerPrincipal::getTime()
@@ -123,8 +124,11 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
 
         if(key[KEY_UP])
         {
-            if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_P)
+            if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_P){
                 cout<<"Disparando"<<endl;
+                disparos->push_back(new Disparos(5, detalles->x, detalles->y));
+
+            }
             setAnimacion(orientacion == 'r' ? DISPARANDO_DERECHA : DISPARANDO_IZQUIERDA);
             entro = true;
 
@@ -164,6 +168,7 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
             orientacion = 'r';
             entro = true;
         }
+
         if (!entro)
             setAnimacion(orientacion == 'r' ? PARADO_DERECHA : PARADO_IZQUIERDA);
     }

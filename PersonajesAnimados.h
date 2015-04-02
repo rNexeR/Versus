@@ -3,6 +3,8 @@
 
 #include "Entidad.h"
 #include "ObjetosAnimados.h"
+#include "Disparos.h"
+
 
 enum MYKEYS {
     KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT

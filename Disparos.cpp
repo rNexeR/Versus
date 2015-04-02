@@ -42,12 +42,19 @@ Disparos::Disparos(int dmg, int posX, int posY)
     tipoObjeto = "Disparo";//declarar el tipo de ObjetoAnimado
     string path = "GameFiles/assets/lasers/laserBlue.png";
     sprite = al_load_bitmap(path.c_str());//cargar el sprite según el path dado
+
+    if(!sprite)
+        return;
+
+    detalles->width = al_get_bitmap_width(sprite);
+    detalles->height = al_get_bitmap_height(sprite);
 }
 
 Disparos::~Disparos()
 {
     al_destroy_sample(sonido);
     al_destroy_bitmap(sprite);
+    delete detalles;
     //dtor
 }
 
@@ -57,8 +64,9 @@ void Disparos::act(ALLEGRO_EVENT *ev){
 
 void Disparos::draw(){
     if (sprite)//si el sprite está cargado, dibujar
-        al_draw_scaled_rotated_bitmap(sprite,
-            detalles->x, detalles->y, 1, 1, 1, 1, 0, 0);
+        al_draw_bitmap(sprite, detalles->x, detalles->y, 0);
+//        al_draw_scaled_rotated_bitmap(sprite,
+//            detalles->x, detalles->y, 1, 1, 1, 1, 0, 0);
 
         /*(ALLEGRO_BITMAP *bitmap,
             float cx, float cy, float dx, float dy, float xscale, float yscale,
