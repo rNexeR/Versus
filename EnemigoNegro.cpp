@@ -2,7 +2,7 @@
 
 EnemigoNegro::EnemigoNegro(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos, int level)
 {
-    velocity = 3;
+    velocity = 1;
     if(!al_init_image_addon())
     {
         cout<<"failed to initialize image addon!"<<endl;
@@ -22,6 +22,7 @@ EnemigoNegro::EnemigoNegro(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 
 void EnemigoNegro::act(ALLEGRO_EVENT* ev){
     detalles->y+=velocity;
+    int randomEstado = rand() % 100;
     frame++;
     if (detalles->y > 600)
         muerto = true;
