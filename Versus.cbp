@@ -34,12 +34,18 @@
 		</Compiler>
 		<Unit filename="Box.cpp" />
 		<Unit filename="Box.h" />
+		<Unit filename="Disparos.cpp" />
+		<Unit filename="Disparos.h" />
 		<Unit filename="EnemigoNegro.cpp" />
 		<Unit filename="EnemigoNegro.h" />
 		<Unit filename="Enemigos.cpp" />
 		<Unit filename="Enemigos.h" />
+		<Unit filename="Entidad.cpp" />
+		<Unit filename="Entidad.h" />
 		<Unit filename="ObjetosAnimados.cpp" />
 		<Unit filename="ObjetosAnimados.h" />
+		<Unit filename="Obstaculo.cpp" />
+		<Unit filename="Obstaculo.h" />
 		<Unit filename="PerPrincipal.cpp" />
 		<Unit filename="PerPrincipal.h" />
 		<Unit filename="PersonajesAnimados.cpp" />

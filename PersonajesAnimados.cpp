@@ -148,16 +148,6 @@ bool PersonajesAnimados::teclaDownEvent(int keycode)
     return false;
 }
 
-bool PersonajesAnimados::colision(Box* pCaja){
-    if(pCaja->x + pCaja->width < detalles->x
-        || pCaja->x > detalles->x + detalles->width
-        || pCaja->y + pCaja->height < detalles->y
-        || pCaja->y > detalles->y + detalles->height)
-        return false;
-    else
-        return true;
-}
-
 /*
 if(param.x + param.w < hitbox.x
             || param.x > hitbox.x + hitbox.w
