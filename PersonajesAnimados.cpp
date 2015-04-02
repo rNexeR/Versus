@@ -42,8 +42,12 @@ void PersonajesAnimados::draw(){
             animacion_actual = 0;
     }
 
-    if (temp)//mientras esté inicializado
-        al_draw_bitmap(temp,detalles->x, detalles->y,0); //dibujar el bitmap
+    if (temp){//mientras esté inicializado
+        int w, h;
+        w = al_get_bitmap_width(temp);
+        h = al_get_bitmap_height(temp);
+        al_draw_scaled_bitmap(temp,0,0,w,h,detalles->x, detalles->y,50,50,0); //dibujar el bitmap
+    }
 //    al_draw_scaled_bitmap(image[animacion],0,0,196,397,caja->x,caja->y,196,397,0);
 
     if (disparos){
