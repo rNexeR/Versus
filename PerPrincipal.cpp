@@ -33,14 +33,17 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
     }
 
     sonido = NULL;
+    stop = NULL;
 
     sonido = al_load_sample( "GameFiles/music/sfx_laser2.wav" );
+    stop = al_load_sample( "GameFiles/music/stop.wav" );
 
-    if(!sonido){
+    if(!sonido || !stop){
         printf( "Audio clip sample not loaded!\n" );
         return;
     }
-    al_play_sample(sonido, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idsonido);
+    al_play_sample(sonido, 0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idsonido);
+    al_play_sample(stop, 0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idstop);
 
     //carga de imagenes
     ifstream in("GameFiles/initImages/principal.txt");

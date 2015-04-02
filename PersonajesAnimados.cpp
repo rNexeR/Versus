@@ -185,6 +185,8 @@ void PersonajesAnimados::detectColision()
                     {
                         if (colision((*e)->detalles, (*i)->detalles)){
                             borrar.push_back(e);
+                            al_stop_sample(&idstop);
+                            al_play_sample(stop, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idstop);
                         }
                     }
                 }

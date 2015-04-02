@@ -53,6 +53,8 @@ class PersonajesAnimados : public Entidad
         ALLEGRO_BITMAP *damage;
         ALLEGRO_SAMPLE *sonido;
         ALLEGRO_SAMPLE_ID idsonido;
+        ALLEGRO_SAMPLE *stop;
+        ALLEGRO_SAMPLE_ID idstop;
         list<PersonajesAnimados*>*personajes;
         list<ObjetosAnimados*>*obstaculos;
         list<ObjetosAnimados*>*disparos;

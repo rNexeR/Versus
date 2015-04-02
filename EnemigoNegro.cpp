@@ -23,13 +23,18 @@ EnemigoNegro::EnemigoNegro(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
         return;
     }
 
-    sonido = al_load_sample( "GameFiles/music/sfx_laser1.wav" );
+    sonido = NULL;
+    stop = NULL;
 
-    if(!sonido){
+    sonido = al_load_sample( "GameFiles/music/sfx_laser2.wav" );
+    stop = al_load_sample( "GameFiles/music/stop.wav" );
+
+    if(!sonido || !stop){
         printf( "Audio clip sample not loaded!\n" );
         return;
     }
-    al_play_sample(sonido, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idsonido);
+    al_play_sample(sonido, 0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idsonido);
+    al_play_sample(stop, 0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idstop);
 
 
     alternar = false;
