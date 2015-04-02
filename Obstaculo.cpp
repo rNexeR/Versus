@@ -28,10 +28,10 @@ Obstaculo::Obstaculo(int variacion, list<ObjetosAnimados*>*obstaculos)
 **/
 void Obstaculo::act(ALLEGRO_EVENT* ev){
     if (detalles->x < 0){//si choca en la izquierda, alternar a derecha
-        alternar = true;
+        velocity *= -1;
     }
     else if (detalles->x > 450){//si choca en la derecha, alterna a izquierda
-        alternar = false;
+        velocity *= -1;
     }
 
     for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i != obstaculos->end(); i++){
@@ -40,16 +40,17 @@ void Obstaculo::act(ALLEGRO_EVENT* ev){
             if( colision( (*i)->detalles) ){
                 cout<<(*i)->tipoObjeto<<endl;
 //                cout<<"Whoo, we crashed!"<<endl;
-                alternar = !alternar;
+                velocity *= -1;
             }
         }
     }
+    detalles->x+=velocity;
 
-    if(alternar){
-        detalles->x += velocity;//aumentar, move right
-    }else{
-        detalles->x -= velocity;//aumentar, move left
-    }
+//    if(alternar){
+//        detalles->x += velocity;//aumentar, move right
+//    }else{
+//        detalles->x -= velocity;//aumentar, move left
+//    }
 //    cout<<"X: "<<detalles->x<<endl;
 }
 

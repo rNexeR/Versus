@@ -66,8 +66,10 @@ int PerPrincipal::isOnSolidGround()
             if (colision((*i)->detalles))
             {
                 Box temp((*i)->detalles->x-5,(*i)->detalles->y,(*i)->detalles->width-5, 0);
-                if (colision(&temp))
+                if (colision(&temp)){
+                    detalles->x+=(*i)->velocity;
                     return temp.y;
+                }
             }
         }
 
