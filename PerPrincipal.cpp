@@ -27,7 +27,7 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
         return;
     }
 
-    if (!al_reserve_samples(1)){
+    if (!al_reserve_samples(2)){
         fprintf(stderr, "failed to reserve samples!\n");
         return;
     }
@@ -89,7 +89,7 @@ int PerPrincipal::isOnSolidGround()
         {
             if (colision((*i)->detalles))
             {
-                Box temp((*i)->detalles->x-5,(*i)->detalles->y,(*i)->detalles->width-5, 1);
+                Box temp((*i)->detalles->x-5,(*i)->detalles->y,(*i)->detalles->width-5, 15);
                 if (colision(&temp)){
                     detalles->x+=(*i)->velocity;
                     return temp.y;
