@@ -174,6 +174,7 @@ void PersonajesAnimados::detectColision()
     }
 
     //disparos contra obstaculos
+    vector<list<ObjetosAnimados*>::iterator>borrar;
     for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i != obstaculos->end(); i++)
     {
         if ((*i)->tipoObjeto == "Obstaculo")
@@ -182,11 +183,17 @@ void PersonajesAnimados::detectColision()
                 {
                     if ((*e)->tipoObjeto == "Disparo")
                     {
-                        if (colision((*e)->detalles, (*i)->detalles))
-                            cout<<"Colision disparo-Plataforma"<<endl;
+                        if (colision((*e)->detalles, (*i)->detalles)){
+                            borrar.push_back(e);
+                        }
                     }
                 }
         }
+    }
+    for(int x = 0; x < borrar.size(); x++) //recorrer los que morirán
+    {
+        disparos->erase(borrar[x]);
+        delete (*borrar[x]);
     }
 }
 
