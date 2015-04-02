@@ -8,6 +8,30 @@ EnemigoNegro::EnemigoNegro(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
         cout<<"failed to initialize image addon!"<<endl;
     }
 
+    if(!al_install_audio()){
+        fprintf(stderr, "failed to initialize audio!\n");
+        return;
+    }
+
+    if(!al_init_acodec_addon()){
+        fprintf(stderr, "failed to initialize audio codecs!\n");
+        return;
+    }
+
+    if (!al_reserve_samples(1)){
+        fprintf(stderr, "failed to reserve samples!\n");
+        return;
+    }
+
+    sonido = al_load_sample( "GameFiles/music/sfx_laser1.wav" );
+
+    if(!sonido){
+        printf( "Audio clip sample not loaded!\n" );
+        return;
+    }
+    al_play_sample(sonido, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idsonido);
+
+
     alternar = false;
     //carga de imagenes
     string path = "GameFiles/assets/personajes/enemies/black/enemyBlack" + toString(level) + ".png";
@@ -25,6 +49,8 @@ void EnemigoNegro::act(ALLEGRO_EVENT* ev){
     detalles->y+=velocity;
     int randomEstado = rand() % 100000;
     if(randomEstado % 57 == 0){//Si es divisible entre 31, entonces agregar el disparo
+        al_stop_sample(&idsonido);
+        al_play_sample(sonido, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idsonido);
         disparos->push_back(new Disparos(1, detalles->x + 15, detalles->y + 40, 0));
     }
 
