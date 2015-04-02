@@ -24,8 +24,8 @@ EnemigoNegro::EnemigoNegro(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 void EnemigoNegro::act(ALLEGRO_EVENT* ev){
     detalles->y+=velocity;
     int randomEstado = rand() % 100000;
-
-    if(randomEstado % 31 == 0){//Si es divisible entre 31, entonces agregar el disparo
+    cout<<"Random Estado: "<<randomEstado<<endl;
+    if(randomEstado % 57 == 0){//Si es divisible entre 31, entonces agregar el disparo
         disparos->push_back(new Disparos(1, detalles->x + 15, detalles->y + 40, 0));
     }
 
