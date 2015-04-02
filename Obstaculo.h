@@ -7,7 +7,7 @@ class Obstaculo : public ObjetosAnimados
 {
     public:
         Obstaculo(int variacion, list<ObjetosAnimados*>*obstaculos);
-        bool alternar = false; //izquierda o derecha, si es obstaculo
+        bool alternar = true; //izquierda o derecha, si es obstaculo
         virtual void act(ALLEGRO_EVENT* ev);
         virtual ~Obstaculo();
     protected:
