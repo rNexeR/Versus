@@ -32,10 +32,10 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
         in>>llave;
         string path;
         in>>path;
-        mapa_sprites[enumToInt(animacion)] = new vector<ALLEGRO_BITMAP*>();
+        mapa_sprites[enumToInt(animacion)] = vector<ALLEGRO_BITMAP*>();
         while(path!="}")
         {
-            mapa_sprites[enumToInt(animacion)]->push_back(al_load_bitmap(path.c_str()));
+            mapa_sprites[enumToInt(animacion)].push_back(al_load_bitmap(path.c_str()));
             in>>path;
         }
     }

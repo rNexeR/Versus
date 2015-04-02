@@ -27,13 +27,18 @@ string PersonajesAnimados::toString(int number)
 
 void PersonajesAnimados::draw(){
     cout<<mapa_actual<<" , "<<animacion_actual<<endl;
-    vector<ALLEGRO_BITMAP*> *vector_textura_actual_temp = mapa_sprites[mapa_actual];//setteamos un vector temporal
+    vector<ALLEGRO_BITMAP*> & vector_textura_actual_temp = mapa_sprites[mapa_actual];//setteamos un vector temporal
     //del mapa de sprites a dibujar según el mapa actual
-    ALLEGRO_BITMAP* temp = (*vector_textura_actual_temp)[animacion_actual]; //el bitmap a dibujar será igual al valor
+
+    if(animacion_actual >= vector_textura_actual_temp.size()){
+        animacion_actual = 0;
+    }
+
+    ALLEGRO_BITMAP* temp = (vector_textura_actual_temp)[animacion_actual]; //el bitmap a dibujar será igual al valor
     //que está apuntando la animación actual dentro del vector
     if (frame%3==0){
         animacion_actual++;
-        if (animacion_actual>=vector_textura_actual_temp->size())
+        if (animacion_actual>=vector_textura_actual_temp.size())
             animacion_actual = 0;
     }
 
@@ -215,11 +220,11 @@ PersonajesAnimados::~PersonajesAnimados()
                 delete (*i);
 
     for(int x = 0; x<mapa_sprites.size(); x++){//recorrremos el mapa de sprites
-            vector<ALLEGRO_BITMAP*> *vector_temp = mapa_sprites[x];//obtenemos el vector en esa posición
-            for(int y = 0; y<vector_temp->size();y++){//recorremos el vector
-                al_destroy_bitmap((*vector_temp)[y]);//destruimos los bitmaps en esta posición
+            vector<ALLEGRO_BITMAP*> &vector_temp = mapa_sprites[x];//obtenemos el vector en esa posición
+            for(int y = 0; y < vector_temp.size(); y++){//recorremos el vector
+                al_destroy_bitmap((vector_temp)[y]);//destruimos los bitmaps en esta posición
             }
-            delete vector_temp; //eliminamos el apuntador del vector temporal
+//            delete vector_temp; //eliminamos el apuntador del vector temporal
     }
     delete detalles;
     if(damage!=NULL)

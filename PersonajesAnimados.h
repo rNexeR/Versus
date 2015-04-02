@@ -37,7 +37,7 @@ class PersonajesAnimados : public Entidad
         bool muerto;
         char orientacion;
         int mapa_actual;
-        int animacion_actual;
+        unsigned int animacion_actual = 0;
 
         bool key[6] = { false, false, false, false};
 
@@ -47,7 +47,7 @@ class PersonajesAnimados : public Entidad
         float gravedad;
         bool jump, down;
 
-        map<int, vector<ALLEGRO_BITMAP*>*> mapa_sprites;
+        map<int, vector<ALLEGRO_BITMAP*> > mapa_sprites;
         ALLEGRO_BITMAP *damage;
         list<PersonajesAnimados*>*personajes;
         list<ObjetosAnimados*>*obstaculos;
