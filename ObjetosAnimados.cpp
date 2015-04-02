@@ -12,7 +12,8 @@ ObjetosAnimados::~ObjetosAnimados()
 }
 
 void ObjetosAnimados::draw(){
-    if (sprite)//si el sprite está cargado, dibujar
+    if (sprite){//si el sprite está cargado, dibujar
         al_draw_bitmap(sprite, detalles->x, detalles->y, 0);
+    }
 }
 

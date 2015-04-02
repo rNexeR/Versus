@@ -12,7 +12,7 @@ class Disparos : public ObjetosAnimados
 
         virtual void act(ALLEGRO_EVENT *ev);
         virtual void draw();
-        Disparos(int dmg, int posX, int posY);
+        Disparos(int dmg, int posX, int posY, int dir);
         virtual ~Disparos();
     protected:
     private:

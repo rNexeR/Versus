@@ -126,7 +126,7 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
         {
             if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_P){
                 cout<<"Disparando"<<endl;
-                disparos->push_back(new Disparos(5, detalles->x, detalles->y));
+                disparos->push_back(new Disparos(5, detalles->x, detalles->y, 1));
 
             }
             setAnimacion(orientacion == 'r' ? DISPARANDO_DERECHA : DISPARANDO_IZQUIERDA);

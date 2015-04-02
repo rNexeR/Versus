@@ -1,9 +1,12 @@
 #include "Disparos.h"
 
-Disparos::Disparos(int dmg, int posX, int posY)
+Disparos::Disparos(int dmg, int posX, int posY, int dir)
 {
     this->dmg = dmg;
-    velocity = 10;
+    if (dir>0)
+        velocity = -10;
+    else
+        velocity = 10;
     //Inicializaciones de audio
 
     if(!al_init_image_addon())//chequear si se pudo inicializar para las imágenes
@@ -60,11 +63,11 @@ Disparos::~Disparos()
 }
 
 void Disparos::act(ALLEGRO_EVENT *ev){
-    detalles->y -= velocity;
+    detalles->y += velocity;
 }
 
 void Disparos::draw(){
-    if (sprite)//si el sprite está cargado, dibujar
+    if (sprite){//si el sprite está cargado, dibujar
         al_draw_bitmap(sprite, detalles->x, detalles->y, 0);
 //        al_draw_scaled_rotated_bitmap(sprite,
 //            detalles->x, detalles->y, 1, 1, 1, 1, 0, 0);
@@ -73,6 +76,7 @@ void Disparos::draw(){
             float cx, float cy, float dx, float dy, float xscale, float yscale,
             float angle, int flags)
         */
+    }
 }
 
 

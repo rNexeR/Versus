@@ -26,7 +26,6 @@ string PersonajesAnimados::toString(int number)
 }
 
 void PersonajesAnimados::draw(){
-    cout<<mapa_actual<<" , "<<animacion_actual<<endl;
     vector<ALLEGRO_BITMAP*> & vector_textura_actual_temp = mapa_sprites[mapa_actual];//setteamos un vector temporal
     //del mapa de sprites a dibujar según el mapa actual
 
