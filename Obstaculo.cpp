@@ -1,6 +1,6 @@
 #include "Obstaculo.h"
 
-Obstaculo::Obstaculo(int variacion)
+Obstaculo::Obstaculo(int variacion, list<ObjetosAnimados*>*obstaculos)
 {
     if(!al_init_image_addon())//chequear si se pudo inicializar para las imágenes
     {
@@ -14,6 +14,13 @@ Obstaculo::Obstaculo(int variacion)
     tipoObjeto = "Obstaculo";//declarar el tipo de ObjetoAnimado
     string path = "GameFiles/assets/fondos/Lift.png";
     sprite = al_load_bitmap(path.c_str());//cargar el sprite según el path dado.
+    //Validar carga del sprite
+    if(!sprite){
+        cout<<"ERROR AL CARGAR SPRITES!";
+        return;
+    }
+
+    this->obstaculos = obstaculos;
 }
 
 /**

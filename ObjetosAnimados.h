@@ -9,6 +9,7 @@ class ObjetosAnimados : public Entidad{
         ALLEGRO_BITMAP* sprite;
         virtual void draw();//dibujo
         ObjetosAnimados();//constructor
+        list<ObjetosAnimados*>*obstaculos;
         virtual ~ObjetosAnimados();
     protected:
     private:
