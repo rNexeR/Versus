@@ -17,6 +17,30 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
         cout<<"failed to initialize image addon!"<<endl;
     }
 
+    if(!al_install_audio()){
+        fprintf(stderr, "failed to initialize audio!\n");
+        return;
+    }
+
+    if(!al_init_acodec_addon()){
+        fprintf(stderr, "failed to initialize audio codecs!\n");
+        return;
+    }
+
+    if (!al_reserve_samples(1)){
+        fprintf(stderr, "failed to reserve samples!\n");
+        return;
+    }
+
+    sonido = NULL;
+
+    sonido = al_load_sample( "GameFiles/music/sfx_laser2.wav" );
+
+    if(!sonido){
+        printf( "Audio clip sample not loaded!\n" );
+        return;
+    }
+    al_play_sample(sonido, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idsonido);
 
     //carga de imagenes
     ifstream in("GameFiles/initImages/principal.txt");
@@ -65,7 +89,7 @@ int PerPrincipal::isOnSolidGround()
         {
             if (colision((*i)->detalles))
             {
-                Box temp((*i)->detalles->x-5,(*i)->detalles->y,(*i)->detalles->width-5, 0);
+                Box temp((*i)->detalles->x-5,(*i)->detalles->y,(*i)->detalles->width-5, 1);
                 if (colision(&temp)){
                     detalles->x+=(*i)->velocity;
                     return temp.y;
@@ -128,7 +152,13 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
         {
             if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_P ){
                 cout<<"Disparando"<<endl;
-                disparos->push_back(new Disparos(5, detalles->x, detalles->y, 1));
+                int dx, dy;
+                dx = orientacion == 'r' ? 15 : 25;
+                dx = detalles->x + dx;
+                dy = detalles->y-20;
+                al_stop_sample(&idsonido);
+                al_play_sample(sonido, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idsonido);
+                disparos->push_back(new Disparos(5, dx, dy, 1));
 
             }
             setAnimacion(orientacion == 'r' ? DISPARANDO_DERECHA : DISPARANDO_IZQUIERDA);
