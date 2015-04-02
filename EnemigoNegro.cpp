@@ -37,9 +37,9 @@ void EnemigoNegro::act(ALLEGRO_EVENT* ev){
 
 void EnemigoNegro::randomizarMovimiento(){
     int randomNumber = rand() % 10000;
-    if (randomNumber % 100 == 0){
+    if (randomNumber % 175 == 0){
         alternar = true;
-    }else if (randomNumber % 35 == 0){
+    }else if (randomNumber % 125 == 0){
         alternar = false;
     }
 
