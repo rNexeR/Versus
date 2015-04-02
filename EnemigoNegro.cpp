@@ -43,7 +43,7 @@ void EnemigoNegro::randomizarMovimiento(){
         alternar = false;
     }
 
-    int moveBy = 5;
+    int moveBy = 2;
 
     if(alternar & detalles->x > 0){
         detalles->x -= moveBy;
