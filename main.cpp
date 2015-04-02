@@ -45,7 +45,7 @@ int width = 500, height = 650;
 //Listas
 list<PersonajesAnimados*> *personajes = new list<PersonajesAnimados*>();
 list<ObjetosAnimados*> *obstaculos =  new list<ObjetosAnimados*>();;
-list<Entidad*> *entidades; //TO-DO, debe ser usada para reemplazar las listas anteriores
+//list<Entidad*> *entidades; //TO-DO, debe ser usada para reemplazar las listas anteriores
 
 
 /**
@@ -456,7 +456,7 @@ int main(int argc, char **argv)
     al_destroy_bitmap(logo);
 
     cleanPersonajes();
-    delete entidades;
+//    delete entidades;
 //    delete personajes;
 //    delete obstaculos;
 //    delete blogo;
