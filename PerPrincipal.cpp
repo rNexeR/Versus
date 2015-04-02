@@ -6,7 +6,7 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
     velocity = 5;
     vidas = 5;
     piso = 580;
-    init(personajes);
+    init(personajes, obstaculos);
     if(!al_install_keyboard())
     {
         cout<<"failed to initialize the keyboard!"<<endl;
@@ -43,9 +43,7 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 
 
     al_register_event_source(event_queue, al_get_keyboard_event_source());
-//    al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
-    //init(personajes, disparos_principal, disparos_enemigos, obstaculos);
     this->event_queue = event_queue;
     detalles->x = 250;
     detalles->y = piso;
@@ -56,16 +54,19 @@ int PerPrincipal::getTime()
     return frame/60;
 }
 
-int PerPrincipal::isOnSolidGround(){
+int PerPrincipal::isOnSolidGround()
+{
     if (detalles->y > piso)
-        return piso;
-    for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++){
-        cout<<"entro"<<endl;
-        if ((*i)->tipoObjeto == "Obstaculo"){
-            if (colision((*i)->detalles)){
-                Box temp((*i)->detalles->x,(*i)->detalles->y,(*i)->detalles->width, 1);
+        return piso+detalles->height+1;
+    for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i!=obstaculos->end(); i++)
+    {
+        if ((*i)->tipoObjeto == "Obstaculo")
+        {
+            if (colision((*i)->detalles))
+            {
+                Box temp((*i)->detalles->x-5,(*i)->detalles->y,(*i)->detalles->width-5, 0);
                 if (colision(&temp))
-                    return detalles->y;
+                    return temp.y;
             }
         }
 
@@ -77,8 +78,11 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
 {
     bool entro = false;
     validarTeclas(ev);
+    if (!jump && detalles->y < piso && isOnSolidGround()==-1){
+        down = true;
+        setAnimacion(orientacion == 'r' ? CAYENDO_DERECHA : CAYENDO_IZQUIERDA);
+    }
 
-    //gravedad en el salto
     if (vidas<=0)
     {
         setAnimacion(orientacion == 'r' ? MUERTO_DERECHA : MUERTO_IZQUIERDA);
@@ -86,25 +90,39 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
     }
     else
     {
-        int pos = isOnSolidGround();
-        if (jump && pos>0)
-        {
-            cout<<pos<<endl;
-            detalles->y = pos;
-            aceleracion_y = 0;
-            setAnimacion(orientacion == 'r' ? PARADO_DERECHA : PARADO_IZQUIERDA);
-            jump = false;
-        }
+
+
         if(jump)
         {
             velocidad_y+=aceleracion_y;
             detalles->y+=velocidad_y;
             aceleracion_y+=gravedad;
             entro = true;
+            int pos = isOnSolidGround();
+            if (pos>0)
+            {
+                detalles->y = pos-detalles->height-1;
+                aceleracion_y = 0;
+                setAnimacion(orientacion == 'r' ? PARADO_DERECHA : PARADO_IZQUIERDA);
+                jump = false;
+            }
+        }else if (down){
+            velocidad_y+=aceleracion_y;
+            detalles->y+=velocidad_y;
+            aceleracion_y+=gravedad;
+            entro = true;
+            int pos = isOnSolidGround();
+            if (pos>0)
+            {
+                detalles->y = pos-detalles->height-1;
+                aceleracion_y = 0;
+                setAnimacion(orientacion == 'r' ? PARADO_DERECHA : PARADO_IZQUIERDA);
+                down = false;
+            }
         }
+
         if(key[KEY_UP])
         {
-            //detalles->y -= var;
             if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_P)
                 cout<<"Disparando"<<endl;
             setAnimacion(orientacion == 'r' ? DISPARANDO_DERECHA : DISPARANDO_IZQUIERDA);
@@ -113,18 +131,21 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
         }
         if(ev->type == ALLEGRO_EVENT_KEY_DOWN && !jump && ev->keyboard.keycode == ALLEGRO_KEY_SPACE)
         {
-            cout<<"Saltando"<<endl;
             velocidad_y = 0;
             aceleracion_y = -4.5;
             setAnimacion(orientacion == 'r' ? SALTANDO_DERECHA : SALTANDO_IZQUIERDA);
             jump = true;
             entro = true;
         }
-        if (ev->type == ALLEGRO_EVENT_KEY_DOWN && !down && ev->keyboard.keycode == ALLEGRO_KEY_S)
-        {
-            //falta validar que este sobre una superficie
-            cout<<"CAYENDO"<<endl;
-        }
+//        if (ev->type == ALLEGRO_EVENT_KEY_DOWN && !down && ev->keyboard.keycode == ALLEGRO_KEY_S)
+//        {
+//            if (detalles->y < piso)
+//            {
+//                setAnimacion(orientacion == 'r' ? CAYENDO_DERECHA : CAYENDO_IZQUIERDA);
+//                down = true;
+////                aceleracion_y = 0.1;
+//            }
+//        }
 
         if(key[KEY_LEFT] && detalles->x > 0)
         {
@@ -169,12 +190,6 @@ void PerPrincipal::validarTeclas(ALLEGRO_EVENT* ev)
         case ALLEGRO_KEY_D:
             key[KEY_RIGHT] = true;
             break;
-
-//        case ALLEGRO_KEY_SPACE:
-//            key[KEY_SPACE] = true;
-//
-//        case ALLEGRO_KEY_P:
-//            key[KEY_SHOOT] = true;
         }
     }
     if(ev->type == ALLEGRO_EVENT_KEY_UP)

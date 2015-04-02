@@ -51,9 +51,8 @@ void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes, list<Objet
     this->personajes = personajes;//settea el apuntador a la lista de personajes en el juego
     this->obstaculos = obstaculos;//settea el apuntador a la lista de obstaculos en el juego
 
+    disparos = NULL;
     setAnimacion(PARADO_DERECHA);
-    detalles->x = 50;
-    detalles->y = 50;
     detalles->width = 50;
     detalles->height = 50;
     frame = 0;
@@ -62,9 +61,11 @@ void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes, list<Objet
     orientacion = 'r';
     velocidad_y = 0;
     aceleracion_y = 0;
-    gravedad = 0.5;
-    al_init_timeout(&timeout, 0.06);
-    //colisionado = false;
+    gravedad = 0.8;
+    jump = false;
+    down = false;
+    damage = NULL;
+    al_init_timeout(&timeout, 0.06);//tiempo de espera para eventos
 }
 
 /**
@@ -134,13 +135,20 @@ bool PersonajesAnimados::teclaDownEvent(int keycode)
 
 bool PersonajesAnimados::colision(Box* pCaja){
     if(pCaja->x + pCaja->width < detalles->x
-        || pCaja->x > detalles->x + pCaja->width
+        || pCaja->x > detalles->x + detalles->width
         || pCaja->y + pCaja->height < detalles->y
-        || pCaja->y > detalles->y + pCaja->height)
+        || pCaja->y > detalles->y + detalles->height)
         return false;
     else
         return true;
 }
+
+/*
+if(param.x + param.w < hitbox.x
+            || param.x > hitbox.x + hitbox.w
+            || param.y + param.h < hitbox.y
+            || param.y > hitbox.y + hitbox.h)
+*/
 
 /**
     ???

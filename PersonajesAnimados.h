@@ -5,7 +5,7 @@
 #include "ObjetosAnimados.h"
 
 enum MYKEYS {
-    KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_SPACE, KEY_SHOOT
+    KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
 };
 
 enum Estados{
@@ -39,7 +39,7 @@ class PersonajesAnimados : public Entidad
         int mapa_actual;
         int animacion_actual;
 
-        bool key[6] = { false, false, false, false,false,false};
+        bool key[6] = { false, false, false, false};
 
         int frame;
         float velocidad_y;

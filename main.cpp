@@ -456,6 +456,7 @@ int main(int argc, char **argv)
     al_destroy_bitmap(logo);
 
     cleanPersonajes();
+    delete entidades;
 //    delete personajes;
 //    delete obstaculos;
 //    delete blogo;
