@@ -35,10 +35,11 @@ void Obstaculo::act(ALLEGRO_EVENT* ev){
     }
 
     for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i != obstaculos->end(); i++){
-        if((*i)->tipoObjeto == "Obstaculo"){
-            cout<<"Comparamos: "<<endl;
-            if(colision( (*i)->detalles) ){
-                cout<<"Whoo, we crashed!"<<endl;
+        if((*i)->tipoObjeto == "Obstaculo" && (*i) != this){
+//            cout<<"Comparamos: "<<endl;
+            if( colision( (*i)->detalles) ){
+                cout<<(*i)->tipoObjeto<<endl;
+//                cout<<"Whoo, we crashed!"<<endl;
                 alternar = !alternar;
             }
         }
