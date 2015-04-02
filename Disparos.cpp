@@ -3,10 +3,13 @@
 Disparos::Disparos(int dmg, int posX, int posY, int dir)
 {
     this->dmg = dmg;
-    if (dir>0)
+    string path = "GameFiles/assets/lasers/laserGreen.png";
+    if (dir>0){
         velocity = -10;
-    else
+    }else{
         velocity = 10;
+        path = "GameFiles/assets/lasers/laserRed.png";
+    }
     //Inicializaciones de audio
 
     if(!al_init_image_addon())//chequear si se pudo inicializar para las imágenes
@@ -14,37 +17,36 @@ Disparos::Disparos(int dmg, int posX, int posY, int dir)
         cout<<"failed to initialize image addon!"<<endl;
     }
 
-    if(!al_install_audio()){
-        fprintf(stderr, "failed to initialize audio!\n");
-        return;
-    }
+//    if(!al_install_audio()){
+//        fprintf(stderr, "failed to initialize audio!\n");
+//        return;
+//    }
+//
+//    if(!al_init_acodec_addon()){
+//        fprintf(stderr, "failed to initialize audio codecs!\n");
+//        return;
+//    }
+//
+//    if (!al_reserve_samples(1)){
+//        fprintf(stderr, "failed to reserve samples!\n");
+//        return;
+//    }
+//
+//    sonido = NULL;
+//
+//    sonido = al_load_sample( "GameFiles/music/sfx_laser2.wav" );
+//
+//    if(!sonido){
+//        printf( "Audio clip sample not loaded!\n" );
+//        return;
+//    }
 
-    if(!al_init_acodec_addon()){
-        fprintf(stderr, "failed to initialize audio codecs!\n");
-        return;
-    }
-
-    if (!al_reserve_samples(1)){
-        fprintf(stderr, "failed to reserve samples!\n");
-        return;
-    }
-
-    sonido = NULL;
-
-    sonido = al_load_sample( "GameFiles/music/sfx_laser2.wav" );
-
-    if(!sonido){
-        printf( "Audio clip sample not loaded!\n" );
-        return;
-    }
-
-    al_play_sample(sonido, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
+//    al_play_sample(sonido, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 
     //Inicialización de la posición de la cajita
-    detalles->x = posX + 10;
-    detalles->y = posY - 40;
+    detalles->x = posX;
+    detalles->y = posY;
     tipoObjeto = "Disparo";//declarar el tipo de ObjetoAnimado
-    string path = "GameFiles/assets/lasers/laserBlue.png";
     sprite = al_load_bitmap(path.c_str());//cargar el sprite según el path dado
 
     if(!sprite)
@@ -56,7 +58,7 @@ Disparos::Disparos(int dmg, int posX, int posY, int dir)
 
 Disparos::~Disparos()
 {
-    al_destroy_sample(sonido);
+    //al_destroy_sample(sonido);
     //al_destroy_bitmap(sprite);
     delete detalles;
     //dtor

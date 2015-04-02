@@ -229,6 +229,7 @@ PersonajesAnimados::~PersonajesAnimados()
     delete detalles;
     if(damage!=NULL)
         al_destroy_bitmap(damage);//Destruir el bitmap; innecesario el delete
+    //al_destroy_sample(sonido);
 }
 
 /**

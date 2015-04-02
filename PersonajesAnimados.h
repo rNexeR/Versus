@@ -51,6 +51,8 @@ class PersonajesAnimados : public Entidad
 
         map<int, vector<ALLEGRO_BITMAP*> > mapa_sprites;
         ALLEGRO_BITMAP *damage;
+        ALLEGRO_SAMPLE *sonido;
+        ALLEGRO_SAMPLE_ID idsonido;
         list<PersonajesAnimados*>*personajes;
         list<ObjetosAnimados*>*obstaculos;
         list<ObjetosAnimados*>*disparos;
