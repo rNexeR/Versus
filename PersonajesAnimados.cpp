@@ -48,6 +48,7 @@ void PersonajesAnimados::draw(){
 
     if (disparos){
         for(list<ObjetosAnimados*>::iterator i = disparos->begin(); i != disparos->end(); i++){
+            (*i)->act(NULL);
             (*i)->draw();
         }
     }

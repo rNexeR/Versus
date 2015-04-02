@@ -3,6 +3,7 @@
 Disparos::Disparos(int dmg, int posX, int posY)
 {
     this->dmg = dmg;
+    velocity = 10;
     //Inicializaciones de audio
 
     if(!al_init_image_addon())//chequear si se pudo inicializar para las imágenes
@@ -27,7 +28,7 @@ Disparos::Disparos(int dmg, int posX, int posY)
 
     sonido = NULL;
 
-    sonido = al_load_sample( "GameFiles/music/sfx_laser2_shoot.ogg" );
+    sonido = al_load_sample( "GameFiles/music/sfx_laser2.wav" );
 
     if(!sonido){
         printf( "Audio clip sample not loaded!\n" );
@@ -38,7 +39,7 @@ Disparos::Disparos(int dmg, int posX, int posY)
 
     //Inicialización de la posición de la cajita
     detalles->x = posX;
-    detalles->y = posY;
+    detalles->y = posY - 40;
     tipoObjeto = "Disparo";//declarar el tipo de ObjetoAnimado
     string path = "GameFiles/assets/lasers/laserBlue.png";
     sprite = al_load_bitmap(path.c_str());//cargar el sprite según el path dado
@@ -59,7 +60,7 @@ Disparos::~Disparos()
 }
 
 void Disparos::act(ALLEGRO_EVENT *ev){
-    detalles->x += velocity;
+    detalles->y -= velocity;
 }
 
 void Disparos::draw(){
