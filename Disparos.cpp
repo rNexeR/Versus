@@ -38,7 +38,7 @@ Disparos::Disparos(int dmg, int posX, int posY)
     al_play_sample(sonido, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,NULL);
 
     //Inicialización de la posición de la cajita
-    detalles->x = posX;
+    detalles->x = posX + 10;
     detalles->y = posY - 40;
     tipoObjeto = "Disparo";//declarar el tipo de ObjetoAnimado
     string path = "GameFiles/assets/lasers/laserBlue.png";
