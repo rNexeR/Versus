@@ -54,7 +54,7 @@ Disparos::Disparos(int dmg, int posX, int posY)
 Disparos::~Disparos()
 {
     al_destroy_sample(sonido);
-    al_destroy_bitmap(sprite);
+    //al_destroy_bitmap(sprite);
     delete detalles;
     //dtor
 }
