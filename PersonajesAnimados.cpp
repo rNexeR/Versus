@@ -165,7 +165,7 @@ void PersonajesAnimados::detectColision()
                     if ((*e)->tipoObjeto == "Disparo")
                     {
                         if (colision(detalles,(*e)->detalles)){
-                            (*i)->vidas -= ((Disparos*)(*e))->dmg;//Casting a Disparos* porque dmg es un atributo de clase hija
+                            this->vidas -= ((Disparos*)(*e))->dmg;//Casting a Disparos* porque dmg es un atributo de clase hija
                             cout<<"Colision con disparo"<<endl;
                         }
                     }
