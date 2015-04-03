@@ -35,6 +35,8 @@ ALLEGRO_TIMER *timer = NULL;
 Box *blogo = NULL;
 ALLEGRO_BITMAP  *logo   = NULL;
 ALLEGRO_BITMAP  *instru   = NULL;
+ALLEGRO_BITMAP  *fondo   = NULL;
+
 ALLEGRO_SAMPLE *music = NULL;
 ALLEGRO_SAMPLE_ID imusic;
 ALLEGRO_SAMPLE *effect = NULL;
@@ -185,6 +187,7 @@ int initLogo()
     blogo->y = (height-blogo->height)/2;
 
     instru = al_load_bitmap("GameFiles/assets/fondos/Instrucciones.png");
+    fondo = al_load_bitmap("GameFiles/assets/fondos/fondo.png");
     return 0;
 }
 
@@ -269,6 +272,7 @@ string ingresarNombre()
             }
         }
         //cout<<hola<<endl;
+        al_draw_bitmap(fondo,0,0,0);
         al_draw_text(normalFont, al_map_rgb(0,0,255), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "Ingrese su nombre:");
         al_draw_text(normalFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, name.c_str());//dibuja el nombre
         al_flip_display();//necesario para cambiar a la siguiente parte del buffer (que dibujará)
@@ -315,21 +319,27 @@ PersonajesAnimados* getPrincipal(){
     }
 }
 
-int Lvl1(string nombre){
+void loadLvl(int level){
+    obstaculos->push_back(new Obstaculo(0, obstaculos));
+    obstaculos->push_back(new Obstaculo(200, obstaculos));
+    if (level == 1){
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
+        personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 1));
+        personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, 2));
+        personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 3));
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 4));
+        personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos));
+    }
+}
+
+int Lvl1(string nombre, int level){
     /*
         CREACION DE PERSONAJES, ENEMIGOS Y OBSTÁCULOS
     */
     changeSizeCartoonFont(50);
     al_draw_text(cartoonFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, "LVL 1");
     al_flip_display();
-    personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
-    personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 1));
-    personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, 2));
-    personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 3));
-    personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 4));
-    obstaculos->push_back(new Obstaculo(0, obstaculos));
-    obstaculos->push_back(new Obstaculo(200, obstaculos));
-    personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos));
+    loadLvl(1);
     al_rest(3);
     int seg = 0;
     changeSizenormalFont(15);
@@ -411,7 +421,7 @@ void loopJuego()
     nombre = ingresarNombre();
     cout<<nombre<<endl;
     resetGame();
-    if (Lvl1(nombre)>0)
+    if (Lvl1(nombre,1)>0)
         cout<<"paso Lvl 1"<<endl;
 }
 
@@ -451,13 +461,13 @@ void mainMenu()
         {
             break;
         }
-        if(get_event && teclaDownEvent(ALLEGRO_KEY_DOWN))
+        if(get_event && teclaDownEvent(ALLEGRO_KEY_S))
         {
             al_stop_sample(&ieffect);
             al_play_sample(effect, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&ieffect);
             uPosy += espaciado;
         }
-        else if(get_event && teclaDownEvent(ALLEGRO_KEY_UP))
+        else if(get_event && teclaDownEvent(ALLEGRO_KEY_W))
         {
             al_stop_sample(&ieffect);
             al_play_sample(effect, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&ieffect);
@@ -496,6 +506,7 @@ void mainMenu()
         if (uPosy<uPosyOriginal)
             uPosy = uPosyOriginal+(espaciado*3);
         al_clear_to_color(al_map_rgb(0,0,0));
+        al_draw_bitmap(fondo,0,0,0);
         al_draw_bitmap(logo,blogo->x,blogo->y - 100,0);
         al_draw_bitmap(options,boptions->x,boptions->y + 100,0);
         al_draw_bitmap(select, bselect->x, uPosy, 0);
@@ -522,6 +533,7 @@ int main(int argc, char **argv)
     al_destroy_sample(effect);
     al_destroy_bitmap(logo);
     al_destroy_bitmap(instru);
+    al_destroy_bitmap(fondo);
 
     cleanPersonajes();
     return 0;

@@ -4,7 +4,7 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 {
     tipoObjeto = "Principal";
     velocity = 5;
-    vidas = 50;
+    vidas = 10;
     piso = 580;
     init(personajes, obstaculos);
     if(!al_install_keyboard())
@@ -116,7 +116,7 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
     if (vidas<=0)
     {
         setAnimacion(orientacion == 'r' ? MUERTO_DERECHA : MUERTO_IZQUIERDA);
-        if (vidas<=-5){
+        if (vidas<=-1){
             muerto = true;
             al_rest(1);
         }
