@@ -3,6 +3,7 @@
 EnemigoRojo::EnemigoRojo(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos, int level)
 {
     velocity = 0.05;
+    firingRate = 10;
     if(!al_init_image_addon())
     {
         cout<<"failed to initialize image addon!"<<endl;
@@ -49,23 +50,6 @@ EnemigoRojo::EnemigoRojo(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimad
     init(personajes, obstaculos);
     setAnimacion(0);
     disparos = new list<ObjetosAnimados*>;//Inicializar disparos
-}
-
-void EnemigoRojo::act(ALLEGRO_EVENT* ev){
-    detalles->y+=velocity;
-    int randomEstado = rand() % 100000;
-
-    if(randomEstado % 10 == 0){//Si es divisible entre x, entonces agregar el disparo
-        al_stop_sample(&idsonido);
-        al_play_sample(sonido, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idsonido);
-        disparos->push_back(new Disparos(1, detalles->x + 15, detalles->y + 40, 0));
-    }
-
-    randomizarMovimiento();
-
-    frame++;
-    if (detalles->y > 600 || vidas < 0)
-        muerto = true;
 }
 
 void EnemigoRojo::randomizarMovimiento(){

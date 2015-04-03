@@ -3,6 +3,8 @@
 EnemigoVerde::EnemigoVerde(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos, int level)
 {
     velocity = 0.2;
+    firingRate = 35;
+
     if(!al_init_image_addon())
     {
         cout<<"failed to initialize image addon!"<<endl;
@@ -52,7 +54,7 @@ EnemigoVerde::EnemigoVerde(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 }
 
 void EnemigoVerde::act(ALLEGRO_EVENT* ev){
-    detalles->y+=velocity;
+    detalles->y += velocity;
     int randomEstado = rand() % 100000;
 
     if(randomEstado % 35 == 0){//Si es divisible entre x, entonces agregar el disparo
