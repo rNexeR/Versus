@@ -46,6 +46,13 @@ void Enemigos::randomizarMovimiento(){
         alternar = false;
     }
 
+    determinarRandomMovimiento();
+}
+
+/**
+    Especifica el patrón de movimiento del personaje
+**/
+void Enemigos::determinarRandomMovimiento(){
     if(alternar & detalles->x > 0){
         detalles->x -= moveBy;
     }else if (!alternar & detalles->x < 450){

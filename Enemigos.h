@@ -16,7 +16,7 @@ class Enemigos : public PersonajesAnimados
         virtual void act(ALLEGRO_EVENT* ev);
         virtual int getTime();
         void randomizarMovimiento();//función para moverse al azar
-        //virtual void determinarRandomMovimiento();
+        virtual void determinarRandomMovimiento();
         virtual ~Enemigos();
     protected:
     private:

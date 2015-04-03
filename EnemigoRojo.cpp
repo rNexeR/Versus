@@ -57,14 +57,7 @@ EnemigoRojo::EnemigoRojo(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimad
     disparos = new list<ObjetosAnimados*>;//Inicializar disparos
 }
 
-void EnemigoRojo::randomizarMovimiento(){
-    int randomNumber = rand() % 10000;
-    if (randomNumber % 150 == 0){
-        alternar = true;
-    }else if (randomNumber % 125 == 0){
-        alternar = false;
-    }
-
+void EnemigoRojo::determinarRandomMovimiento(){
     if(alternar){
         detalles->x -= moveBy;
         if(detalles->x < 0)

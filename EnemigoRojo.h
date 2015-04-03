@@ -9,7 +9,7 @@ class EnemigoRojo : public Enemigos
     public:
         EnemigoRojo(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes,
             list<ObjetosAnimados*>*obstaculos, int level);
-        virtual void randomizarMovimiento();
+        virtual void determinarRandomMovimiento();
         virtual ~EnemigoRojo();
     protected:
     private:

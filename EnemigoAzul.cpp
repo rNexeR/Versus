@@ -55,14 +55,8 @@ EnemigoAzul::EnemigoAzul(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimad
     disparos = new list<ObjetosAnimados*>;//Inicializar disparos
 }
 
-void EnemigoAzul::randomizarMovimiento(){
-    int randomNumber = rand() % 100000;
-    if (randomNumber % 100 == 0){
-        alternar = true;
-    }else if (randomNumber % 155 == 0){
-        alternar = false;
-    }
 
+void EnemigoAzul::determinarRandomMovimiento(){
     if(alternar && detalles->x > 0){
         detalles->x -= moveBy;
         if(detalles->y > 100)
@@ -71,7 +65,6 @@ void EnemigoAzul::randomizarMovimiento(){
         detalles->x += moveBy;
     }
 }
-
 EnemigoAzul::~EnemigoAzul()
 {
     //dtor
