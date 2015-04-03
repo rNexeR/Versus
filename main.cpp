@@ -135,7 +135,7 @@ int initAllegro()
         return -1;
     }
 
-    game = al_load_sample("GameFiles/music/251295__levelclearer__time-sequence.wav");
+    game = al_load_sample("GameFiles/music/Raining Bits.wav");
 
     al_register_event_source(event_queue, al_get_display_event_source(display));//registrar eventos del display
     al_register_event_source(event_queue, al_get_timer_event_source(timer));//registrar eventos del timer
