@@ -18,6 +18,7 @@ using namespace std;
 #include "Obstaculo.h"
 #include "PerPrincipal.h"
 #include "EnemigoNegro.h"
+#include "EnemigoAzul.h"
 
 const float FPS = 60;
 
@@ -308,7 +309,7 @@ int Lvl1(string nombre){
     al_flip_display();
     personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
     personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
-    personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 2));
+    personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, 2));
     personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 3));
     personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 4));
     obstaculos->push_back(new Obstaculo(0, obstaculos));
