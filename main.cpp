@@ -20,6 +20,7 @@ using namespace std;
 #include "EnemigoNegro.h"
 #include "EnemigoAzul.h"
 #include "EnemigoRojo.h"
+#include "EnemigoVerde.h"
 
 const float FPS = 60;
 
@@ -382,7 +383,7 @@ int Lvl(string nombre, int level){
     string path = "LVL "+toString(level);
     al_draw_text(cartoonFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, path.c_str());
     al_flip_display();
-    loadLvl(1);
+    loadLvl(level);
     al_rest(3);
     int seg = 0;
     changeSizenormalFont(15);
