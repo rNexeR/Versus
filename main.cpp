@@ -36,6 +36,7 @@ Box *blogo = NULL;
 ALLEGRO_BITMAP  *logo   = NULL;
 ALLEGRO_BITMAP  *instru   = NULL;
 ALLEGRO_BITMAP  *fondo   = NULL;
+
 ALLEGRO_SAMPLE *music = NULL;
 ALLEGRO_SAMPLE_ID imusic;
 ALLEGRO_SAMPLE *effect = NULL;
