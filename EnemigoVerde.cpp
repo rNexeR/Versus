@@ -4,6 +4,7 @@ EnemigoVerde::EnemigoVerde(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 {
     velocity = 0.2;
     firingRate = 35;
+    moveBy = 5;
 
     if(!al_init_image_addon())
     {
@@ -78,8 +79,6 @@ void EnemigoVerde::randomizarMovimiento(){
     }else if (randomNumber % 125 == 0){
         alternar = false;
     }
-
-    int moveBy = 5;
 
     if(alternar & detalles->x > 0){
         detalles->x -= moveBy;

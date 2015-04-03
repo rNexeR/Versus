@@ -4,6 +4,8 @@ EnemigoRojo::EnemigoRojo(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimad
 {
     velocity = 0.05;
     firingRate = 10;
+    moveBy = 5;
+
     if(!al_init_image_addon())
     {
         cout<<"failed to initialize image addon!"<<endl;
@@ -59,8 +61,6 @@ void EnemigoRojo::randomizarMovimiento(){
     }else if (randomNumber % 125 == 0){
         alternar = false;
     }
-
-    int moveBy = 5;
 
     if(alternar & detalles->x > 0){
         detalles->x -= moveBy;

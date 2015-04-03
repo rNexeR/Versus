@@ -3,6 +3,8 @@
 EnemigoAzul::EnemigoAzul(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos, int level)
 {
     velocity = 0.5;
+    firingRate = 45;
+    moveBy = 3;
 
     if(!al_init_image_addon())
     {
@@ -61,8 +63,6 @@ void EnemigoAzul::randomizarMovimiento(){
     }else if (randomNumber % 155 == 0){
         alternar = false;
     }
-
-    int moveBy = 3;
 
     if(alternar && detalles->x > 0){
         detalles->x -= moveBy;

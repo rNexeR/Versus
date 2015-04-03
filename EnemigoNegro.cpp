@@ -3,6 +3,8 @@
 EnemigoNegro::EnemigoNegro(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos, int level)
 {
     velocity = 1;
+    moveBy = 2;
+
     if(!al_init_image_addon())
     {
         cout<<"failed to initialize image addon!"<<endl;
@@ -58,8 +60,6 @@ void EnemigoNegro::randomizarMovimiento(){
     }else if (randomNumber % 125 == 0){
         alternar = false;
     }
-
-    int moveBy = 2;
 
     if(alternar & detalles->x > 0){
         detalles->x -= moveBy;
