@@ -41,6 +41,9 @@ ALLEGRO_SAMPLE *music = NULL;
 ALLEGRO_SAMPLE_ID imusic;
 ALLEGRO_SAMPLE *effect = NULL;
 ALLEGRO_SAMPLE_ID ieffect;
+ALLEGRO_SAMPLE *game = NULL;
+ALLEGRO_SAMPLE_ID igame;
+
 ALLEGRO_FONT *normalFont = NULL, *cartoonFont = NULL;
 
 //Constantes
@@ -131,6 +134,8 @@ int initAllegro()
         cout<<"Failed to initialize the font"<<endl;
         return -1;
     }
+
+    game = al_load_sample("GameFiles/music/251295__levelclearer__time-sequence.wav");
 
     al_register_event_source(event_queue, al_get_display_event_source(display));//registrar eventos del display
     al_register_event_source(event_queue, al_get_timer_event_source(timer));//registrar eventos del timer
@@ -356,6 +361,7 @@ int Lvl(string nombre, int level){
         CREACION DE PERSONAJES, ENEMIGOS Y OBSTÁCULOS
     */
     changeSizeCartoonFont(50);
+    al_clear_to_color(al_map_rgb(0,0,0));
     string path = "LVL "+toString(level);
     al_draw_text(cartoonFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, path.c_str());
     al_flip_display();
@@ -437,6 +443,7 @@ int Lvl(string nombre, int level){
 **/
 void loopJuego()
 {
+    al_play_sample(game, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &igame);
     string nombre;
     nombre = ingresarNombre();
     cout<<nombre<<endl;
@@ -446,6 +453,7 @@ void loopJuego()
             if(Lvl(nombre,3)>0)
                 if(Lvl(nombre,4)>0)
                     cout<<"Paso todos los Niveles"<<endl;
+    al_stop_sample(&igame);
 
 }
 
@@ -555,6 +563,7 @@ int main(int argc, char **argv)
     al_destroy_timer(timer);
     al_destroy_sample(music);
     al_destroy_sample(effect);
+    al_destroy_sample(game);
     al_destroy_bitmap(logo);
     al_destroy_bitmap(instru);
     al_destroy_bitmap(fondo);
