@@ -106,6 +106,7 @@ int PerPrincipal::isOnSolidGround()
 
 void PerPrincipal::act(ALLEGRO_EVENT* ev)
 {
+    cout<<vidas<<endl;
     bool entro = false;
     validarTeclas(ev);
     if (!jump && detalles->y < piso && isOnSolidGround()==-1){

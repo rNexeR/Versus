@@ -69,6 +69,7 @@ class PersonajesAnimados : public Entidad
         virtual void draw();
         void init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos);
         void detectColision();
+        PersonajesAnimados* getPrincipal();
         void setAnimacion(int nombre);
         void teclaPresionada(int keycode, bool *variable);
         bool teclaDownEvent(int keycode);

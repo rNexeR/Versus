@@ -156,7 +156,11 @@ void PersonajesAnimados::detectColision()
         if ((*i)->tipoObjeto != tipoObjeto)
         {
             if (colision(detalles,(*i)->detalles))
-                cout<<"colision con "<<(*i)->tipoObjeto<<endl;
+                if (tipoObjeto == "Enemigo"){
+                    muerto = true;
+                    getPrincipal()->vidas -= 10;
+                }
+                //cout<<"colision con "<<(*i)->tipoObjeto<<endl;
             else
             {
                 //con las balas de otros
@@ -169,7 +173,7 @@ void PersonajesAnimados::detectColision()
                                 al_draw_bitmap(damage, detalles->x-10, detalles->y-10,0);
                             this->vidas -= ((Disparos*)(*e))->dmg;//Casting a Disparos* porque dmg es un atributo de clase hija
                             (*e)->colisionado = true;
-                            cout<<"Colision con disparo"<<endl;
+                            //cout<<"Colision con disparo"<<endl;
                         }
                     }
                 }
@@ -263,21 +267,29 @@ PersonajesAnimados::~PersonajesAnimados()
     al_destroy_sample(stop);
 }
 
+PersonajesAnimados* PersonajesAnimados::getPrincipal(){
+    for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++)
+    {
+        if ((*i)->tipoObjeto == "Principal")
+            return (*i);
+    }
+}
+
 /**
     Realiza la limpieza de todas las variables necesarias; evitamos problemas de SF
 **/
 void PersonajesAnimados::limpiarEnemigos()
 {
 //    vector<list<PersonajesAnimados*>::iterator>borrar;
-//    for(list<PersonajesAnimados*>::iterator i=personajes->begin(); i != personajes->end(); i++)
-//    {
-//        //cout<<"entro"<<endl; Comparar que no tenga vida el personaje tampoco
-//        if ((*i)->tipoObjeto == "Enemigo" && ((*i)->muerto == true || (*i)->detalles->y > 600 || (*i)->vidas <= 0)) //si está muerto o se paso
-//        {
-////            personajes->erase(i);
-//            borrar.push_back(i);//añadir a los de borrar
-//        }
-//    }
+    for(list<PersonajesAnimados*>::iterator i=personajes->begin(); i != personajes->end(); i++)
+    {
+        //cout<<"entro"<<endl; Comparar que no tenga vida el personaje tampoco
+        if ((*i)->tipoObjeto == "Enemigo" && (*i)->detalles->y > 600) //si está muerto o se paso
+        {
+//            personajes->erase(i);
+            getPrincipal()->vidas -= 10;//añadir a los de borrar
+        }
+    }
 //    for(int x = 0; x < borrar.size(); x++) //recorrer los que morirán
 //    {
 //        personajes->erase(borrar[x]);
