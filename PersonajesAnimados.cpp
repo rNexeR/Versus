@@ -161,8 +161,7 @@ void PersonajesAnimados::detectColision()
                     getPrincipal()->vidas -= 10;
                 }
                 //cout<<"colision con "<<(*i)->tipoObjeto<<endl;
-            else
-            {
+
                 //con las balas de otros
                 for(list<ObjetosAnimados*>::iterator e = (*i)->disparos->begin(); e != (*i)->disparos->end(); e++)
                 {
@@ -177,7 +176,7 @@ void PersonajesAnimados::detectColision()
                         }
                     }
                 }
-            }
+
 
         }
     }
