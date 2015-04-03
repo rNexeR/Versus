@@ -2,7 +2,7 @@
 
 PersonajesAnimados::PersonajesAnimados()
 {
-
+    vidas = 3;
 }
 
 
@@ -164,8 +164,10 @@ void PersonajesAnimados::detectColision()
                 {
                     if ((*e)->tipoObjeto == "Disparo")
                     {
-                        if (colision(detalles,(*e)->detalles))
+                        if (colision(detalles,(*e)->detalles)){
+                            this->vidas -= ((Disparos*)(*e))->dmg;//Casting a Disparos* porque dmg es un atributo de clase hija
                             cout<<"Colision con disparo"<<endl;
+                        }
                     }
                 }
             }
@@ -266,8 +268,8 @@ void PersonajesAnimados::limpiarEnemigos()
     vector<list<PersonajesAnimados*>::iterator>borrar;
     for(list<PersonajesAnimados*>::iterator i=personajes->begin(); i != personajes->end(); i++)
     {
-        //cout<<"entro"<<endl;
-        if ((*i)->tipoObjeto == "Enemigo" && ((*i)->muerto == true || (*i)->detalles->y > 600)) //si está muerto o se paso
+        //cout<<"entro"<<endl; Comparar que no tenga vida el personaje tampoco
+        if ((*i)->tipoObjeto == "Enemigo" && ((*i)->muerto == true || (*i)->detalles->y > 600 || (*i)->vidas <= 0)) //si está muerto o se paso
         {
 //            personajes->erase(i);
             borrar.push_back(i);//añadir a los de borrar
