@@ -33,6 +33,7 @@ ALLEGRO_TIMER *timer = NULL;
 //Elementos Generales
 Box *blogo = NULL;
 ALLEGRO_BITMAP  *logo   = NULL;
+ALLEGRO_BITMAP  *instru   = NULL;
 ALLEGRO_SAMPLE *music = NULL;
 ALLEGRO_SAMPLE_ID imusic;
 ALLEGRO_SAMPLE *effect = NULL;
@@ -181,6 +182,8 @@ int initLogo()
     blogo = new Box(0,0,al_get_bitmap_width(logo), al_get_bitmap_height(logo));
     blogo->x = (width-blogo->width)/2;
     blogo->y = (height-blogo->height)/2;
+
+    instru = al_load_bitmap("GameFiles/assets/fondos/Instrucciones.png");
     return 0;
 }
 
@@ -221,6 +224,17 @@ void showSplash()
     al_draw_bitmap(logo,blogo->x,blogo->y,0);
     al_flip_display();
     al_rest(splashTime);
+}
+
+void showInstrucciones(){
+    while(1){
+        bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
+        if(get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE || teclaDownEvent(ALLEGRO_KEY_ESCAPE)))
+            break;
+        al_clear_to_color(al_map_rgb(0,0,0));
+        al_draw_bitmap(instru,0,0,0);
+        al_flip_display();
+    }
 }
 
 /**
@@ -461,7 +475,7 @@ void mainMenu()
             {
                 //llamar el loop de instrucciones
                 al_stop_samples();
-                showSplash();
+                showInstrucciones();
                 al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
             }
             else if(uPosy == uPosyOriginal+(espaciado*2))
@@ -506,6 +520,7 @@ int main(int argc, char **argv)
     al_destroy_sample(music);
     al_destroy_sample(effect);
     al_destroy_bitmap(logo);
+    al_destroy_bitmap(instru);
 
     cleanPersonajes();
     return 0;
