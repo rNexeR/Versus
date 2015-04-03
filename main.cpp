@@ -315,21 +315,27 @@ PersonajesAnimados* getPrincipal(){
     }
 }
 
-int Lvl1(string nombre){
+void loadLvl(int level){
+    obstaculos->push_back(new Obstaculo(0, obstaculos));
+    obstaculos->push_back(new Obstaculo(200, obstaculos));
+    if (level == 1){
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
+        personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 1));
+        personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, 2));
+        personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 3));
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 4));
+        personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos));
+    }
+}
+
+int Lvl1(string nombre, int level){
     /*
         CREACION DE PERSONAJES, ENEMIGOS Y OBSTÁCULOS
     */
     changeSizeCartoonFont(50);
     al_draw_text(cartoonFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, "LVL 1");
     al_flip_display();
-    personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
-    personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 1));
-    personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, 2));
-    personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 3));
-    personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 4));
-    obstaculos->push_back(new Obstaculo(0, obstaculos));
-    obstaculos->push_back(new Obstaculo(200, obstaculos));
-    personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos));
+    loadLvl(1);
     al_rest(3);
     int seg = 0;
     changeSizenormalFont(15);
@@ -411,7 +417,7 @@ void loopJuego()
     nombre = ingresarNombre();
     cout<<nombre<<endl;
     resetGame();
-    if (Lvl1(nombre)>0)
+    if (Lvl1(nombre,1)>0)
         cout<<"paso Lvl 1"<<endl;
 }
 
@@ -451,13 +457,13 @@ void mainMenu()
         {
             break;
         }
-        if(get_event && teclaDownEvent(ALLEGRO_KEY_DOWN))
+        if(get_event && teclaDownEvent(ALLEGRO_KEY_S))
         {
             al_stop_sample(&ieffect);
             al_play_sample(effect, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&ieffect);
             uPosy += espaciado;
         }
-        else if(get_event && teclaDownEvent(ALLEGRO_KEY_UP))
+        else if(get_event && teclaDownEvent(ALLEGRO_KEY_W))
         {
             al_stop_sample(&ieffect);
             al_play_sample(effect, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&ieffect);
