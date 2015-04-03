@@ -4,7 +4,7 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 {
     tipoObjeto = "Principal";
     velocity = 5;
-    vidas = 10;
+    vidas = 100;
     piso = 580;
     init(personajes, obstaculos);
     if(!al_install_keyboard())

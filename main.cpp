@@ -320,6 +320,7 @@ PersonajesAnimados* getPrincipal(){
 }
 
 void loadLvl(int level){
+    resetGame();
     obstaculos->push_back(new Obstaculo(0, obstaculos));
     obstaculos->push_back(new Obstaculo(200, obstaculos));
     if (level == 1){
@@ -328,16 +329,35 @@ void loadLvl(int level){
         personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, 2));
         personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 3));
         personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 4));
-        personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos));
+    }else if (level == 2){
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
+        personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 1));
+        personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, 2));
+        personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 3));
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 4));
+    }else if (level == 3){
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
+        personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 1));
+        personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, 2));
+        personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 3));
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 4));
+    }else if (level == 4){
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
+        personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 1));
+        personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, 2));
+        personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 3));
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 4));
     }
+    personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos));
 }
 
-int Lvl1(string nombre, int level){
+int Lvl(string nombre, int level){
     /*
         CREACION DE PERSONAJES, ENEMIGOS Y OBSTÁCULOS
     */
     changeSizeCartoonFont(50);
-    al_draw_text(cartoonFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, "LVL 1");
+    string path = "LVL "+toString(level);
+    al_draw_text(cartoonFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, path.c_str());
     al_flip_display();
     loadLvl(1);
     al_rest(3);
@@ -421,8 +441,12 @@ void loopJuego()
     nombre = ingresarNombre();
     cout<<nombre<<endl;
     resetGame();
-    if (Lvl1(nombre,1)>0)
-        cout<<"paso Lvl 1"<<endl;
+    if (Lvl(nombre,1)>0)
+        if(Lvl(nombre,2)>0)
+            if(Lvl(nombre,3)>0)
+                if(Lvl(nombre,4)>0)
+                    cout<<"Paso todos los Niveles"<<endl;
+
 }
 
 /**
