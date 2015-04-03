@@ -1,6 +1,6 @@
 #include "EnemigoVerde.h"
 
-EnemigoVerde::EnemigoVerde(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos, int level)
+EnemigoVerde::EnemigoVerde(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos, ALLEGRO_DISPLAY *display, int level)
 {
     velocity = 0.2;
     firingRate = 35;
@@ -49,7 +49,7 @@ EnemigoVerde::EnemigoVerde(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     this->event_queue = event_queue;
-    init(personajes, obstaculos);
+    init(personajes, obstaculos, display);
     setAnimacion(0);
     disparos = new list<ObjetosAnimados*>;//Inicializar disparos
 }

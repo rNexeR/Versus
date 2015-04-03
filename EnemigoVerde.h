@@ -8,7 +8,7 @@ class EnemigoVerde : public Enemigos
 {
     public:
         EnemigoVerde(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes,
-            list<ObjetosAnimados*>*obstaculos, int level);
+            list<ObjetosAnimados*>*obstaculos, ALLEGRO_DISPLAY *display, int level);
         virtual ~EnemigoVerde();
     protected:
     private:

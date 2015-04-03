@@ -7,7 +7,7 @@
 class EnemigoAzul : public Enemigos
 {
     public:
-        EnemigoAzul(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos, int level);
+        EnemigoAzul(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos, ALLEGRO_DISPLAY *display, int level);
         //virtual void act(ALLEGRO_EVENT* ev);
         virtual void determinarRandomMovimiento();
         virtual ~EnemigoAzul();

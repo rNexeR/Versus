@@ -1,12 +1,12 @@
 #include "PerPrincipal.h"
 
-PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos)
+PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos, ALLEGRO_DISPLAY *display)
 {
     tipoObjeto = "Principal";
     velocity = 5;
     vidas = 50;
     piso = 580;
-    init(personajes, obstaculos);
+    init(personajes, obstaculos, display);
     if(!al_install_keyboard())
     {
         cout<<"failed to initialize the keyboard!"<<endl;

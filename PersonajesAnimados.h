@@ -50,6 +50,7 @@ class PersonajesAnimados : public Entidad
         bool jump, down;
 
         map<int, vector<ALLEGRO_BITMAP*> > mapa_sprites;
+        ALLEGRO_BITMAP *health;
         ALLEGRO_BITMAP *damage;
         ALLEGRO_SAMPLE *sonido;
         ALLEGRO_SAMPLE_ID idsonido;
@@ -62,12 +63,13 @@ class PersonajesAnimados : public Entidad
         ALLEGRO_EVENT ev;
         ALLEGRO_TIMEOUT timeout;
         ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+        ALLEGRO_DISPLAY *display;
 
         PersonajesAnimados();
         string toString(int number);
         virtual int getTime() = 0;
         virtual void draw();
-        void init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos);
+        void init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos, ALLEGRO_DISPLAY *display);
         void detectColision();
         PersonajesAnimados* getPrincipal();
         void setAnimacion(int nombre);

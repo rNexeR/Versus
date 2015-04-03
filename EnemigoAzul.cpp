@@ -1,6 +1,6 @@
 #include "EnemigoAzul.h"
 
-EnemigoAzul::EnemigoAzul(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos, int level)
+EnemigoAzul::EnemigoAzul(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos,ALLEGRO_DISPLAY *display, int level)
 {
     velocity = 0.5;
     firingRate = 45;
@@ -50,7 +50,7 @@ EnemigoAzul::EnemigoAzul(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimad
 
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     this->event_queue = event_queue;
-    init(personajes, obstaculos);
+    init(personajes, obstaculos, display);
     setAnimacion(0);
     disparos = new list<ObjetosAnimados*>;//Inicializar disparos
 }

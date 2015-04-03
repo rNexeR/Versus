@@ -6,7 +6,7 @@
 class EnemigoNegro : public Enemigos
 {
     public:
-        EnemigoNegro(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos, int level);
+        EnemigoNegro(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos,ALLEGRO_DISPLAY *display, int level);
         //virtual void act(ALLEGRO_EVENT* ev);
         virtual ~EnemigoNegro();
     protected:

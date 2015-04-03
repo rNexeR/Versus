@@ -61,6 +61,16 @@ void PersonajesAnimados::draw()
             (*i)->draw();
         }
     }
+    if (vidas>0)
+    {
+        health = al_create_bitmap(vidas, 5);
+        al_set_target_bitmap(health);
+
+        al_clear_to_color(al_map_rgb(255, 0, 0));
+
+        al_set_target_bitmap(al_get_backbuffer(display));
+        al_draw_bitmap(health, detalles->x, detalles->y-10,0);
+    }
 
     frame++;
     detectColision();
@@ -70,8 +80,9 @@ void PersonajesAnimados::draw()
 /**
     Función para inicializar los valores de un personaje
 **/
-void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos)
+void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos, ALLEGRO_DISPLAY *display)
 {
+    this->display = display;
     this->personajes = personajes;//settea el apuntador a la lista de personajes en el juego
     this->obstaculos = obstaculos;//settea el apuntador a la lista de obstaculos en el juego
     disparos = NULL;
@@ -156,26 +167,28 @@ void PersonajesAnimados::detectColision()
         if ((*i)->tipoObjeto != tipoObjeto)
         {
             if (colision(detalles,(*i)->detalles))
-                if (tipoObjeto == "Enemigo"){
+                if (tipoObjeto == "Enemigo")
+                {
                     muerto = true;
                     getPrincipal()->vidas -= 10;
                 }
-                //cout<<"colision con "<<(*i)->tipoObjeto<<endl;
+            //cout<<"colision con "<<(*i)->tipoObjeto<<endl;
 
-                //con las balas de otros
-                for(list<ObjetosAnimados*>::iterator e = (*i)->disparos->begin(); e != (*i)->disparos->end(); e++)
+            //con las balas de otros
+            for(list<ObjetosAnimados*>::iterator e = (*i)->disparos->begin(); e != (*i)->disparos->end(); e++)
+            {
+                if ((*e)->tipoObjeto == "Disparo")
                 {
-                    if ((*e)->tipoObjeto == "Disparo")
+                    if (colision(detalles,(*e)->detalles))
                     {
-                        if (colision(detalles,(*e)->detalles)){
-                            if (tipoObjeto == "Principal")
-                                al_draw_bitmap(damage, detalles->x-10, detalles->y-10,0);
-                            this->vidas -= ((Disparos*)(*e))->dmg;//Casting a Disparos* porque dmg es un atributo de clase hija
-                            (*e)->colisionado = true;
-                            //cout<<"Colision con disparo"<<endl;
-                        }
+                        if (tipoObjeto == "Principal")
+                            al_draw_bitmap(damage, detalles->x-10, detalles->y-10,0);
+                        this->vidas -= ((Disparos*)(*e))->dmg;//Casting a Disparos* porque dmg es un atributo de clase hija
+                        (*e)->colisionado = true;
+                        //cout<<"Colision con disparo"<<endl;
                     }
                 }
+            }
 
 
         }
@@ -188,17 +201,18 @@ void PersonajesAnimados::detectColision()
         if ((*i)->tipoObjeto == "Obstaculo")
         {
             for(list<ObjetosAnimados*>::iterator e = disparos->begin(); e != disparos->end(); e++)
+            {
+                if ((*e)->tipoObjeto == "Disparo")
                 {
-                    if ((*e)->tipoObjeto == "Disparo")
+                    if (colision((*e)->detalles, (*i)->detalles))
                     {
-                        if (colision((*e)->detalles, (*i)->detalles)){
-                            (*e)->colisionado = true;
-                            //borrar.push_back(e);
-                            al_stop_sample(&idstop);
-                            al_play_sample(stop, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idstop);
-                        }
+                        (*e)->colisionado = true;
+                        //borrar.push_back(e);
+                        al_stop_sample(&idstop);
+                        al_play_sample(stop, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idstop);
                     }
                 }
+            }
         }
     }
 //    for(int x = 0; x < borrar.size(); x++) //recorrer los que morirán
@@ -264,9 +278,11 @@ PersonajesAnimados::~PersonajesAnimados()
         al_destroy_bitmap(damage);//Destruir el bitmap; innecesario el delete
     al_destroy_sample(sonido);
     al_destroy_sample(stop);
+    al_destroy_bitmap(health);
 }
 
-PersonajesAnimados* PersonajesAnimados::getPrincipal(){
+PersonajesAnimados* PersonajesAnimados::getPrincipal()
+{
     for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++)
     {
         if ((*i)->tipoObjeto == "Principal")
