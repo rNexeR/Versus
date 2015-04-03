@@ -331,47 +331,47 @@ void loadLvl(int level){
     obstaculos->push_back(new Obstaculo(200, obstaculos));
     if (level == 1){
         //SOLO NEGROS
-        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
-        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 2));
-        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 3));
-        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 4));
-        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
-        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 2));
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, display, 1));
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, display, 2));
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, display, 3));
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, display, 4));
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, display, 1));
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, display, 2));
 
     }else if (level == 2){
         //NEGROS Y VERDES
-        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 3));
-        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 4));
-        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, display, 3));
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, display, 4));
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, display, 1));
 
-        personajes->push_back(new EnemigoVerde(event_queue, personajes, obstaculos, 1));
-        personajes->push_back(new EnemigoVerde(event_queue, personajes, obstaculos, 2));
-        personajes->push_back(new EnemigoVerde(event_queue, personajes, obstaculos, 3));
+        personajes->push_back(new EnemigoVerde(event_queue, personajes, obstaculos, display, 1));
+        personajes->push_back(new EnemigoVerde(event_queue, personajes, obstaculos, display, 2));
+        personajes->push_back(new EnemigoVerde(event_queue, personajes, obstaculos, display, 3));
 
     }else if (level == 3){
         //NEGROS, VERDES Y AZULES
-        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 3));
-        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 4));
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, display, 3));
+        personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, display, 4));
 
-        personajes->push_back(new EnemigoVerde(event_queue, personajes, obstaculos, 4));
-        personajes->push_back(new EnemigoVerde(event_queue, personajes, obstaculos, 3));
+        personajes->push_back(new EnemigoVerde(event_queue, personajes, obstaculos, display, 4));
+        personajes->push_back(new EnemigoVerde(event_queue, personajes, obstaculos, display, 3));
 
-        personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, 1));
-        personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, 2));
+        personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, display, 1));
+        personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, display, 2));
 
     }else if (level == 4){
         //VERDES, AZULES Y ROJOS
-        personajes->push_back(new EnemigoVerde(event_queue, personajes, obstaculos, 4));
-        personajes->push_back(new EnemigoVerde(event_queue, personajes, obstaculos, 1));
+        personajes->push_back(new EnemigoVerde(event_queue, personajes, obstaculos, display, 4));
+        personajes->push_back(new EnemigoVerde(event_queue, personajes, obstaculos, display, 1));
 
-        personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, 3));
-        personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, 4));
+        personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, display, 3));
+        personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, display, 4));
 
-        personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 3));
-        personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 1));
+        personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, display, 3));
+        personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, display, 1));
 
     }
-    personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos));
+    personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos, display));
 }
 
 int Lvl(string nombre, int level){
