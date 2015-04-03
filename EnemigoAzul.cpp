@@ -5,6 +5,8 @@ EnemigoAzul::EnemigoAzul(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimad
     velocity = 0.5;
     firingRate = 45;
     moveBy = 3;
+    randomAlternative1 = 100;
+    randomAlternative2 = 155;
 
     if(!al_init_image_addon())
     {
@@ -53,9 +55,6 @@ EnemigoAzul::EnemigoAzul(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimad
     disparos = new list<ObjetosAnimados*>;//Inicializar disparos
 }
 
-/**
-    El patrón de movimiento del enemigo
-**/
 void EnemigoAzul::randomizarMovimiento(){
     int randomNumber = rand() % 100000;
     if (randomNumber % 100 == 0){

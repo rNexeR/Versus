@@ -53,22 +53,6 @@ EnemigoNegro::EnemigoNegro(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
     disparos = new list<ObjetosAnimados*>;//Inicializar disparos
 }
 
-void EnemigoNegro::randomizarMovimiento(){
-    int randomNumber = rand() % 10000;
-    if (randomNumber % 175 == 0){
-        alternar = true;
-    }else if (randomNumber % 125 == 0){
-        alternar = false;
-    }
-
-    if(alternar & detalles->x > 0){
-        detalles->x -= moveBy;
-    }else if (!alternar & detalles->x < 450){
-        detalles->x += moveBy;
-    }
-
-
-}
 
 EnemigoNegro::~EnemigoNegro()
 {

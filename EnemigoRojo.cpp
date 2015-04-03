@@ -3,8 +3,11 @@
 EnemigoRojo::EnemigoRojo(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos, int level)
 {
     velocity = 0.05;
-    firingRate = 10;
+    firingRate = 20;
     moveBy = 5;
+    laserDmg = 5;
+    randomAlternative1 =  150;
+    randomAlternative2 = 125;
 
     if(!al_init_image_addon())
     {
@@ -56,16 +59,20 @@ EnemigoRojo::EnemigoRojo(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimad
 
 void EnemigoRojo::randomizarMovimiento(){
     int randomNumber = rand() % 10000;
-    if (randomNumber % 175 == 0){
+    if (randomNumber % 150 == 0){
         alternar = true;
     }else if (randomNumber % 125 == 0){
         alternar = false;
     }
 
-    if(alternar & detalles->x > 0){
+    if(alternar){
         detalles->x -= moveBy;
-    }else if (!alternar & detalles->x < 450){
+        if(detalles->x < 0)
+            detalles->x -= (moveBy * -1);
+    }else if (!alternar){
         detalles->x += moveBy;
+        if(detalles->x > 450)
+            detalles->x += (moveBy * -1);
     }
 }
 
