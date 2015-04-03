@@ -48,7 +48,7 @@ Disparos::Disparos(int dmg, int posX, int posY, int dir)
     detalles->y = posY;
     tipoObjeto = "Disparo";//declarar el tipo de ObjetoAnimado
     sprite = al_load_bitmap(path.c_str());//cargar el sprite según el path dado
-
+    colisionado = false;
     if(!sprite)
         return;
 

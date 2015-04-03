@@ -174,7 +174,7 @@ void PersonajesAnimados::detectColision()
     }
 
     //disparos contra obstaculos
-    vector<list<ObjetosAnimados*>::iterator>borrar;
+    //vector<list<ObjetosAnimados*>::iterator>borrar;
     for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i != obstaculos->end(); i++)
     {
         if ((*i)->tipoObjeto == "Obstaculo")
@@ -184,7 +184,8 @@ void PersonajesAnimados::detectColision()
                     if ((*e)->tipoObjeto == "Disparo")
                     {
                         if (colision((*e)->detalles, (*i)->detalles)){
-                            borrar.push_back(e);
+                            (*e)->colisionado = true;
+                            //borrar.push_back(e);
                             al_stop_sample(&idstop);
                             al_play_sample(stop, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idstop);
                         }
@@ -192,11 +193,11 @@ void PersonajesAnimados::detectColision()
                 }
         }
     }
-    for(int x = 0; x < borrar.size(); x++) //recorrer los que morirán
-    {
-        disparos->erase(borrar[x]);
-        delete (*borrar[x]);
-    }
+//    for(int x = 0; x < borrar.size(); x++) //recorrer los que morirán
+//    {
+//        disparos->erase(borrar[x]);
+//        delete (*borrar[x]);
+//    }
 }
 
 /**
@@ -253,7 +254,8 @@ PersonajesAnimados::~PersonajesAnimados()
     delete detalles;
     if(damage!=NULL)
         al_destroy_bitmap(damage);//Destruir el bitmap; innecesario el delete
-    //al_destroy_sample(sonido);
+    al_destroy_sample(sonido);
+    al_destroy_sample(stop);
 }
 
 /**
@@ -275,5 +277,16 @@ void PersonajesAnimados::limpiarEnemigos()
     {
         personajes->erase(borrar[x]);
         delete (*borrar[x]);
+    }
+    vector<list<ObjetosAnimados*>::iterator>bdisparos;
+    for(list<ObjetosAnimados*>::iterator e = disparos->begin(); e != disparos->end(); e++)
+    {
+        if ((*e)->tipoObjeto == "Disparo" && (*e)->colisionado)
+            bdisparos.push_back(e);
+    }
+    for(int x = 0; x < bdisparos.size(); x++) //recorrer los que morirán
+    {
+        disparos->erase(bdisparos[x]);
+        delete (*bdisparos[x]);
     }
 }
