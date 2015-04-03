@@ -25,6 +25,7 @@ EnemigoNegro::EnemigoNegro(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 
     sonido = NULL;
     stop = NULL;
+    vidas = 5;
 
     sonido = al_load_sample( "GameFiles/music/sfx_laser2.wav" );
     stop = al_load_sample( "GameFiles/music/stop.wav" );
@@ -62,7 +63,7 @@ void EnemigoNegro::act(ALLEGRO_EVENT* ev){
     randomizarMovimiento();
 
     frame++;
-    if (detalles->y > 600)
+    if (detalles->y > 600 || vidas < 0)
         muerto = true;
 }
 

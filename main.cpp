@@ -62,7 +62,7 @@ string toString(int number)
         temp+=number%10+48;
         number/=10;
     }
-    for (int i=0;i<(int)temp.length();i++)
+    for (int i=0; i<(int)temp.length(); i++)
         returnvalue+=temp[temp.length()-i-1];
     return returnvalue;
 }
@@ -274,7 +274,8 @@ void cleanPersonajes()
 /**
     Borra los obstáculos de la lista individualmente
 **/
-void cleanObstaculos(){
+void cleanObstaculos()
+{
     for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i != obstaculos->end(); i++)
         delete (*i);
 }
@@ -328,8 +329,24 @@ void loopJuego()
         {
             if ((*i)->tipoObjeto == "Principal")
                 seg = (*i)->getTime();
-            (*i)->draw();
             (*i)->act(&ev);
+            (*i)->draw();
+        }
+
+        vector<list<PersonajesAnimados*>::iterator>borrar;
+        for(list<PersonajesAnimados*>::iterator i=personajes->begin(); i != personajes->end(); i++)
+        {
+            //cout<<"entro"<<endl; Comparar que no tenga vida el personaje tampoco
+            if ((*i)->tipoObjeto == "Enemigo" && ((*i)->muerto == true || (*i)->detalles->y > 600 || (*i)->vidas <= 0)) //si está muerto o se paso
+            {
+//            personajes->erase(i);
+                borrar.push_back(i);//añadir a los de borrar
+            }
+        }
+        for(int x = 0; x < borrar.size(); x++) //recorrer los que morirán
+        {
+            personajes->erase(borrar[x]);
+            delete (*borrar[x]);
         }
 
 
@@ -416,7 +433,9 @@ void mainMenu()
                 al_stop_samples();
                 showSplash();
                 al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
-            }else{
+            }
+            else
+            {
                 break;
             }
         }

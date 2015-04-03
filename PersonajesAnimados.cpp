@@ -265,21 +265,21 @@ PersonajesAnimados::~PersonajesAnimados()
 **/
 void PersonajesAnimados::limpiarEnemigos()
 {
-    vector<list<PersonajesAnimados*>::iterator>borrar;
-    for(list<PersonajesAnimados*>::iterator i=personajes->begin(); i != personajes->end(); i++)
-    {
-        //cout<<"entro"<<endl; Comparar que no tenga vida el personaje tampoco
-        if ((*i)->tipoObjeto == "Enemigo" && ((*i)->muerto == true || (*i)->detalles->y > 600 || (*i)->vidas <= 0)) //si está muerto o se paso
-        {
-//            personajes->erase(i);
-            borrar.push_back(i);//añadir a los de borrar
-        }
-    }
-    for(int x = 0; x < borrar.size(); x++) //recorrer los que morirán
-    {
-        personajes->erase(borrar[x]);
-        delete (*borrar[x]);
-    }
+//    vector<list<PersonajesAnimados*>::iterator>borrar;
+//    for(list<PersonajesAnimados*>::iterator i=personajes->begin(); i != personajes->end(); i++)
+//    {
+//        //cout<<"entro"<<endl; Comparar que no tenga vida el personaje tampoco
+//        if ((*i)->tipoObjeto == "Enemigo" && ((*i)->muerto == true || (*i)->detalles->y > 600 || (*i)->vidas <= 0)) //si está muerto o se paso
+//        {
+////            personajes->erase(i);
+//            borrar.push_back(i);//añadir a los de borrar
+//        }
+//    }
+//    for(int x = 0; x < borrar.size(); x++) //recorrer los que morirán
+//    {
+//        personajes->erase(borrar[x]);
+//        delete (*borrar[x]);
+//    }
     vector<list<ObjetosAnimados*>::iterator>bdisparos;
     for(list<ObjetosAnimados*>::iterator e = disparos->begin(); e != disparos->end(); e++)
     {
