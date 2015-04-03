@@ -283,39 +283,53 @@ void cleanObstaculos()
 /**
     Inicialización del juego (main game)
 **/
-void initGame()
+void resetGame()
 {
     cleanPersonajes();
     cleanObstaculos();//limpiar obstacles
     personajes->clear();
     obstaculos->clear();
+}
+
+PersonajesAnimados* getPrincipal(){
+    for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++)
+    {
+        if ((*i)->tipoObjeto == "Principal")
+            return (*i);
+    }
+}
+
+int Lvl1(string nombre){
     /*
         CREACION DE PERSONAJES, ENEMIGOS Y OBSTÁCULOS
     */
+    changeSizeCartoonFont(50);
+    al_draw_text(cartoonFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, "LVL 1");
+    al_flip_display();
     personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
+    personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
+    personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 2));
+    personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 3));
+    personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 4));
     obstaculos->push_back(new Obstaculo(0, obstaculos));
     obstaculos->push_back(new Obstaculo(200, obstaculos));
     personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos));
-}
-
-/**
-    Ciclo principal del juego
-**/
-void loopJuego()
-{
-    string nombre;
+    al_rest(3);
     int seg = 0;
-    nombre = ingresarNombre();
-    cout<<nombre<<endl;
-    initGame();
-
     changeSizenormalFont(15);
     changeSizeCartoonFont(20);
+    ALLEGRO_BITMAP *mes;
     while(1)
     {
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
-        if(get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE || teclaDownEvent(ALLEGRO_KEY_ESCAPE)))
+        if(getPrincipal()->muerto || (get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE || teclaDownEvent(ALLEGRO_KEY_ESCAPE))))
         {
+            seg = -1;
+            mes = al_load_bitmap("GameFiles/assets/fondos/Lose.png");
+            break;
+        }
+        if (personajes->size()<=1){
+            mes = al_load_bitmap("GameFiles/assets/fondos/Win.png");
             break;
         }
         al_clear_to_color(al_map_rgb(0,0,0));
@@ -361,6 +375,28 @@ void loopJuego()
 
         al_flip_display();
     }
+    al_draw_bitmap(mes, 75,200,0);
+//    if (seg>0){
+//        string mensaje = "Tiempo de Juego "+toString(seg);
+//        al_draw_text(cartoonFont, al_map_rgb(255,255,255), width/2, height/1.5,ALLEGRO_ALIGN_RIGHT, mensaje.c_str());
+//    }
+    al_flip_display();
+    al_rest(2);
+    al_destroy_bitmap(mes);
+    return seg;
+}
+
+/**
+    Ciclo principal del juego
+**/
+void loopJuego()
+{
+    string nombre;
+    nombre = ingresarNombre();
+    cout<<nombre<<endl;
+    resetGame();
+    if (Lvl1(nombre)>0)
+        cout<<"paso Lvl 1"<<endl;
 }
 
 /**
