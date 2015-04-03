@@ -87,5 +87,4 @@ void EnemigoNegro::randomizarMovimiento(){
 
 EnemigoNegro::~EnemigoNegro()
 {
-    //dtor
 }

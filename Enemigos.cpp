@@ -13,5 +13,4 @@ int Enemigos::getTime(){
 
 Enemigos::~Enemigos()
 {
-    //dtor
 }

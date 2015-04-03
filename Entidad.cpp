@@ -2,12 +2,10 @@
 
 Entidad::Entidad()
 {
-    //ctor
 }
 
 Entidad::~Entidad()
 {
-    //dtor
 }
 
 //Detecta si el objeto está colisionando o no

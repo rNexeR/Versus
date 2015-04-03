@@ -433,10 +433,6 @@ void mainMenu()
     }
     al_destroy_bitmap(options);//destruir bitmaps de opciones una vez no se ocupen
     al_destroy_bitmap(select);//destruir bitmaps de select
-    //delete options;
-//    delete select;
-//    delete boptions;
-//    delete bselect;
 }
 
 int main(int argc, char **argv)
@@ -456,13 +452,5 @@ int main(int argc, char **argv)
     al_destroy_bitmap(logo);
 
     cleanPersonajes();
-//    delete entidades;
-//    delete personajes;
-//    delete obstaculos;
-//    delete blogo;
-//    delete logo;
-//    delete music;
-//    delete effect;
-
     return 0;
 }

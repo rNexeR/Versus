@@ -2,13 +2,11 @@
 
 ObjetosAnimados::ObjetosAnimados()
 {
-    //ctor
 }
 
 ObjetosAnimados::~ObjetosAnimados()
 {
     al_destroy_bitmap(sprite);//destruir el bitmap para evitar SFs
-    //dtor
 }
 
 void ObjetosAnimados::draw(){

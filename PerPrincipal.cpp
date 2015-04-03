@@ -176,15 +176,6 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
             jump = true;
             entro = true;
         }
-//        if (ev->type == ALLEGRO_EVENT_KEY_DOWN && !down && ev->keyboard.keycode == ALLEGRO_KEY_S)
-//        {
-//            if (detalles->y < piso)
-//            {
-//                setAnimacion(orientacion == 'r' ? CAYENDO_DERECHA : CAYENDO_IZQUIERDA);
-//                down = true;
-////                aceleracion_y = 0.1;
-//            }
-//        }
 
         if(key[KEY_LEFT] && detalles->x > 0)
         {
@@ -251,17 +242,10 @@ void PerPrincipal::validarTeclas(ALLEGRO_EVENT* ev)
         case ALLEGRO_KEY_D:
             key[KEY_RIGHT] = false;
             break;
-
-//        case ALLEGRO_KEY_SPACE:
-//            key[KEY_SPACE] = false;
-//
-//        case ALLEGRO_KEY_P:
-//            key[KEY_SHOOT] = false;
         }
     }
 }
 
 PerPrincipal::~PerPrincipal()
 {
-    //dtor
 }

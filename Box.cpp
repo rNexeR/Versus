@@ -10,5 +10,4 @@ Box::Box(float x, float y, float width, float height)
 
 Box::~Box()
 {
-    //dtor
 }

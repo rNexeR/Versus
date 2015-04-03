@@ -5,7 +5,6 @@
 
 class ObjetosAnimados : public Entidad{
     public:
-//        vector<ALLEGRO_BITMAP*>* sprites;//
         ALLEGRO_BITMAP* sprite;
         virtual void draw();//dibujo
         ObjetosAnimados();//constructor
