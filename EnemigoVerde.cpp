@@ -2,7 +2,7 @@
 
 EnemigoVerde::EnemigoVerde(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimados *> *personajes, list<ObjetosAnimados*>*obstaculos, int level)
 {
-    velocity = 1;
+    velocity = 0.2;
     if(!al_init_image_addon())
     {
         cout<<"failed to initialize image addon!"<<endl;
@@ -51,7 +51,25 @@ EnemigoVerde::EnemigoVerde(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
     disparos = new list<ObjetosAnimados*>;//Inicializar disparos
 }
 
-void EnemigoNegro::randomizarMovimiento(){
+void EnemigoVerde::act(ALLEGRO_EVENT* ev){
+    detalles->y+=velocity;
+    int randomEstado = rand() % 100000;
+
+    if(randomEstado % 35 == 0){//Si es divisible entre x, entonces agregar el disparo
+        al_stop_sample(&idsonido);
+        al_play_sample(sonido, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idsonido);
+        disparos->push_back(new Disparos(1, detalles->x + 15, detalles->y + 40, 0));
+        detalles->y -= (velocity / 2);
+    }
+
+    randomizarMovimiento();
+
+    frame++;
+    if (detalles->y > 600 || vidas < 0)
+        muerto = true;
+}
+
+void EnemigoVerde::randomizarMovimiento(){
     int randomNumber = rand() % 10000;
     if (randomNumber % 175 == 0){
         alternar = true;
@@ -59,15 +77,13 @@ void EnemigoNegro::randomizarMovimiento(){
         alternar = false;
     }
 
-    int moveBy = 3;
+    int moveBy = 5;
 
     if(alternar & detalles->x > 0){
         detalles->x -= moveBy;
     }else if (!alternar & detalles->x < 450){
         detalles->x += moveBy;
     }
-
-
 }
 
 EnemigoVerde::~EnemigoVerde()
