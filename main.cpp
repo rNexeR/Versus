@@ -19,6 +19,7 @@ using namespace std;
 #include "PerPrincipal.h"
 #include "EnemigoNegro.h"
 #include "EnemigoAzul.h"
+#include "EnemigoRojo.h"
 
 const float FPS = 60;
 
@@ -322,9 +323,9 @@ int Lvl1(string nombre){
     al_draw_text(cartoonFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, "LVL 1");
     al_flip_display();
     personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
-    personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 1));
+    personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 1));
     personajes->push_back(new EnemigoAzul(event_queue, personajes, obstaculos, 2));
-    personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 3));
+    personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, 3));
     personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, 4));
     obstaculos->push_back(new Obstaculo(0, obstaculos));
     obstaculos->push_back(new Obstaculo(200, obstaculos));
