@@ -563,6 +563,7 @@ int main(int argc, char **argv)
     al_destroy_timer(timer);
     al_destroy_sample(music);
     al_destroy_sample(effect);
+    al_destroy_sample(game);
     al_destroy_bitmap(logo);
     al_destroy_bitmap(instru);
     al_destroy_bitmap(fondo);
