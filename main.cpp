@@ -481,7 +481,7 @@ void readScores(){
         string nombre;
         char* n = new char[10];
         int time;
-        in.read((char*)time, 4);
+        in.read((char*)&time, 4);
         in.read(n, 10);
         nombre = n;
         cout<<"Jugador: "<<nombre<<" Tiempo: "<<time<<endl;
@@ -509,7 +509,7 @@ void writeScore(string nombre, int seg){
     jugadores.insert(pair<int, string>(seg, nombre));
     for(multimap<int, string>::iterator x = jugadores.begin(); x != jugadores.end(); x++){
         cout<<(*x).first<<" , "<<(*x).second<<endl;
-        int time = (*x).first;
+        int time = (int)(*x).first;
         string name = (*x).second;
         cout<<time<<" , "<<name<<endl;
         out.write((char*)&time, 4);
@@ -614,6 +614,10 @@ void mainMenu()
                 //llamar el loop de Scores
                 al_stop_samples();
                 writeScore("nexer", 100);
+                writeScore("nexer", 80);
+                writeScore("nexer", 90);
+                writeScore("nexer", 60);
+                writeScore("nexer", 70);
                 readScores();
                 showSplash();
                 al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
