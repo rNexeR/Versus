@@ -61,8 +61,6 @@ list<ObjetosAnimados*> *obstaculos =  new list<ObjetosAnimados*>();
 //list<Entidad*> *entidades; //TO-DO, debe ser usada para reemplazar las listas anteriores
 
 multimap<int, string> jugadores;//inicializar vector con la cantidad de scores necesarios para el ranking
-//Current player
-string currentName = "";
 
 /**
     TO-DO: especificaciones por NXR
@@ -345,6 +343,9 @@ PersonajesAnimados* getPrincipal(){
     }
 }
 
+/**
+    Carga los recursos necesarios para el nivel especificado
+**/
 void loadLvl(int level){
     resetGame();
     obstaculos->push_back(new Obstaculo(0, obstaculos));
@@ -394,6 +395,9 @@ void loadLvl(int level){
     personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos, display));
 }
 
+/**
+    Ejecuta el nivel
+**/
 int nivel(string nombre, int level){
     /*
         CREACION DE PERSONAJES, ENEMIGOS Y OBSTÁCULOS
@@ -509,10 +513,11 @@ void readScores(){
 
 /**
     Devuelve si se superó a alguien o no
+    @Unused
 **/
-bool beatSomebody(Jugador jugador){
-
-}
+//bool beatSomebody(Jugador jugador){
+//
+//}
 
 /**
     Guardar Scores
@@ -552,7 +557,7 @@ void loopJuego()
                 int seg = nivel(nombre,4);
                 if(seg > 0){
                     cout<<"Paso todos los Niveles"<<endl;
-                    //writeScore(nombre, seg);
+                    writeScore(nombre, seg);
                     }//lvl 4
                 }//lvl 3
             }//lvl 2
@@ -628,13 +633,6 @@ void mainMenu()
             {
                 //llamar el loop de Scores
                 al_stop_samples();
-                writeScore("nexer", 100);
-                writeScore("nexer", 80);
-                writeScore("nexer", 90);
-                writeScore("nexer", 60);
-                writeScore("nexer", 70);
-                writeScore("nexer", 100);
-                writeScore("nexer", 100);
                 readScores();
                 showSplash();
                 al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
