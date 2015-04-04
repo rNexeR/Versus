@@ -27,7 +27,7 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
         return;
     }
 
-    if (!al_reserve_samples(15)){
+    if (!al_reserve_samples(25)){
         fprintf(stderr, "failed to reserve samples!\n");
         return;
     }

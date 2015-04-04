@@ -30,7 +30,7 @@ EnemigoAzul::EnemigoAzul(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimad
 
     sonido = NULL;
     stop = NULL;
-    vidas = 5;
+    vidas = 35;
 
     sonido = al_load_sample( "GameFiles/music/sfx_laser2.wav" );
     stop = al_load_sample( "GameFiles/music/stop.wav" );

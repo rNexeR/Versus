@@ -21,14 +21,14 @@ EnemigoVerde::EnemigoVerde(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
         return;
     }
 
-    if (!al_reserve_samples(2)){
+    if (!al_reserve_samples(5)){
         fprintf(stderr, "failed to reserve samples!\n");
         return;
     }
 
     sonido = NULL;
     stop = NULL;
-    vidas = 5;
+    vidas = 20;
 
     sonido = al_load_sample( "GameFiles/music/sfx_laser2.wav" );
     stop = al_load_sample( "GameFiles/music/stop.wav" );

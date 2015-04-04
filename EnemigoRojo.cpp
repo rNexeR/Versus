@@ -26,7 +26,7 @@ EnemigoRojo::EnemigoRojo(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimad
         return;
     }
 
-    if (!al_reserve_samples(2))
+    if (!al_reserve_samples(5))
     {
         fprintf(stderr, "failed to reserve samples!\n");
         return;
