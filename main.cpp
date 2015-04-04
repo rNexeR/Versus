@@ -39,6 +39,7 @@ Box *blogo = NULL;
 ALLEGRO_BITMAP  *logo   = NULL;
 ALLEGRO_BITMAP  *instru   = NULL;
 ALLEGRO_BITMAP  *fondo   = NULL;
+ALLEGRO_BITMAP  *pausa   = NULL;
 
 ALLEGRO_SAMPLE *music = NULL;
 ALLEGRO_SAMPLE_ID imusic;
@@ -143,6 +144,9 @@ int initAllegro()
     }
 
     game = al_load_sample("GameFiles/music/Raining Bits.wav");
+    instru = al_load_bitmap("GameFiles/assets/fondos/Instrucciones.png");
+    fondo = al_load_bitmap("GameFiles/assets/fondos/fondo.png");
+    pausa = al_load_bitmap("GameFiles/assets/fondos/pausa.png");
 
     al_register_event_source(event_queue, al_get_display_event_source(display));//registrar eventos del display
     al_register_event_source(event_queue, al_get_timer_event_source(timer));//registrar eventos del timer
@@ -198,8 +202,6 @@ int initLogo()
     blogo->x = (width-blogo->width)/2;
     blogo->y = (height-blogo->height)/2;
 
-    instru = al_load_bitmap("GameFiles/assets/fondos/Instrucciones.png");
-    fondo = al_load_bitmap("GameFiles/assets/fondos/fondo.png");
     return 0;
 }
 
@@ -241,6 +243,18 @@ void showSplash()
     al_flip_display();
     al_rest(splashTime);
 }
+
+void showPause()
+{
+    while (true){
+        bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
+        if (teclaDownEvent(ALLEGRO_KEY_ESCAPE))
+            break;
+        al_draw_bitmap(pausa,(width/2)- 150, (height/2)-100,0);
+        al_flip_display();
+    }
+}
+
 
 void showInstrucciones(){
     while(1){
@@ -398,13 +412,14 @@ int nivel(string nombre, int level){
     while(1)
     {
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
-        if(getPrincipal()->muerto ||
-            (get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE || teclaDownEvent(ALLEGRO_KEY_ESCAPE))))
+        if(getPrincipal()->muerto || (get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE))
         {
             seg = -1;
             mes = al_load_bitmap("GameFiles/assets/fondos/Lose.png");
             break;
         }
+        if (teclaDownEvent(ALLEGRO_KEY_ESCAPE))
+            showPause();
         if (personajes->size()<=1){
             mes = al_load_bitmap("GameFiles/assets/fondos/Win.png");
             break;
@@ -469,12 +484,12 @@ int nivel(string nombre, int level){
 **/
 void readScores(){
     //xff3d
-    jugadores.clear();
+    cout<<"---LEYENDO---"<<endl;
+    //jugadores.clear();
     ifstream in("scores.vrs");
     in.seekg(0, ios::end);
     int tamano = in.tellg();
     int cant = tamano / SIZE_FORMATO;
-    cout<<cant<<endl;
     in.seekg(0, ios::beg);
 
     for (int x = 0; x < cant; x++){
@@ -503,17 +518,17 @@ bool beatSomebody(Jugador jugador){
     Guardar Scores
 **/
 void writeScore(string nombre, int seg){
+    cout<<"---ESCRIBIENDO---"<<endl;
     string archivo = "scores.vrs";
     ofstream out(archivo.c_str());
     int y = 0;
     jugadores.insert(pair<int, string>(seg, nombre));
     for(multimap<int, string>::iterator x = jugadores.begin(); x != jugadores.end(); x++){
-        cout<<(*x).first<<" , "<<(*x).second<<endl;
         int time = (int)(*x).first;
         string name = (*x).second;
-        cout<<time<<" , "<<name<<endl;
         out.write((char*)&time, 4);
         out.write(name.c_str(), 10);
+        cout<<name<< " , "<<time<<endl;
         y++;
         if (y >= CANTIDAD_SCORES)
             break;
@@ -537,7 +552,7 @@ void loopJuego()
                 int seg = nivel(nombre,4);
                 if(seg > 0){
                     cout<<"Paso todos los Niveles"<<endl;
-                    writeScore(nombre, seg);
+                    //writeScore(nombre, seg);
                     }//lvl 4
                 }//lvl 3
             }//lvl 2
@@ -618,6 +633,8 @@ void mainMenu()
                 writeScore("nexer", 90);
                 writeScore("nexer", 60);
                 writeScore("nexer", 70);
+                writeScore("nexer", 100);
+                writeScore("nexer", 100);
                 readScores();
                 showSplash();
                 al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
@@ -662,6 +679,7 @@ int main(int argc, char **argv)
     al_destroy_bitmap(logo);
     al_destroy_bitmap(instru);
     al_destroy_bitmap(fondo);
+    al_destroy_bitmap(pausa);
 
     cleanPersonajes();
     return 0;
