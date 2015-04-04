@@ -549,17 +549,25 @@ bool beatSomebody(Jugador jugador){
 void writeScore(string nombre, int seg){
     string archivo = "scores.vrs";
     ofstream out(archivo.c_str());
-    out.seekp(0, ios::beg);
+    out.seekp(0, ios::end);
+
+    if(out.tellp() == 0){
+        jugadores[0].setPosition(1);
+        jugadores[0].setName(nombre);
+        jugadores[0].setTime(seg);
+    }
+
     readScores();
 
     Jugador player = Jugador(nombre, seg);
 
     if(beatSomebody(player)){
-        for(int i = 0; jugadores.size(); i++){
+        for(int i = 0; i < jugadores.size(); i++){
             out.write((char*)jugadores[i].getPosition(), 4);
             out.write(jugadores[i].getName().c_str(), 10);
             out.write((char*)jugadores[i].getTime(), 4);
         }
+        cout<<"Hemos escrito";
     }
     out.close();
 }
