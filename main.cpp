@@ -491,6 +491,8 @@ void readScores(){
     cout<<"---LEYENDO---"<<endl;
     //jugadores.clear();
     ifstream in("scores.vrs");
+    if (!in)
+        return;
     in.seekg(0, ios::end);
     int tamano = in.tellg();
     int cant = tamano / SIZE_FORMATO;
@@ -528,6 +530,7 @@ void writeScore(string nombre, int seg){
     ofstream out(archivo.c_str());
     int y = 0;
     jugadores.insert(pair<int, string>(seg, nombre));
+    cout<<jugadores.size()<<endl;
     for(multimap<int, string>::iterator x = jugadores.begin(); x != jugadores.end(); x++){
         int time = (int)(*x).first;
         string name = (*x).second;
@@ -570,6 +573,7 @@ void loopJuego()
 **/
 void mainMenu()
 {
+    readScores();
     ALLEGRO_BITMAP *select = NULL, *options = NULL;
     music = al_load_sample("GameFiles/music/So, let see, what you can_0.wav");
     effect = al_load_sample("GameFiles/music/sfx_laser1.wav");
@@ -633,6 +637,7 @@ void mainMenu()
             {
                 //llamar el loop de Scores
                 al_stop_samples();
+                writeScore("Test", 1);
                 readScores();
                 showSplash();
                 al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
