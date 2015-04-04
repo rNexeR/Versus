@@ -15,8 +15,6 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-<<<<<<< HEAD
-					<Add library="../../../../usr/lib/liballegro.so" />
 					<Add library="../../../../usr/lib/liballegro_acodec.so" />
 					<Add library="../../../../usr/lib/liballegro_audio.so" />
 					<Add library="../../../../usr/lib/liballegro_color.so" />
@@ -26,20 +24,16 @@
 					<Add library="../../../../usr/lib/liballegro_memfile.so" />
 					<Add library="../../../../usr/lib/liballegro_primitives.so" />
 					<Add library="../../../../usr/lib/liballegro_ttf.so" />
-=======
 					<Add library="../../../../../usr/lib/liballegro.so" />
 					<Add library="../../../../../usr/lib/liballegro_acodec.so" />
 					<Add library="../../../../../usr/lib/liballegro_audio.so" />
 					<Add library="../../../../../usr/lib/liballegro_color.so" />
-					<Add library="../../../../../usr/lib/liballegro_dialog.so" />
 					<Add library="../../../../../usr/lib/liballegro_font.so" />
 					<Add library="../../../../../usr/lib/liballegro_image.so" />
 					<Add library="../../../../../usr/lib/liballegro_main.so" />
 					<Add library="../../../../../usr/lib/liballegro_memfile.so" />
-					<Add library="../../../../../usr/lib/liballegro_physfs.so" />
 					<Add library="../../../../../usr/lib/liballegro_primitives.so" />
 					<Add library="../../../../../usr/lib/liballegro_ttf.so" />
->>>>>>> 51ca288064488fd4253006faaa1e11eedb50147c
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -67,22 +61,15 @@
 		<Unit filename="EnemigoAzul.h" />
 		<Unit filename="EnemigoNegro.cpp" />
 		<Unit filename="EnemigoNegro.h" />
-<<<<<<< HEAD
 		<Unit filename="EnemigoRojo.cpp" />
 		<Unit filename="EnemigoRojo.h" />
-=======
->>>>>>> 51ca288064488fd4253006faaa1e11eedb50147c
 		<Unit filename="EnemigoVerde.cpp" />
 		<Unit filename="EnemigoVerde.h" />
 		<Unit filename="Enemigos.cpp" />
 		<Unit filename="Enemigos.h" />
 		<Unit filename="Entidad.cpp" />
 		<Unit filename="Entidad.h" />
-<<<<<<< HEAD
-		<Unit filename="Jugador.cpp" />
 		<Unit filename="Jugador.h" />
-=======
->>>>>>> 51ca288064488fd4253006faaa1e11eedb50147c
 		<Unit filename="ObjetosAnimados.cpp" />
 		<Unit filename="ObjetosAnimados.h" />
 		<Unit filename="Obstaculo.cpp" />

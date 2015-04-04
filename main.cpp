@@ -304,6 +304,14 @@ string ingresarNombre()
     return name;
 }
 
+PersonajesAnimados* getPrincipal(){
+    for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++)
+    {
+        if ((*i)->tipoObjeto == "Principal")
+            return (*i);
+    }
+}
+
 /**
     Borra los personajes de la lista individualmente
 **/
@@ -311,7 +319,8 @@ void cleanPersonajes()
 {
     for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++)
     {
-        delete (*i);
+        if ((*i) != getPrincipal())
+            delete (*i);
     }
 }
 
@@ -331,16 +340,8 @@ void resetGame()
 {
     cleanPersonajes();
     cleanObstaculos();//limpiar obstacles
-    personajes->clear();
+    //personajes->clear();
     obstaculos->clear();
-}
-
-PersonajesAnimados* getPrincipal(){
-    for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++)
-    {
-        if ((*i)->tipoObjeto == "Principal")
-            return (*i);
-    }
 }
 
 /**
@@ -392,7 +393,7 @@ void loadLvl(int level){
         personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, display, 1));
 
     }
-    personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos, display));
+    //personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos, display));
 }
 
 /**
@@ -554,6 +555,7 @@ void loopJuego()
     nombre = ingresarNombre();
     cout<<nombre<<endl;
     resetGame();
+    personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos, display));
     if (nivel(nombre,1) > 0){
         if(nivel(nombre,2) > 0){
             if(nivel(nombre,3) > 0){
@@ -566,6 +568,8 @@ void loopJuego()
             }//lvl 2
     }//lvl 1
     al_stop_sample(&igame);
+    delete getPrincipal();
+    personajes->clear();
 }
 
 /**
