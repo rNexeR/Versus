@@ -473,6 +473,8 @@ void readScores(){
     in.seekg(0, ios::end);
 
     int cantRegistros = in.tellg() / SIZE_FORMATO;
+    cout<<in.tellg();
+    in.seekg(0, ios::beg);
 
     for(int i = 0; i < cantRegistros; i++){
         char* nombre_ptr = new char[10];
@@ -690,6 +692,7 @@ void mainMenu()
 
 int main(int argc, char **argv)
 {
+    readScores();
     if (initAllegro()<0 || initLogo()<0)
         return -1;
     showSplash();
