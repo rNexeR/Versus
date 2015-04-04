@@ -14,17 +14,20 @@ EnemigoRojo::EnemigoRojo(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimad
         cout<<"failed to initialize image addon!"<<endl;
     }
 
-    if(!al_install_audio()){
+    if(!al_install_audio())
+    {
         fprintf(stderr, "failed to initialize audio!\n");
         return;
     }
 
-    if(!al_init_acodec_addon()){
+    if(!al_init_acodec_addon())
+    {
         fprintf(stderr, "failed to initialize audio codecs!\n");
         return;
     }
 
-    if (!al_reserve_samples(2)){
+    if (!al_reserve_samples(2))
+    {
         fprintf(stderr, "failed to reserve samples!\n");
         return;
     }
@@ -36,7 +39,8 @@ EnemigoRojo::EnemigoRojo(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimad
     sonido = al_load_sample( "GameFiles/music/sfx_laser2.wav" );
     stop = al_load_sample( "GameFiles/music/stop.wav" );
 
-    if(!sonido || !stop){
+    if(!sonido || !stop)
+    {
         printf( "Audio clip sample not loaded!\n" );
         return;
     }
@@ -57,15 +61,42 @@ EnemigoRojo::EnemigoRojo(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimad
     disparos = new list<ObjetosAnimados*>;//Inicializar disparos
 }
 
-void EnemigoRojo::determinarRandomMovimiento(){
-    if(alternar){
-        detalles->x -= moveBy;
-        if(detalles->x < 0)
-            detalles->x -= (moveBy * -1);
-    }else if (!alternar){
-        detalles->x += moveBy;
-        if(detalles->x > 450)
-            detalles->x += (moveBy * -1);
+void EnemigoRojo::determinarRandomMovimiento()
+{
+    Box tem(detalles->x-5, detalles->y, detalles->width+5, detalles->height+50);
+    PersonajesAnimados *temp = getPrincipal();
+    cout<<"\t"<<temp->disparos->size()<<endl;
+    bool entro = false;
+    for (list<ObjetosAnimados*>::iterator i = temp->disparos->begin(); i != temp->disparos->end(); i++)
+    {
+        //al_rest(1);
+        if (colision((*i)->detalles, &tem))
+        {
+            //al_rest(1);
+            entro = true;
+            int cy = detalles->x + (detalles->width/2);
+            if (cy < 250)
+                detalles->x += moveBy;
+            else
+                detalles->x -= moveBy;
+        }
+    }
+    temp = NULL;
+    delete temp;
+    if (!entro)
+    {
+        if(alternar)
+        {
+            detalles->x -= moveBy;
+            if(detalles->x < 0)
+                detalles->x -= (moveBy * -1);
+        }
+        else if (!alternar)
+        {
+            detalles->x += moveBy;
+            if(detalles->x > 450)
+                detalles->x += (moveBy * -1);
+        }
     }
 }
 
