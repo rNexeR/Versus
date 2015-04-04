@@ -10,6 +10,7 @@ using namespace std;
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <map>
 
 //LIBRERIAS DE PROYECTO
 #include "Box.h"
@@ -52,13 +53,13 @@ ALLEGRO_FONT *normalFont = NULL, *cartoonFont = NULL;
 int splashTime = 1;
 int width = 500, height = 650;
 const int CANTIDAD_SCORES = 6;
-const int SIZE_FORMATO = 18;
+const int SIZE_FORMATO = 14;
 //Listas
 list<PersonajesAnimados*> *personajes = new list<PersonajesAnimados*>();
 list<ObjetosAnimados*> *obstaculos =  new list<ObjetosAnimados*>();
 //list<Entidad*> *entidades; //TO-DO, debe ser usada para reemplazar las listas anteriores
 
-vector<Jugador> jugadores (CANTIDAD_SCORES);//inicializar vector con la cantidad de scores necesarios para el ranking
+multimap<int, string> jugadores;//inicializar vector con la cantidad de scores necesarios para el ranking
 //Current player
 string currentName = "";
 
@@ -471,30 +472,22 @@ void readScores(){
     jugadores.clear();
     ifstream in("scores.vrs");
     in.seekg(0, ios::end);
-
-    int cantRegistros = in.tellg() / SIZE_FORMATO;
-    cout<<in.tellg();
+    int tamano = in.tellg();
+    int cant = tamano / SIZE_FORMATO;
+    cout<<cant<<endl;
     in.seekg(0, ios::beg);
 
-    for(int i = 0; i < cantRegistros; i++){
-        char* nombre_ptr = new char[10];
-        int tiempo = 0;
-        int pos = 0;
-
-        in.read((char*)&pos, 4);
-        in.read(nombre_ptr, 10);
-        in.read((char*)&tiempo, 4);
-
-        string jugador(nombre_ptr);
-
-        cout<<"P - "<<pos<<" - N - "<<jugador<<" - T: "<<tiempo<<endl;
-
-        //Crear el jugador en esa posicion
-        jugadores.push_back(Jugador(jugador, tiempo));
-        jugadores[i].setPosition(pos);
-
-        delete nombre_ptr;
+    for (int x = 0; x < cant; x++){
+        string nombre;
+        char* n = new char[10];
+        int time;
+        in.read((char*)time, 4);
+        in.read(n, 10);
+        nombre = n;
+        cout<<"Jugador: "<<nombre<<" Tiempo: "<<time<<endl;
+        jugadores.insert(pair<int, string>(time, nombre));
     }
+
 
     in.close();
 }
@@ -503,46 +496,7 @@ void readScores(){
     Devuelve si se superó a alguien o no
 **/
 bool beatSomebody(Jugador jugador){
-    if(jugadores.empty())
-        return true;
 
-    bool newPlayer = false;
-    int posicionNueva = 0;
-    vector<Jugador> temp (CANTIDAD_SCORES);
-    temp.insert(temp.begin(), jugadores.begin(), jugadores.end());
-
-    //Comparar todos los jugadores en el ranking board
-    for(int i = 0; i < temp.size(); i++){
-        if(!newPlayer && jugador.getTime() < temp[i].getTime()){
-            posicionNueva = temp[i].getPosition();
-            jugador.setPosition(posicionNueva);
-            newPlayer = true;
-            break;
-        }
-    }
-
-    //Desplazar todos los jugadores en el ranking board en caso de que haya uno nuevo
-    if(newPlayer){
-        if(posicionNueva == CANTIDAD_SCORES){//Si es el última, sobreescribir y salir
-            jugadores[CANTIDAD_SCORES - 1].setName(jugador.getName());
-            jugadores[CANTIDAD_SCORES - 1].setTime(jugador.getTime());
-            return true;
-        }
-
-        for(int i = temp.size() - 1; i > posicionNueva - 1; i--){//Si no, desplazar
-            temp[i].setName(temp[i - 1].getName());
-            temp[i].setTime(temp[i - 1].getTime());
-        }
-        //Guardar el nuevo
-        temp[posicionNueva - 1].setName(jugador.getName());
-        temp[posicionNueva - 1].setTime(jugador.getTime());
-        jugadores.clear();
-
-        jugadores.insert(jugadores.begin(), temp.begin(), temp.end());
-        return true;
-    }
-
-    return false;
 }
 
 /**
@@ -551,25 +505,18 @@ bool beatSomebody(Jugador jugador){
 void writeScore(string nombre, int seg){
     string archivo = "scores.vrs";
     ofstream out(archivo.c_str());
-    out.seekp(0, ios::end);
-
-    if(out.tellp() == 0){
-        jugadores[0].setPosition(1);
-        jugadores[0].setName(nombre);
-        jugadores[0].setTime(seg);
-    }
-
-    readScores();
-
-    Jugador player = Jugador(nombre, seg);
-
-    if(beatSomebody(player)){
-        for(int i = 0; i < jugadores.size(); i++){
-            out.write((char*)jugadores[i].getPosition(), 4);
-            out.write(jugadores[i].getName().c_str(), 10);
-            out.write((char*)jugadores[i].getTime(), 4);
-        }
-        cout<<"Hemos escrito";
+    int y = 0;
+    jugadores.insert(pair<int, string>(seg, nombre));
+    for(multimap<int, string>::iterator x = jugadores.begin(); x != jugadores.end(); x++){
+        cout<<(*x).first<<" , "<<(*x).second<<endl;
+        int time = (*x).first;
+        string name = (*x).second;
+        cout<<time<<" , "<<name<<endl;
+        out.write((char*)&time, 4);
+        out.write(name.c_str(), 10);
+        y++;
+        if (y >= CANTIDAD_SCORES)
+            break;
     }
     out.close();
 }
@@ -666,6 +613,8 @@ void mainMenu()
             {
                 //llamar el loop de Scores
                 al_stop_samples();
+                writeScore("nexer", 100);
+                readScores();
                 showSplash();
                 al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
             }
@@ -692,7 +641,7 @@ void mainMenu()
 
 int main(int argc, char **argv)
 {
-    readScores();
+    //readScores();
     if (initAllegro()<0 || initLogo()<0)
         return -1;
     showSplash();

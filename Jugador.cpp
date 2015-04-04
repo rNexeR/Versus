@@ -10,19 +10,12 @@ Jugador::Jugador(string name, int time)
     this->time = time;
 }
 
-int Jugador::getPosition(){
-    return position;
-}
 string Jugador::getName(){
     return name;
 }
 
 int Jugador::getTime(){
     return time;
-}
-
-void Jugador::setPosition(int position){
-    this->position = position;
 }
 
 void Jugador::setTime(int time){
