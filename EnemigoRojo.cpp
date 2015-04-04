@@ -81,6 +81,8 @@ void EnemigoRojo::determinarRandomMovimiento()
                 detalles->x -= moveBy;
         }
     }
+    temp = NULL;
+    delete temp;
     if (!entro)
     {
         if(alternar)
