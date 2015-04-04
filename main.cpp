@@ -21,6 +21,7 @@ using namespace std;
 #include "EnemigoAzul.h"
 #include "EnemigoRojo.h"
 #include "EnemigoVerde.h"
+#include "Jugador.h"
 
 const float FPS = 60;
 
@@ -50,12 +51,16 @@ ALLEGRO_FONT *normalFont = NULL, *cartoonFont = NULL;
 //Constantes
 int splashTime = 1;
 int width = 500, height = 650;
-
+const int CANTIDAD_SCORES = 6;
+const int SIZE_FORMATO = 18;
 //Listas
 list<PersonajesAnimados*> *personajes = new list<PersonajesAnimados*>();
-list<ObjetosAnimados*> *obstaculos =  new list<ObjetosAnimados*>();;
+list<ObjetosAnimados*> *obstaculos =  new list<ObjetosAnimados*>();
 //list<Entidad*> *entidades; //TO-DO, debe ser usada para reemplazar las listas anteriores
 
+vector<Jugador> jugadores (CANTIDAD_SCORES);//inicializar vector con la cantidad de scores necesarios para el ranking
+//Current player
+string currentName = "";
 
 /**
     TO-DO: especificaciones por NXR
@@ -374,7 +379,7 @@ void loadLvl(int level){
     personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos, display));
 }
 
-int Lvl(string nombre, int level){
+int nivel(string nombre, int level){
     /*
         CREACION DE PERSONAJES, ENEMIGOS Y OBSTÁCULOS
     */
@@ -392,7 +397,8 @@ int Lvl(string nombre, int level){
     while(1)
     {
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
-        if(getPrincipal()->muerto || (get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE || teclaDownEvent(ALLEGRO_KEY_ESCAPE))))
+        if(getPrincipal()->muerto ||
+            (get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE || teclaDownEvent(ALLEGRO_KEY_ESCAPE))))
         {
             seg = -1;
             mes = al_load_bitmap("GameFiles/assets/fondos/Lose.png");
@@ -457,6 +463,108 @@ int Lvl(string nombre, int level){
 }
 
 /**
+    Leer todos los scores en el archivo
+    y guardarlos en un vector
+**/
+void readScores(){
+    //xff3d
+    jugadores.clear();
+    ifstream in("scores.vrs");
+    in.seekg(0, ios::end);
+
+    int cantRegistros = in.tellg() / SIZE_FORMATO;
+
+    for(int i = 0; i < cantRegistros; i++){
+        char* nombre_ptr = new char[10];
+        int tiempo = 0;
+        int pos = 0;
+
+        in.read((char*)&pos, 4);
+        in.read(nombre_ptr, 10);
+        in.read((char*)&tiempo, 4);
+
+        string jugador(nombre_ptr);
+
+        cout<<"P - "<<pos<<" - N - "<<jugador<<" - T: "<<tiempo<<endl;
+
+        //Crear el jugador en esa posicion
+        jugadores.push_back(Jugador(jugador, tiempo));
+        jugadores[i].setPosition(pos);
+
+        delete nombre_ptr;
+    }
+
+    in.close();
+}
+
+/**
+    Devuelve si se superó a alguien o no
+**/
+bool beatSomebody(Jugador jugador){
+    if(jugadores.empty())
+        return true;
+
+    bool newPlayer = false;
+    int posicionNueva = 0;
+    vector<Jugador> temp (CANTIDAD_SCORES);
+    temp.insert(temp.begin(), jugadores.begin(), jugadores.end());
+
+    //Comparar todos los jugadores en el ranking board
+    for(int i = 0; i < temp.size(); i++){
+        if(!newPlayer && jugador.getTime() < temp[i].getTime()){
+            posicionNueva = temp[i].getPosition();
+            jugador.setPosition(posicionNueva);
+            newPlayer = true;
+            break;
+        }
+    }
+
+    //Desplazar todos los jugadores en el ranking board en caso de que haya uno nuevo
+    if(newPlayer){
+        if(posicionNueva == CANTIDAD_SCORES){//Si es el última, sobreescribir y salir
+            jugadores[CANTIDAD_SCORES - 1].setName(jugador.getName());
+            jugadores[CANTIDAD_SCORES - 1].setTime(jugador.getTime());
+            return true;
+        }
+
+        for(int i = temp.size() - 1; i > posicionNueva - 1; i--){//Si no, desplazar
+            temp[i].setName(temp[i - 1].getName());
+            temp[i].setTime(temp[i - 1].getTime());
+        }
+        //Guardar el nuevo
+        temp[posicionNueva - 1].setName(jugador.getName());
+        temp[posicionNueva - 1].setTime(jugador.getTime());
+        jugadores.clear();
+
+        jugadores.insert(jugadores.begin(), temp.begin(), temp.end());
+        return true;
+    }
+
+    return false;
+}
+
+/**
+    Guardar Scores
+**/
+void writeScore(string nombre, int seg){
+    string archivo = "scores.vrs";
+    ofstream out(archivo.c_str());
+    out.seekp(0, ios::beg);
+    readScores();
+
+    Jugador player = Jugador(nombre, seg);
+
+    if(beatSomebody(player)){
+        for(int i = 0; jugadores.size(); i++){
+            out.write((char*)jugadores[i].getPosition(), 4);
+            out.write(jugadores[i].getName().c_str(), 10);
+            out.write((char*)jugadores[i].getTime(), 4);
+        }
+    }
+    out.close();
+}
+
+/**
     Ciclo principal del juego
 **/
 void loopJuego()
@@ -466,13 +574,18 @@ void loopJuego()
     nombre = ingresarNombre();
     cout<<nombre<<endl;
     resetGame();
-    if (Lvl(nombre,1)>0)
-        if(Lvl(nombre,2)>0)
-            if(Lvl(nombre,3)>0)
-                if(Lvl(nombre,4)>0)
+    if (nivel(nombre,1) > 0){
+        if(nivel(nombre,2) > 0){
+            if(nivel(nombre,3) > 0){
+                int seg = nivel(nombre,4);
+                if(seg > 0){
                     cout<<"Paso todos los Niveles"<<endl;
+                    writeScore(nombre, seg);
+                    }//lvl 4
+                }//lvl 3
+            }//lvl 2
+    }//lvl 1
     al_stop_sample(&igame);
-
 }
 
 /**
