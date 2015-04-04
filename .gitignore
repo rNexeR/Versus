@@ -30,6 +30,7 @@
 #Linker settings
 Versus.depend
 Versus.layout
+Versus.cbp
 bin/**/*
 
 bin/*
