@@ -287,13 +287,20 @@ void showRanking(){
             //Initialize name
             string playerScore = toString(scorePosition);
             scorePosition++;
-            playerScore += " ";
-            playerScore += (*x).second;
-            playerScore += "        TIEMPO  ";
+            playerScore += ". ";
+            string playerName = (*x).second;
+            playerScore += playerName;
             int timeScore = (*x).first;
+
+            //Draw the position and name
+            al_draw_textf(cartoonFont, al_map_rgb(255,255,255), 30, (height/2) + scoreCoordinate - 50,
+                ALLEGRO_ALIGN_LEFT, playerScore.c_str());
+
+            //Draw the time it took that person to finish all levels
+            playerScore = "TIEMPO   ";
             playerScore += toString(timeScore);
-            //Draw the score
-            al_draw_text(cartoonFont, al_map_rgb(255,255,255), 30, (height/2) + scoreCoordinate - 50,
+
+            al_draw_textf(cartoonFont, al_map_rgb(255,255,255), 300, (height/2) + scoreCoordinate - 50,
                 ALLEGRO_ALIGN_LEFT, playerScore.c_str());
 
             scoreCoordinate += 40;
