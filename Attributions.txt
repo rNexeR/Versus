@@ -1,0 +1,59 @@
+##################################################################################
+
+				ATTRIBUTIONS
+---------------------------------------------------------------------------------
+The making of Versus required of several resources. The logo of Versus was made
+by rNexer, one of the main developers of the game. Most other resources were
+taken from OpenGameArt.
+
+We would like to thank each and everyone of those who have shared these resources. 
+Attribution goes to:
+
+**********************************************************************************
+
+--Master484: the platforms and main character design were taken from his Open
+Gunner Start Kit and its first Expansion pack. 
+**Master484's site and OGA profile respectively: http://m484games.ucoz.com/
+http://opengameart.org/users/master484
+
+**Link to the license of the art used: http://creativecommons.org/licenses/by/3.0/
+
+.................................................................................
+
+--Kenney: the main enemies and laser shots and its laser sounds were used from
+the Space Shooter Redux collection of Kenney. 
+**Kenney's site and OGA profile respectively: http://kenney.nl/
+http://opengameart.org/users/kenney
+
+**Link to the license of the assets used: 
+http://creativecommons.org/publicdomain/zero/1.0/
+
+.................................................................................
+
+--Alexandr Zhelanov: the main menu's song "So, let see, what you can" was made by him.
+The song was converted from .mp3 to .wav format so it could be used in the game. 
+
+**His soundcloud profile: https://soundcloud.com/alexandr-zhelanov
+
+**Link to the license of his song: http://creativecommons.org/licenses/by/3.0/
+
+.................................................................................
+
+--Lamoot(from Blender Foundation): the stop sound file which indicates laser 
+collision against the platforms was made by him.
+
+**Link to Lamoot's OGA profile and the Blender page respectively:
+http://opengameart.org/users/lamoot
+https://apricot.blender.org/
+
+**Link to the license of this sound: http://creativecommons.org/licenses/by/3.0/ 
+
+.................................................................................
+
+--Gundatsch: His song "Raining Bits" is used in the main game levels.
+ 
+**Link to his Soundcloud profile: https://soundcloud.com/gundatsch
+**Link to the licenses this song has: http://creativecommons.org/licenses/by/3.0/
+http://opengameart.org/content/oga-by-30-faq
+
+##################################################################################
