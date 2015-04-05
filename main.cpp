@@ -265,7 +265,7 @@ void showInstrucciones(){
 }
 
 void showRanking(){
-    changeSizeCartoonFont(20);
+    changeSizeCartoonFont(30);
     while(true){
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
         if(get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE || teclaDownEvent(ALLEGRO_KEY_ESCAPE)))//waiting to escape
@@ -274,28 +274,29 @@ void showRanking(){
         al_draw_bitmap(fondo,0,0,0);
 
         //Load text
-        al_draw_text(cartoonFont, al_map_rgb(102,204,0), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "RANKING");
+        al_draw_text(cartoonFont, al_map_rgb(102,204,0), width/2, (height/2)- 100,ALLEGRO_ALIGN_CENTER, "RANKING");
         /**/
         int scorePosition = 1;
         int y = 0;
 
         float scoreCoordinate = 5;
-
+        //Print scores
         for(multimap<int, string>::iterator x = jugadores.begin();//initial value
             x != jugadores.end(); //limit
             x++){//increment
             //Initialize name
             string playerScore = toString(scorePosition);
             scorePosition++;
-            playerScore += " - ";
+            playerScore += " ";
             playerScore += (*x).second;
-            playerScore += " - tiempo: ";
-            playerScore += (*x).first;
+            playerScore += "        TIEMPO  ";
+            int timeScore = (*x).first;
+            playerScore += toString(timeScore);
             //Draw the score
-            al_draw_text(cartoonFont, al_map_rgb(255,255,255), width/2, (height/2) + scoreCoordinate,
+            al_draw_text(cartoonFont, al_map_rgb(255,255,255), width/2, (height/2) + scoreCoordinate - 50,
                 ALLEGRO_ALIGN_CENTRE, playerScore.c_str());
 
-            scoreCoordinate += 30;
+            scoreCoordinate += 40;
 
             y++;
             if (y >= CANTIDAD_SCORES)//Get out if there are too much
@@ -539,7 +540,7 @@ void readScores(){
     int tamano = in.tellg();
     int cant = tamano / SIZE_FORMATO;
     in.seekg(0, ios::beg);
-
+    jugadores.clear();//limpiar multimap
     for (int x = 0; x < cant; x++){
         string nombre;
         char* n = new char[10];
