@@ -80,7 +80,8 @@ int PerPrincipal::isOnSolidGround()
             if (colision(detalles,(*i)->detalles))
             {
                 Box temp((*i)->detalles->x-5,(*i)->detalles->y,(*i)->detalles->width-5, 15);
-                if (colision(detalles,&temp)){
+                if (colision(detalles,&temp))
+                {
                     detalles->x+=(*i)->velocity;
                     return temp.y;
                 }
@@ -95,7 +96,8 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
 {
     bool entro = false;
     validarTeclas(ev);
-    if (!jump && detalles->y < piso && isOnSolidGround()==-1){
+    if (!jump && detalles->y < piso && isOnSolidGround()==-1)
+    {
         down = true;
         setAnimacion(orientacion == 'r' ? CAYENDO_DERECHA : CAYENDO_IZQUIERDA);
     }
@@ -103,7 +105,8 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
     if (vidas<=0)
     {
         setAnimacion(orientacion == 'r' ? MUERTO_DERECHA : MUERTO_IZQUIERDA);
-        if (vidas<=-1){
+        if (vidas<=-1)
+        {
             muerto = true;
             al_rest(1);
         }
@@ -127,7 +130,9 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
                 setAnimacion(orientacion == 'r' ? PARADO_DERECHA : PARADO_IZQUIERDA);
                 jump = false;
             }
-        }else if (down){
+        }
+        else if (down)
+        {
             velocidad_y+=aceleracion_y;
             detalles->y+=velocidad_y;
             aceleracion_y+=gravedad;
@@ -142,9 +147,18 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
             }
         }
 
-        if(key[KEY_UP] && !down && !key[KEY_LEFT] && !key[KEY_RIGHT] )
+        if(ev->type == ALLEGRO_EVENT_KEY_DOWN && !jump && ev->keyboard.keycode == ALLEGRO_KEY_SPACE)
         {
-            if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_P ){
+            velocidad_y = 0;
+            aceleracion_y = -4.5;
+            setAnimacion(orientacion == 'r' ? SALTANDO_DERECHA : SALTANDO_IZQUIERDA);
+            jump = true;
+            entro = true;
+        }
+        if(key[KEY_UP] && !down && !jump && !key[KEY_LEFT] && !key[KEY_RIGHT] )
+        {
+            if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_P )
+            {
                 int dx, dy;
                 dx = orientacion == 'r' ? 15 : 25;
                 dx = detalles->x + dx;
@@ -158,31 +172,51 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
             entro = true;
 
         }
-        if(ev->type == ALLEGRO_EVENT_KEY_DOWN && !jump && ev->keyboard.keycode == ALLEGRO_KEY_SPACE)
+        else if (key[KEY_UP] && !down && !jump && key[KEY_LEFT])
         {
-            velocidad_y = 0;
-            aceleracion_y = -4.5;
-            setAnimacion(orientacion == 'r' ? SALTANDO_DERECHA : SALTANDO_IZQUIERDA);
-            jump = true;
-            entro = true;
+            if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_P )
+            {
+                int dx, dy;
+                dx = orientacion == 'r' ? 15 : 25;
+                dx = detalles->x + dx;
+                dy = detalles->y-20;
+                al_stop_sample(&idsonido);
+                al_play_sample(sonido, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idsonido);
+                disparos->push_back(new Disparos(5, dx, dy, 1,-1));
+            }
         }
-
-        if(key[KEY_LEFT] && detalles->x > 0)
+        else if(key[KEY_UP] && !down && !jump && key[KEY_RIGHT])
         {
-            detalles->x -= velocity;
-            if(!jump && !down)
-                setAnimacion(CAMINANDO_IZQUIERDA);
-            orientacion = 'l';
-            entro = true;
+            if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_P )
+            {
+                int dx, dy;
+                dx = orientacion == 'r' ? 15 : 25;
+                dx = detalles->x + dx;
+                dy = detalles->y-20;
+                al_stop_sample(&idsonido);
+                al_play_sample(sonido, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idsonido);
+                disparos->push_back(new Disparos(5, dx, dy, 1,1));
+            }
         }
-
-        if(key[KEY_RIGHT] & detalles->x < 450)
+        else
         {
-            detalles->x += velocity;
-            if(!jump && !down)
-                setAnimacion(CAMINANDO_DERECHA);
-            orientacion = 'r';
-            entro = true;
+            if(key[KEY_LEFT] && detalles->x > 0)
+            {
+                detalles->x -= velocity;
+                if(!jump && !down)
+                    setAnimacion(CAMINANDO_IZQUIERDA);
+                orientacion = 'l';
+                entro = true;
+            }
+
+            if(key[KEY_RIGHT] & detalles->x < 450)
+            {
+                detalles->x += velocity;
+                if(!jump && !down)
+                    setAnimacion(CAMINANDO_DERECHA);
+                orientacion = 'r';
+                entro = true;
+            }
         }
 
         if (!entro)

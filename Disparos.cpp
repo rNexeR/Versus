@@ -30,7 +30,45 @@ Disparos::Disparos(int dmg, int posX, int posY, int dir)
         velocity = 10;
         path = "GameFiles/assets/lasers/laserRed.png";
     }
+    velocity_x = 0;
+
     //Inicializaciones de audio
+
+    if(!al_init_image_addon())//chequear si se pudo inicializar para las imágenes
+    {
+        cout<<"failed to initialize image addon!"<<endl;
+    }
+
+    //Inicialización de la posición de la cajita
+    detalles->x = posX;
+    detalles->y = posY;
+    tipoObjeto = "Disparo";//declarar el tipo de ObjetoAnimado
+    sprite = al_load_bitmap(path.c_str());//cargar el sprite según el path dado
+    colisionado = false;
+    if(!sprite)
+        return;
+
+    detalles->width = al_get_bitmap_width(sprite);
+    detalles->height = al_get_bitmap_height(sprite);
+}
+
+Disparos::Disparos(int dmg, int posX, int posY, int dirY, int dirX)
+{
+    this->dmg = dmg;
+    string path = "GameFiles/assets/lasers/laserGreen.png";
+    if (dirY>0){
+        velocity = -5;
+    }else{
+        velocity = 5;
+        path = "GameFiles/assets/lasers/laserRed.png";
+    }
+    if (dirX>0){
+        velocity_x = 5;
+        path = "GameFiles/assets/lasers/laserGreenDer.png";
+    }else{
+        velocity_x = -5;
+        path = "GameFiles/assets/lasers/laserGreenIzq.png";
+    }
 
     if(!al_init_image_addon())//chequear si se pudo inicializar para las imágenes
     {
@@ -57,6 +95,7 @@ Disparos::~Disparos()
 
 void Disparos::act(ALLEGRO_EVENT *ev){
     detalles->y += velocity;
+    detalles->x += velocity_x;
     if (detalles->y > 650 || detalles->y <0 || detalles-> x < 0 || detalles->x > 500)
         colisionado = true;
 }
