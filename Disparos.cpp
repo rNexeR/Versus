@@ -37,6 +37,8 @@ Disparos::~Disparos()
 
 void Disparos::act(ALLEGRO_EVENT *ev){
     detalles->y += velocity;
+    if (detalles->y > 650 || detalles->y <0 || detalles-> x < 0 || detalles->x > 500)
+        colisionado = true;
 }
 
 void Disparos::draw(){
