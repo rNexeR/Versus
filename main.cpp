@@ -173,7 +173,7 @@ bool changeSizenormalFont(int x)
 **/
 bool changeSizeCartoonFont(int x)
 {
-    cartoonFont = al_load_ttf_font("GameFiles/fonts/cartoon.ttf",x,0 );
+    cartoonFont = al_load_ttf_font("GameFiles/fonts/cartoon.ttf", x, 0);
 
     if (!cartoonFont)
     {
@@ -253,7 +253,6 @@ void showPause()
     }
 }
 
-
 void showInstrucciones(){
     while(1){
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
@@ -261,6 +260,48 @@ void showInstrucciones(){
             break;
         al_clear_to_color(al_map_rgb(0,0,0));
         al_draw_bitmap(instru,0,0,0);
+        al_flip_display();
+    }
+}
+
+void showRanking(){
+    changeSizeCartoonFont(20);
+    while(true){
+        bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
+        if(get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE || teclaDownEvent(ALLEGRO_KEY_ESCAPE)))//waiting to escape
+            break;
+        al_clear_to_color(al_map_rgb(0,0,0));
+        al_draw_bitmap(fondo,0,0,0);
+
+        //Load text
+        al_draw_text(cartoonFont, al_map_rgb(102,204,0), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "RANKING");
+        /**/
+        int scorePosition = 1;
+        int y = 0;
+
+        float scoreCoordinate = 5;
+
+        for(multimap<int, string>::iterator x = jugadores.begin();//initial value
+            x != jugadores.end(); //limit
+            x++){//increment
+            //Initialize name
+            string playerScore = toString(scorePosition);
+            scorePosition++;
+            playerScore += " - ";
+            playerScore += (*x).second;
+            playerScore += " - tiempo: ";
+            playerScore += (*x).first;
+            //Draw the score
+            al_draw_text(cartoonFont, al_map_rgb(255,255,255), width/2, (height/2) + scoreCoordinate,
+                ALLEGRO_ALIGN_CENTRE, playerScore.c_str());
+
+            scoreCoordinate += 30;
+
+            y++;
+            if (y >= CANTIDAD_SCORES)//Get out if there are too much
+                break;
+        }
+        /** **/
         al_flip_display();
     }
 }
@@ -515,14 +556,6 @@ void readScores(){
 }
 
 /**
-    Devuelve si se superó a alguien o no
-    @Unused
-**/
-//bool beatSomebody(Jugador jugador){
-//
-//}
-
-/**
     Guardar Scores
 **/
 void writeScore(string nombre, int seg){
@@ -641,8 +674,8 @@ void mainMenu()
             {
                 //llamar el loop de Scores
                 al_stop_samples();
-                writeScore("Test", 1);
                 readScores();
+                showRanking();
                 showSplash();
                 al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
             }
