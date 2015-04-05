@@ -7,6 +7,7 @@ EnemigoAzul::EnemigoAzul(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnimad
     moveBy = 3;
     randomAlternative1 = 100;
     randomAlternative2 = 155;
+    laserDmg = 4;
 
     vidas = 35;
 

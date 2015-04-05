@@ -4,7 +4,7 @@ EnemigoNegro::EnemigoNegro(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
 {
     velocity = 1;
     moveBy = 2;
-
+    laserDmg = 2;
     vidas = 5;
 
     alternar = false;

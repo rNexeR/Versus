@@ -40,7 +40,6 @@ using namespace std;
 #include "EnemigoAzul.h"
 #include "EnemigoRojo.h"
 #include "EnemigoVerde.h"
-#include "Jugador.h"
 
 const float FPS = 60;
 
@@ -363,7 +362,7 @@ string ingresarNombre()
             }
         }
         al_draw_bitmap(fondo,0,0,0);
-        al_draw_text(normalFont, al_map_rgb(0,0,255), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "Ingrese su nombre:");
+        al_draw_text(normalFont, al_map_rgb(102,204,0), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "INGRESE SU NOMBRE:");
         al_draw_text(normalFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, name.c_str());//dibuja el nombre
         al_flip_display();//necesario para cambiar a la siguiente parte del buffer (que dibujará)
     }
