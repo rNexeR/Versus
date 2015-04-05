@@ -69,7 +69,6 @@
 		<Unit filename="Enemigos.h" />
 		<Unit filename="Entidad.cpp" />
 		<Unit filename="Entidad.h" />
-		<Unit filename="Jugador.h" />
 		<Unit filename="ObjetosAnimados.cpp" />
 		<Unit filename="ObjetosAnimados.h" />
 		<Unit filename="Obstaculo.cpp" />
