@@ -5,6 +5,7 @@ EnemigoVerde::EnemigoVerde(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
     velocity = 0.2;
     firingRate = 35;
     moveBy = 5;
+    laserDmg = 3;
 
     vidas = 20;
 
