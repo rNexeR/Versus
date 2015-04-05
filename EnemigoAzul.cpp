@@ -35,5 +35,4 @@ void EnemigoAzul::determinarRandomMovimiento(){
 }
 EnemigoAzul::~EnemigoAzul()
 {
-    //dtor
 }

@@ -344,7 +344,6 @@ string ingresarNombre()
                     name+=temp[x];
             }
         }
-        //cout<<hola<<endl;
         al_draw_bitmap(fondo,0,0,0);
         al_draw_text(normalFont, al_map_rgb(0,0,255), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "Ingrese su nombre:");
         al_draw_text(normalFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, name.c_str());//dibuja el nombre
@@ -392,7 +391,6 @@ void resetGame()
 {
     cleanPersonajes();
     cleanObstaculos();//limpiar obstacles
-    //personajes->clear();
     obstaculos->clear();
 }
 
@@ -445,7 +443,6 @@ void loadLvl(int level){
         personajes->push_back(new EnemigoRojo(event_queue, personajes, obstaculos, display, 1));
 
     }
-    //personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos, display));
 }
 
 /**
@@ -499,10 +496,8 @@ int nivel(string nombre, int level){
         vector<list<PersonajesAnimados*>::iterator>borrar;
         for(list<PersonajesAnimados*>::iterator i=personajes->begin(); i != personajes->end(); i++)
         {
-            //cout<<"entro"<<endl; Comparar que no tenga vida el personaje tampoco
             if ((*i)->tipoObjeto == "Enemigo" && ((*i)->muerto == true || (*i)->detalles->y > 600 || (*i)->vidas <= 0)) //si está muerto o se paso
             {
-//            personajes->erase(i);
                 borrar.push_back(i);//añadir a los de borrar
             }
         }
@@ -516,8 +511,6 @@ int nivel(string nombre, int level){
         //OBJETOS ANIMADOS
         for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i!=obstaculos->end(); i++)
         {
-//            if ((*i)->clase == "Principal")
-//                seg = (*i)->getTime();
             (*i)->draw();
             (*i)->act(NULL);
         }
@@ -525,10 +518,6 @@ int nivel(string nombre, int level){
         al_flip_display();
     }
     al_draw_bitmap(mes, 75,200,0);
-//    if (seg>0){
-//        string mensaje = "Tiempo de Juego "+toString(seg);
-//        al_draw_text(cartoonFont, al_map_rgb(255,255,255), width/2, height/1.5,ALLEGRO_ALIGN_RIGHT, mensaje.c_str());
-//    }
     al_flip_display();
     al_rest(2);
     al_destroy_bitmap(mes);
@@ -541,8 +530,6 @@ int nivel(string nombre, int level){
 **/
 void readScores(){
     //xff3d
-    cout<<"---LEYENDO---"<<endl;
-    //jugadores.clear();
     ifstream in("scores.vrs");
     if (!in)
         return;
@@ -558,7 +545,6 @@ void readScores(){
         in.read((char*)&time, 4);
         in.read(n, 10);
         nombre = n;
-        cout<<"Jugador: "<<nombre<<" Tiempo: "<<time<<endl;
         jugadores.insert(pair<int, string>(time, nombre));
     }
 
@@ -570,18 +556,15 @@ void readScores(){
     Guardar Scores
 **/
 void writeScore(string nombre, int seg){
-    cout<<"---ESCRIBIENDO---"<<endl;
     string archivo = "scores.vrs";
     ofstream out(archivo.c_str());
     int y = 0;
     jugadores.insert(pair<int, string>(seg, nombre));
-    cout<<jugadores.size()<<endl;
     for(multimap<int, string>::iterator x = jugadores.begin(); x != jugadores.end(); x++){
         int time = (int)(*x).first;
         string name = (*x).second;
         out.write((char*)&time, 4);
         out.write(name.c_str(), 10);
-        cout<<name<< " , "<<time<<endl;
         y++;
         if (y >= CANTIDAD_SCORES)
             break;
@@ -597,7 +580,6 @@ void loopJuego()
     al_play_sample(game, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &igame);
     string nombre;
     nombre = ingresarNombre();
-    cout<<nombre<<endl;
     resetGame();
     personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos, display));
     if (nivel(nombre,1) > 0){
@@ -605,7 +587,6 @@ void loopJuego()
             if(nivel(nombre,3) > 0){
                 int seg = nivel(nombre,4);
                 if(seg > 0){
-                    cout<<"Paso todos los Niveles"<<endl;
                     writeScore(nombre, seg);
                     }//lvl 4
                 }//lvl 3

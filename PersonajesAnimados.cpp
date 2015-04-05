@@ -51,7 +51,6 @@ void PersonajesAnimados::draw()
         h = al_get_bitmap_height(temp);
         al_draw_scaled_bitmap(temp,0,0,w,h,detalles->x, detalles->y,50,50,0); //dibujar el bitmap
     }
-//    al_draw_scaled_bitmap(image[animacion],0,0,196,397,caja->x,caja->y,196,397,0);
 
     if (disparos)
     {
@@ -183,12 +182,6 @@ bool PersonajesAnimados::teclaDownEvent(int keycode)
     return false;
 }
 
-/*
-if(param.x + param.w < hitbox.x
-            || param.x > hitbox.x + hitbox.w
-            || param.y + param.h < hitbox.y
-            || param.y > hitbox.y + hitbox.h)
-*/
 
 /**
     ???
@@ -206,7 +199,6 @@ void PersonajesAnimados::detectColision()
                     muerto = true;
                     getPrincipal()->vidas -= 10;
                 }
-            //cout<<"colision con "<<(*i)->tipoObjeto<<endl;
 
             //con las balas de otros
             for(list<ObjetosAnimados*>::iterator e = (*i)->disparos->begin(); e != (*i)->disparos->end(); e++)
@@ -219,7 +211,6 @@ void PersonajesAnimados::detectColision()
                             al_draw_bitmap(damage, detalles->x-10, detalles->y-10,0);
                         this->vidas -= ((Disparos*)(*e))->dmg;//Casting a Disparos* porque dmg es un atributo de clase hija
                         (*e)->colisionado = true;
-                        //cout<<"Colision con disparo"<<endl;
                     }
                 }
             }
@@ -229,7 +220,6 @@ void PersonajesAnimados::detectColision()
     }
 
     //disparos contra obstaculos
-    //vector<list<ObjetosAnimados*>::iterator>borrar;
     for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i != obstaculos->end(); i++)
     {
         if ((*i)->tipoObjeto == "Obstaculo")
@@ -249,11 +239,6 @@ void PersonajesAnimados::detectColision()
             }
         }
     }
-//    for(int x = 0; x < borrar.size(); x++) //recorrer los que morirán
-//    {
-//        disparos->erase(borrar[x]);
-//        delete (*borrar[x]);
-//    }
 }
 
 /**
@@ -305,7 +290,6 @@ PersonajesAnimados::~PersonajesAnimados()
         {
             al_destroy_bitmap((vector_temp)[y]);//destruimos los bitmaps en esta posición
         }
-//            delete vector_temp; //eliminamos el apuntador del vector temporal
     }
     delete detalles;
     if(damage!=NULL)
@@ -329,21 +313,14 @@ PersonajesAnimados* PersonajesAnimados::getPrincipal()
 **/
 void PersonajesAnimados::limpiarEnemigos()
 {
-//    vector<list<PersonajesAnimados*>::iterator>borrar;
     for(list<PersonajesAnimados*>::iterator i=personajes->begin(); i != personajes->end(); i++)
     {
-        //cout<<"entro"<<endl; Comparar que no tenga vida el personaje tampoco
+        //Comparar que no tenga vida el personaje tampoco
         if ((*i)->tipoObjeto == "Enemigo" && (*i)->detalles->y > 600) //si está muerto o se paso
         {
-//            personajes->erase(i);
             getPrincipal()->vidas -= 10;//añadir a los de borrar
         }
     }
-//    for(int x = 0; x < borrar.size(); x++) //recorrer los que morirán
-//    {
-//        personajes->erase(borrar[x]);
-//        delete (*borrar[x]);
-//    }
     vector<list<ObjetosAnimados*>::iterator>bdisparos;
     for(list<ObjetosAnimados*>::iterator e = disparos->begin(); e != disparos->end(); e++)
     {

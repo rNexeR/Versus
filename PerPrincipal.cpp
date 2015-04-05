@@ -73,7 +73,6 @@ int PerPrincipal::isOnSolidGround()
 
 void PerPrincipal::act(ALLEGRO_EVENT* ev)
 {
-    cout<<vidas<<endl;
     bool entro = false;
     validarTeclas(ev);
     if (!jump && detalles->y < piso && isOnSolidGround()==-1){
@@ -126,7 +125,6 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
         if(key[KEY_UP] && !down && !key[KEY_LEFT] && !key[KEY_RIGHT] )
         {
             if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_P ){
-                cout<<"Disparando"<<endl;
                 int dx, dy;
                 dx = orientacion == 'r' ? 15 : 25;
                 dx = detalles->x + dx;
