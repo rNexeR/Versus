@@ -115,8 +115,8 @@
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
-       x="188.90404"
-       y="426.89499"
+       x="155.569"
+       y="71.321289"
        id="text5324"
        sodipodi:linespacing="125%"
        inkscape:export-filename="/home/rnexer/Programacion 3/Versus/GameFiles/assets/menu/opciones.png"
@@ -124,23 +124,23 @@
        inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan5326"
-         x="188.90404"
-         y="426.89499"
-         style="font-size:28px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;fill-opacity:1;font-family:Saucer BB;-inkscape-font-specification:Saucer BB Bold Italic">Iniciar Juego</tspan><tspan
+         x="155.569"
+         y="71.321289"
+         style="font-size:28px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;fill-opacity:1;font-family:KenVector Future Thin;-inkscape-font-specification:KenVector Future Thin">Iniciar Juego</tspan><tspan
          sodipodi:role="line"
-         x="188.90404"
-         y="461.89499"
-         style="font-size:28px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;fill-opacity:1;font-family:Saucer BB;-inkscape-font-specification:Saucer BB Bold Italic"
+         x="155.569"
+         y="106.32129"
+         style="font-size:28px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;fill-opacity:1;font-family:KenVector Future Thin;-inkscape-font-specification:KenVector Future Thin"
          id="tspan5328">Instrucciones</tspan><tspan
          sodipodi:role="line"
-         x="188.90404"
-         y="496.89499"
-         style="font-size:28px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;fill-opacity:1;font-family:Saucer BB;-inkscape-font-specification:Saucer BB Bold Italic"
+         x="155.569"
+         y="141.32129"
+         style="font-size:28px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;fill-opacity:1;font-family:KenVector Future Thin;-inkscape-font-specification:KenVector Future Thin"
          id="tspan5330">Ranking</tspan><tspan
          sodipodi:role="line"
-         x="188.90404"
-         y="531.89496"
-         style="font-size:28px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;fill-opacity:1;font-family:Saucer BB;-inkscape-font-specification:Saucer BB Bold Italic"
+         x="155.569"
+         y="176.32132"
+         style="font-size:28px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;fill-opacity:1;font-family:KenVector Future Thin;-inkscape-font-specification:KenVector Future Thin"
          id="tspan5332">Salir</tspan></text>
     <rect
        style="fill:url(#linearGradient5342);fill-opacity:1;stroke:none"

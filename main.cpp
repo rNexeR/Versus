@@ -150,8 +150,8 @@ int initAllegro()
     al_init_font_addon(); // initialize the font addon
     al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 
-    normalFont = al_load_ttf_font("GameFiles/fonts/font.ttf",50,0 );
-    cartoonFont = al_load_ttf_font("GameFiles/fonts/cartoon.ttf",50,0 );
+    normalFont = al_load_ttf_font("GameFiles/fonts/kenvector_future_thin.ttf",50,0 );
+    cartoonFont = al_load_ttf_font("GameFiles/fonts/kenpixel_blocks.ttf",50,0 );
 
     if (!normalFont || !cartoonFont)
     {
@@ -177,7 +177,7 @@ int initAllegro()
 **/
 bool changeSizenormalFont(int x)
 {
-    normalFont = al_load_ttf_font("GameFiles/fonts/font.ttf",x,0 );
+    normalFont = al_load_ttf_font("GameFiles/fonts/kenvector_future_thin.ttf",x,0 );
 
     if (!normalFont)
     {
@@ -191,7 +191,7 @@ bool changeSizenormalFont(int x)
 **/
 bool changeSizeCartoonFont(int x)
 {
-    cartoonFont = al_load_ttf_font("GameFiles/fonts/cartoon.ttf", x, 0);
+    cartoonFont = al_load_ttf_font("GameFiles/fonts/kenpixel_blocks.ttf", x, 0);
 
     if (!cartoonFont)
     {
@@ -498,7 +498,7 @@ int nivel(string nombre, int level){
         }
         al_clear_to_color(al_map_rgb(0,0,0));
         al_draw_text(normalFont, al_map_rgb(255,255,255), 0, 0,ALLEGRO_ALIGN_LEFT, nombre.c_str());
-        al_draw_text(cartoonFont, al_map_rgb(255,255,255), width, 5,ALLEGRO_ALIGN_RIGHT, toString(seg).c_str());
+        al_draw_text(cartoonFont, al_map_rgb(255,255,255), width, 0,ALLEGRO_ALIGN_RIGHT, toString(seg).c_str());
         /*
             CICLOS DE LAS LISTAS DE PERSONAJES, ENEMIGOS Y OBJETOS
             SE USAN SUS DRAWS Y ACTS
@@ -624,7 +624,7 @@ void mainMenu()
     ALLEGRO_BITMAP *select = NULL, *options = NULL;
     music = al_load_sample("GameFiles/music/So, let see, what you can_0.wav");
     effect = al_load_sample("GameFiles/music/sfx_laser1.wav");
-    al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);//Ejecutar sonido de musica
+    al_play_sample(music, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);//Ejecutar sonido de musica
     Box *bselect = NULL, *boptions = NULL;
     int uPosy, uPosyOriginal;
 
@@ -671,22 +671,18 @@ void mainMenu()
                 //llamar el loop del juego
                 al_stop_samples();
                 loopJuego();
-                al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
+                al_play_sample(music, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
             }
             else if (uPosy == uPosyOriginal+espaciado)
             {
                 //llamar el loop de instrucciones
-                al_stop_samples();
                 showInstrucciones();
-                al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
             }
             else if(uPosy == uPosyOriginal+(espaciado*2))
             {
                 //llamar el loop de Scores
-                al_stop_samples();
                 readScores();
                 showRanking();
-                al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
             }
             else
             {
