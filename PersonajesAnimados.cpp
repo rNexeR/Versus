@@ -85,6 +85,40 @@ void PersonajesAnimados::init(list<PersonajesAnimados *> *personajes, list<Objet
     this->display = display;
     this->personajes = personajes;//settea el apuntador a la lista de personajes en el juego
     this->obstaculos = obstaculos;//settea el apuntador a la lista de obstaculos en el juego
+
+    if(!al_init_image_addon())
+    {
+        cout<<"failed to initialize image addon!"<<endl;
+    }
+
+    if(!al_install_audio()){
+        fprintf(stderr, "failed to initialize audio!\n");
+        return;
+    }
+
+    if(!al_init_acodec_addon()){
+        fprintf(stderr, "failed to initialize audio codecs!\n");
+        return;
+    }
+
+    if (!al_reserve_samples(5)){
+        fprintf(stderr, "failed to reserve samples!\n");
+        return;
+    }
+
+    sonido = NULL;
+    stop = NULL;
+
+    sonido = al_load_sample( "GameFiles/music/sfx_laser2.wav" );
+    stop = al_load_sample( "GameFiles/music/stop.wav" );
+
+    if(!sonido || !stop){
+        printf( "Audio clip sample not loaded!\n" );
+        return;
+    }
+    al_play_sample(sonido, 0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idsonido);
+    al_play_sample(stop, 0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idstop);
+
     disparos = NULL;
     animacion_actual = 0;
     mapa_actual = 0;
