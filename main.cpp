@@ -293,8 +293,8 @@ void showRanking(){
             int timeScore = (*x).first;
             playerScore += toString(timeScore);
             //Draw the score
-            al_draw_text(cartoonFont, al_map_rgb(255,255,255), width/2, (height/2) + scoreCoordinate - 50,
-                ALLEGRO_ALIGN_CENTRE, playerScore.c_str());
+            al_draw_text(cartoonFont, al_map_rgb(255,255,255), 30, (height/2) + scoreCoordinate - 50,
+                ALLEGRO_ALIGN_LEFT, playerScore.c_str());
 
             scoreCoordinate += 40;
 
@@ -346,6 +346,9 @@ string ingresarNombre()
     return name;
 }
 
+/**
+    Obtener un apuntador al personaje principal
+**/
 PersonajesAnimados* getPrincipal(){
     for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++)
     {
@@ -677,7 +680,6 @@ void mainMenu()
                 al_stop_samples();
                 readScores();
                 showRanking();
-                showSplash();
                 al_play_sample(music, 0.5, 0.0,1.0,ALLEGRO_PLAYMODE_LOOP,&imusic);
             }
             else
