@@ -21,7 +21,9 @@ http://opengameart.org/users/master484
 .................................................................................
 
 --Kenney: the main enemies and laser shots and its laser sounds were used from
-the Space Shooter Redux collection of Kenney. 
+the Space Shooter Redux collection of Kenney. The text generated in-game
+with fonts is from the Kenney fonts collection.
+
 **Kenney's site and OGA profile respectively: http://kenney.nl/
 http://opengameart.org/users/kenney
 
