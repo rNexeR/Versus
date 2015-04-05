@@ -1,6 +1,6 @@
 /**
 	Versus is a PC game programmed in C++ using the Allegro 5.0.11 library.
-	Copyright (C) 2015  Nexer Rodríguez and Ricardo A. Interiano (Raim)
+	Copyright (C) 2015  Nexer Rodríguez (rnexer) and Ricardo A. Interiano (Raim)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -15,6 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+    For contact information read the README.md file.
 **/
 
 #include "ObjetosAnimados.h"
