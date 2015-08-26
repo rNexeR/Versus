@@ -492,7 +492,7 @@ int nivel(string nombre, int level){
         }
         if (teclaDownEvent(ALLEGRO_KEY_ESCAPE))
             showPause();
-        if (personajes->size()<=1){
+        if (personajes->size()<=1 && getPrincipal()->vidas > 0){
             mes = al_load_bitmap("GameFiles/assets/fondos/Win.png");
             break;
         }
