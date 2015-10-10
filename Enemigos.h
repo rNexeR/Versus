@@ -33,7 +33,7 @@ class Enemigos : public PersonajesAnimados
         int laserDmg; //determinar el valor de daño del laser
         Enemigos();
         bool alternar = false; //determinará si se moverá al contrario o sentido que iba
-        virtual void act(ALLEGRO_EVENT* ev);
+        virtual void act();
         virtual int getTime();
         void randomizarMovimiento();//función para moverse al azar
         virtual void determinarRandomMovimiento();

@@ -43,7 +43,7 @@ class Entidad
         Box *detalles = new Box(0,0,0,0); //donde estará y de donde se comprueban las colisiones
         float velocity = 1; //cuanto se mueve
         string tipoObjeto = ""; //muestra que objeto es: obstacle, disparo, enemy, etc.
-        virtual void act(ALLEGRO_EVENT* ev) = 0;
+        virtual void act() = 0;
         virtual void draw() = 0;//dibujo de la figura
         bool colision(Box*detalles, Box* pCaja);//detectar colisiones con otros objetos
         Entidad();

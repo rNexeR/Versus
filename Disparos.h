@@ -29,7 +29,7 @@ class Disparos : public ObjetosAnimados
     public:
         int dmg;//cantidad de daño que ejerce el disparo
 
-        virtual void act(ALLEGRO_EVENT *ev);
+        virtual void act();
         virtual void draw();
         Disparos(int dmg, int posX, int posY, int dir);
         virtual ~Disparos();

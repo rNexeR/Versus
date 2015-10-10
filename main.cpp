@@ -46,6 +46,7 @@ const float FPS = 60;
 
 ALLEGRO_DISPLAY *display = NULL;
 ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+ALLEGRO_JOYSTICK *joystick = NULL;
 
 //EVENTOS Y TIMERS
 ALLEGRO_EVENT ev;
@@ -109,6 +110,12 @@ int initAllegro()
         cout<<"failed to initialize allegro!\n"<<endl;
         return -1;
     }
+    if(!al_install_joystick()){
+        cout<<"failed to initialize joystick!\n"<<endl;
+        return -1;
+    }
+    al_reconfigure_joysticks();
+    joystick=al_get_joystick(al_get_num_joysticks()-1);
 
     if(!al_init_image_addon())
     {
@@ -167,6 +174,7 @@ int initAllegro()
     al_register_event_source(event_queue, al_get_display_event_source(display));//registrar eventos del display
     al_register_event_source(event_queue, al_get_timer_event_source(timer));//registrar eventos del timer
     al_register_event_source(event_queue, al_get_keyboard_event_source());//registrar eventos del teclado
+    al_register_event_source(event_queue, al_get_joystick_event_source());//registrar eventos del joystick
 
     al_init_timeout(&timeout, 0.06);
     return 0;
@@ -402,6 +410,13 @@ void cleanObstaculos()
         delete (*i);
 }
 
+void cleanBullets(){
+    if(getPrincipal()->disparos->size() > 0)
+    for(list<ObjetosAnimados*>::iterator i = getPrincipal()->disparos->begin(); i != getPrincipal()->disparos->end(); i++)
+        delete (*i);
+    getPrincipal()->disparos->clear();
+}
+
 /**
     Inicialización del juego (main game)
 **/
@@ -419,6 +434,8 @@ void loadLvl(int level){
     resetGame();
     obstaculos->push_back(new Obstaculo(0, obstaculos));
     obstaculos->push_back(new Obstaculo(200, obstaculos));
+//    if(level != 1)
+        cleanBullets();
     if (level == 1){
         //SOLO NEGROS
         personajes->push_back(new EnemigoNegro(event_queue, personajes, obstaculos, display, 1));
@@ -507,7 +524,7 @@ int nivel(string nombre, int level){
         {
             if ((*i)->tipoObjeto == "Principal")
                 seg = (*i)->getTime();
-            (*i)->act(&ev);
+            (*i)->act();
             (*i)->draw();
         }
 
@@ -530,7 +547,7 @@ int nivel(string nombre, int level){
         for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i!=obstaculos->end(); i++)
         {
             (*i)->draw();
-            (*i)->act(NULL);
+            (*i)->act();
         }
 
         al_flip_display();

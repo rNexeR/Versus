@@ -76,7 +76,7 @@ void PersonajesAnimados::draw()
     {
         for(list<ObjetosAnimados*>::iterator i = disparos->begin(); i != disparos->end(); i++)
         {
-            (*i)->act(NULL);
+            (*i)->act();
             (*i)->draw();
         }
     }
@@ -174,33 +174,33 @@ void PersonajesAnimados::setAnimacion(int nombre)
 /**
     Determina si una tecla está siendo presionada o no
 **/
-void PersonajesAnimados::teclaPresionada(int keycode, bool *variable)
-{
-    if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
-    {
-        if(ev.keyboard.keycode==keycode)
-            *variable = true;
-    }
-    if(ev.type == ALLEGRO_EVENT_KEY_UP)
-    {
-        if(ev.keyboard.keycode==keycode)
-            *variable = false;
-    }
-}
+//void PersonajesAnimados::teclaPresionada(int keycode, bool *variable)
+//{
+//    if(ev->type == ALLEGRO_EVENT_KEY_DOWN)
+//    {
+//        if(ev->keyboard.keycode==keycode)
+//            *variable = true;
+//    }
+//    if(ev->type == ALLEGRO_EVENT_KEY_UP)
+//    {
+//        if(ev->keyboard.keycode==keycode)
+//            *variable = false;
+//    }
+//}
 
 /**
     Comprueba que valor es el de la tecla que se ha presionado.
     Recibe el keycode (int) y los compara
 **/
-bool PersonajesAnimados::teclaDownEvent(int keycode)
-{
-    if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
-    {
-        if(ev.keyboard.keycode==keycode)
-            return true;
-    }
-    return false;
-}
+//bool PersonajesAnimados::teclaDownEvent(int keycode)
+//{
+//    if(ev->type == ALLEGRO_EVENT_KEY_DOWN)
+//    {
+//        if(ev->keyboard.keycode==keycode)
+//            return true;
+//    }
+//    return false;
+//}
 
 
 /**

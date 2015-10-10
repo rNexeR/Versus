@@ -46,7 +46,7 @@ Obstaculo::Obstaculo(int variacion, list<ObjetosAnimados*>*obstaculos)
 /**
     El act del obstaculo; por mientras está rebotando de izquierda a derecha dependiendo de su posición
 **/
-void Obstaculo::act(ALLEGRO_EVENT* ev){
+void Obstaculo::act(){
     if (detalles->x < 0){//si choca en la izquierda, alternar a derecha
         velocity *= -1;
     }

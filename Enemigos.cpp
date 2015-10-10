@@ -37,7 +37,7 @@ int Enemigos::getTime(){
     return -1;
 }
 
-void Enemigos::act(ALLEGRO_EVENT* ev){
+void Enemigos::act(){
     detalles->y += velocity;
 
     int randomEstado = rand() % variablesRandomEstado;

@@ -83,6 +83,7 @@ class PersonajesAnimados : public Entidad
         ALLEGRO_EVENT ev;
         ALLEGRO_TIMEOUT timeout;
         ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+        ALLEGRO_TIMER *timer = NULL;
         ALLEGRO_DISPLAY *display;
 
         PersonajesAnimados();
@@ -93,8 +94,8 @@ class PersonajesAnimados : public Entidad
         void detectColision();
         PersonajesAnimados* getPrincipal();
         void setAnimacion(int nombre);
-        void teclaPresionada(int keycode, bool *variable);
-        bool teclaDownEvent(int keycode);
+//        void teclaPresionada(int keycode, bool *variable);
+//        bool teclaDownEvent(int keycode);
         int enumToInt(string animacion);
         void limpiarEnemigos();
 

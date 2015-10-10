@@ -55,10 +55,25 @@ PerPrincipal::PerPrincipal(ALLEGRO_EVENT_QUEUE *event_queue, list<PersonajesAnim
     }
     damage = al_load_bitmap("GameFiles/assets/personajes/principal/damage_flash.png");
 
+//    event_queue = al_create_event_queue();
+//    if(!event_queue)
+//    {
+//        cout<<"failed to create event_queue!\n"<<endl;
+//        al_destroy_display(display);
+//    }
 
+    timer = al_create_timer(1.0 / 60);
+    if(!timer)
+    {
+        cout<<"failed to create timer!"<<endl;
+    }
+
+
+    al_register_event_source(event_queue, al_get_timer_event_source(timer));//registrar eventos del timer
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
     this->event_queue = event_queue;
+    al_init_timeout(&timeout, 0.06);
     detalles->x = 250;
     detalles->y = piso;
     disparos = new list<ObjetosAnimados*>;
@@ -80,7 +95,8 @@ int PerPrincipal::isOnSolidGround()
             if (colision(detalles,(*i)->detalles))
             {
                 Box temp((*i)->detalles->x-5,(*i)->detalles->y,(*i)->detalles->width-5, 15);
-                if (colision(detalles,&temp)){
+                if (colision(detalles,&temp))
+                {
                     detalles->x+=(*i)->velocity;
                     return temp.y;
                 }
@@ -91,11 +107,15 @@ int PerPrincipal::isOnSolidGround()
     return -1;
 }
 
-void PerPrincipal::act(ALLEGRO_EVENT* ev)
+void PerPrincipal::act()
 {
+    cout<<"estoy actuando"<<endl;
     bool entro = false;
-    validarTeclas(ev);
-    if (!jump && detalles->y < piso && isOnSolidGround()==-1){
+    bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
+    if(get_event)
+        validarTeclas();
+    if (!jump && detalles->y < piso && isOnSolidGround()==-1)
+    {
         down = true;
         setAnimacion(orientacion == 'r' ? CAYENDO_DERECHA : CAYENDO_IZQUIERDA);
     }
@@ -103,7 +123,8 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
     if (vidas<=0)
     {
         setAnimacion(orientacion == 'r' ? MUERTO_DERECHA : MUERTO_IZQUIERDA);
-        if (vidas<=-1){
+        if (vidas<=-1)
+        {
             muerto = true;
             al_rest(1);
         }
@@ -127,7 +148,9 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
                 setAnimacion(orientacion == 'r' ? PARADO_DERECHA : PARADO_IZQUIERDA);
                 jump = false;
             }
-        }else if (down){
+        }
+        else if (down)
+        {
             velocidad_y+=aceleracion_y;
             detalles->y+=velocidad_y;
             aceleracion_y+=gravedad;
@@ -144,7 +167,8 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
 
         if(key[KEY_UP] && !down && !key[KEY_LEFT] && !key[KEY_RIGHT] )
         {
-            if(ev->type == ALLEGRO_EVENT_KEY_DOWN && ev->keyboard.keycode == ALLEGRO_KEY_P ){
+            if(ev.type == ALLEGRO_EVENT_KEY_DOWN && ev.keyboard.keycode == ALLEGRO_KEY_P )
+            {
                 int dx, dy;
                 dx = orientacion == 'r' ? 15 : 25;
                 dx = detalles->x + dx;
@@ -158,7 +182,7 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
             entro = true;
 
         }
-        if(ev->type == ALLEGRO_EVENT_KEY_DOWN && !jump && ev->keyboard.keycode == ALLEGRO_KEY_SPACE)
+        if(ev.type == ALLEGRO_EVENT_KEY_DOWN && !jump && ev.keyboard.keycode == ALLEGRO_KEY_SPACE)
         {
             velocidad_y = 0;
             aceleracion_y = -4.5;
@@ -190,11 +214,12 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
     }
 }
 
-void PerPrincipal::validarTeclas(ALLEGRO_EVENT* ev)
+void PerPrincipal::validarTeclas()
 {
-    if(ev->type == ALLEGRO_EVENT_KEY_DOWN)
+    velocity = 5;
+    if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
     {
-        switch(ev->keyboard.keycode)
+        switch(ev.keyboard.keycode)
         {
         case ALLEGRO_KEY_W:
             key[KEY_UP] = true;
@@ -213,9 +238,9 @@ void PerPrincipal::validarTeclas(ALLEGRO_EVENT* ev)
             break;
         }
     }
-    if(ev->type == ALLEGRO_EVENT_KEY_UP)
+    else if(ev.type == ALLEGRO_EVENT_KEY_UP)
     {
-        switch(ev->keyboard.keycode)
+        switch(ev.keyboard.keycode)
         {
         case ALLEGRO_KEY_W:
             key[KEY_UP] = false;
@@ -234,6 +259,25 @@ void PerPrincipal::validarTeclas(ALLEGRO_EVENT* ev)
             break;
         }
     }
+//
+//    else if (ev->type == ALLEGRO_EVENT_JOYSTICK_AXIS)
+//    {
+//        cout<<"JOYSTICK "<<frame<<endl;
+//        if (ev->joystick.axis == 0)
+//        {
+//            int ax = ev->joystick.pos*10;
+//            if(ax > 0)
+//            {
+//                key[KEY_RIGHT] = true;
+//                velocity = ax;
+//            }
+//            else
+//            {
+//                key[KEY_LEFT] = true;
+//                velocity = -ax;
+//            }
+//        }
+//    }
 }
 
 PerPrincipal::~PerPrincipal()

@@ -55,7 +55,7 @@ Disparos::~Disparos()
     delete detalles;
 }
 
-void Disparos::act(ALLEGRO_EVENT *ev){
+void Disparos::act(){
     detalles->y += velocity;
     if (detalles->y > 650 || detalles->y <0 || detalles-> x < 0 || detalles->x > 500)
         colisionado = true;
