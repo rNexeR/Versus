@@ -18,18 +18,7 @@
     For contact information read the README.md file.
 **/
 #include <stdio.h>
-#include <iostream>
-using namespace std;
 
-//LIBRERIAS DE ALLEGRO
-#include <allegro5/allegro.h>
-#include "allegro5/allegro_image.h"
-#include "allegro5/allegro_native_dialog.h"
-#include <allegro5/allegro_audio.h>
-#include <allegro5/allegro_acodec.h>
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_ttf.h>
-#include <map>
 
 //LIBRERIAS DE PROYECTO
 #include "Box.h"
@@ -41,8 +30,7 @@ using namespace std;
 #include "EnemigoAzul.h"
 #include "EnemigoRojo.h"
 #include "EnemigoVerde.h"
-
-const float FPS = 60;
+#include "MainMenu.h"
 
 ALLEGRO_DISPLAY *display = NULL;
 ALLEGRO_EVENT_QUEUE *event_queue = NULL;
@@ -68,37 +56,12 @@ ALLEGRO_SAMPLE *game = NULL;
 ALLEGRO_SAMPLE_ID igame;
 
 ALLEGRO_FONT *normalFont = NULL, *cartoonFont = NULL;
-
-//Constantes
-int splashTime = 1;
-int width = 500, height = 650;
-const int CANTIDAD_SCORES = 6;
-const int SIZE_FORMATO = 14;
 //Listas
 list<PersonajesAnimados*> *personajes = new list<PersonajesAnimados*>();
 list<ObjetosAnimados*> *obstaculos =  new list<ObjetosAnimados*>();
 //list<Entidad*> *entidades; //TO-DO, debe ser usada para reemplazar las listas anteriores
 
 multimap<int, string> jugadores;//inicializar vector con la cantidad de scores necesarios para el ranking
-
-/**
-    TO-DO: especificaciones por NXR
-**/
-string toString(int number)
-{
-    if (number == 0)
-        return "0";
-    std::string temp="";
-    std::string returnvalue="";
-    while (number>0)
-    {
-        temp+=number%10+48;
-        number/=10;
-    }
-    for (int i=0; i<(int)temp.length(); i++)
-        returnvalue+=temp[temp.length()-i-1];
-    return returnvalue;
-}
 
 /**
     Inicialización de las funciones de Allegro
@@ -178,38 +141,9 @@ int initAllegro()
 
     al_init_timeout(&timeout, 0.06);
     return 0;
-}
-
-/**
-    Cambia al font normal
-**/
-bool changeSizenormalFont(int x)
-{
-    normalFont = al_load_ttf_font("GameFiles/fonts/kenvector_future_thin.ttf",x,0 );
-
-    if (!normalFont)
-    {
-        return false;
     }
-    return true;
-}
 
-/**
-    Cambia al fonto de Cartoon
-**/
-bool changeSizeCartoonFont(int x)
-{
-    cartoonFont = al_load_ttf_font("GameFiles/fonts/kenpixel_blocks.ttf", x, 0);
-
-    if (!cartoonFont)
-    {
-        return false;
-    }
-    return true;
-}
-
-
-/**
+    /**
     Inicializar el logo
 **/
 int initLogo()
@@ -229,34 +163,6 @@ int initLogo()
     return 0;
 }
 
-//OJO al mantener presionada, si funciona pero lo hace como 3 veces por frame
-void teclaPresionada(int keycode, bool *variable)
-{
-    if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
-    {
-        if(ev.keyboard.keycode==keycode)
-            *variable = true;
-    }
-    if(ev.type == ALLEGRO_EVENT_KEY_UP)
-    {
-        if(ev.keyboard.keycode==keycode)
-            *variable = false;
-    }
-}
-
-/**
-    Detecta si una tecla ha sido presionada
-**/
-bool teclaDownEvent(int keycode)
-{
-    if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
-    {
-        if(ev.keyboard.keycode==keycode)
-            return true;
-    }
-    return false;
-}
-
 /**
     Muestra la imagen inicial (comienzo del juego)
 **/
@@ -272,7 +178,7 @@ void showPause()
 {
     while (true){
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
-        if (teclaDownEvent(ALLEGRO_KEY_ESCAPE))
+        if (teclaDownEvent(&ev, ALLEGRO_KEY_ESCAPE))
             break;
         al_draw_bitmap(pausa,(width/2)- 150, (height/2)-100,0);
         al_flip_display();
@@ -282,7 +188,7 @@ void showPause()
 void showInstrucciones(){
     while(1){
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
-        if(get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE || teclaDownEvent(ALLEGRO_KEY_ESCAPE)))
+        if(get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE || teclaDownEvent(&ev, ALLEGRO_KEY_ESCAPE)))
             break;
         al_clear_to_color(al_map_rgb(0,0,0));
         al_draw_bitmap(instru,0,0,0);
@@ -291,10 +197,10 @@ void showInstrucciones(){
 }
 
 void showRanking(){
-    changeSizeCartoonFont(30);
+    changeSizeFont(cartoonFont, 30);
     while(true){
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
-        if(get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE || teclaDownEvent(ALLEGRO_KEY_ESCAPE)))//waiting to escape
+        if(get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE || teclaDownEvent(&ev, ALLEGRO_KEY_ESCAPE)))//waiting to escape
             break;
         al_clear_to_color(al_map_rgb(0,0,0));
         al_draw_bitmap(fondo,0,0,0);
@@ -338,44 +244,6 @@ void showRanking(){
         /** **/
         al_flip_display();
     }
-}
-
-/**
-    función para ingresar el nombre al comienzo del juego
-**/
-string ingresarNombre()
-{
-    string name = "";
-    changeSizenormalFont(20);
-    while(1)
-    {
-        al_clear_to_color(al_map_rgb(0,0,0));
-        bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
-        if(get_event && ev.type == ALLEGRO_EVENT_KEY_DOWN)
-        {
-            if (teclaDownEvent(ALLEGRO_KEY_ESCAPE) || teclaDownEvent(ALLEGRO_KEY_ENTER))
-                break;
-            for(int x = 1; x <= 27; x++)//for para obtener los valores de todas las letras
-                if (teclaDownEvent(x))//comparamos que tecla está siendo presionada
-                {
-                    char e = x+64; //de ser así, sumarle al valor ASCII equivalente
-                    name+=e;//concatenarla al nombre
-                }
-
-            if (teclaDownEvent(ALLEGRO_KEY_BACKSPACE) && name.size()>0)//comprar si vamos a borrar una letra
-            {
-                string temp = name;
-                name = "";
-                for(int x = 0; x<temp.size()-1; x++)
-                    name+=temp[x];
-            }
-        }
-        al_draw_bitmap(fondo,0,0,0);
-        al_draw_text(normalFont, al_map_rgb(102,204,0), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "INGRESE SU NOMBRE:");
-        al_draw_text(normalFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, name.c_str());//dibuja el nombre
-        al_flip_display();//necesario para cambiar a la siguiente parte del buffer (que dibujará)
-    }
-    return name;
 }
 
 /**
@@ -487,7 +355,7 @@ int nivel(string nombre, int level){
     /*
         CREACION DE PERSONAJES, ENEMIGOS Y OBSTÁCULOS
     */
-    changeSizeCartoonFont(50);
+    changeSizeFont(cartoonFont, 50);
     al_clear_to_color(al_map_rgb(0,0,0));
     string path = "LVL "+toString(level);
     al_draw_text(cartoonFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, path.c_str());
@@ -495,8 +363,8 @@ int nivel(string nombre, int level){
     loadLvl(level);
     al_rest(3);
     int seg = 0;
-    changeSizenormalFont(15);
-    changeSizeCartoonFont(20);
+    changeSizeFont(normalFont, 15);
+    changeSizeFont(cartoonFont, 20);
     ALLEGRO_BITMAP *mes;
     while(1)
     {
@@ -507,7 +375,7 @@ int nivel(string nombre, int level){
             mes = al_load_bitmap("GameFiles/assets/fondos/Lose.png");
             break;
         }
-        if (teclaDownEvent(ALLEGRO_KEY_ESCAPE))
+        if (teclaDownEvent(&ev, ALLEGRO_KEY_ESCAPE))
             showPause();
         if (personajes->size()<=1 && getPrincipal()->vidas > 0){
             mes = al_load_bitmap("GameFiles/assets/fondos/Win.png");
@@ -614,7 +482,7 @@ void loopJuego()
 {
     al_play_sample(game, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &igame);
     string nombre;
-    nombre = ingresarNombre();
+    nombre = ingresarNombre(&ev, event_queue, &timeout, fondo);
     resetGame();
     personajes->push_back(new PerPrincipal(event_queue, personajes, obstaculos, display));
     if (nivel(nombre,1) > 0){
@@ -669,19 +537,19 @@ void mainMenu()
         {
             break;
         }
-        if(get_event && teclaDownEvent(ALLEGRO_KEY_S))
+        if(get_event && teclaDownEvent(&ev, ALLEGRO_KEY_S))
         {
             al_stop_sample(&ieffect);
             al_play_sample(effect, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&ieffect);
             uPosy += espaciado;
         }
-        else if(get_event && teclaDownEvent(ALLEGRO_KEY_W))
+        else if(get_event && teclaDownEvent(&ev, ALLEGRO_KEY_W))
         {
             al_stop_sample(&ieffect);
             al_play_sample(effect, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&ieffect);
             uPosy -= espaciado;
         }
-        else if(get_event && teclaDownEvent(ALLEGRO_KEY_ENTER))
+        else if(get_event && teclaDownEvent(&ev, ALLEGRO_KEY_ENTER))
         {
             if (uPosy == uPosyOriginal)
             {
@@ -728,7 +596,12 @@ int main(int argc, char **argv)
     if (initAllegro()<0 || initLogo()<0)
         return -1;
     showSplash();
-    mainMenu();
+
+    MainMenu menu;
+    cout<<"Llego aki 1"<<endl;
+    menu.show(display);
+    cout<<"Llego aki 2"<<endl;
+//    mainMenu();
     al_clear_to_color(al_map_rgb(0,0,0));
     al_flip_display();
 
