@@ -11,9 +11,8 @@ public:
         initAllegro();
     }
 
-    void show(ALLEGRO_DISPLAY* display)
+    void show()
     {
-        al_register_event_source(event_queue, al_get_display_event_source(display));//registrar eventos del display
 
         ALLEGRO_BITMAP *select = NULL, *options = NULL;
         music = al_load_sample("GameFiles/music/So, let see, what you can_0.wav");
@@ -136,6 +135,13 @@ public:
             cout<<"failed to create timer!"<<endl;
         }
 
+        display = al_create_display(width, height);
+        if(!display)
+        {
+            cout<<"failed to create display!\n"<<endl;
+            return -1;
+        }
+
         if(!al_install_keyboard())
         {
             cout<<"failed to initialize the keyboard!"<<endl;
@@ -163,6 +169,7 @@ public:
         fondo = al_load_bitmap("GameFiles/assets/fondos/fondo.png");
         pausa = al_load_bitmap("GameFiles/assets/fondos/pausa.png");
 
+        al_register_event_source(event_queue, al_get_display_event_source(display));//registrar eventos del display
         al_register_event_source(event_queue, al_get_timer_event_source(timer));//registrar eventos del timer
         al_register_event_source(event_queue, al_get_keyboard_event_source());//registrar eventos del teclado
         al_register_event_source(event_queue, al_get_joystick_event_source());//registrar eventos del joystick

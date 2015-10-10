@@ -599,7 +599,7 @@ int main(int argc, char **argv)
 
     MainMenu menu;
     cout<<"Llego aki 1"<<endl;
-    menu.show(display);
+    menu.show();
     cout<<"Llego aki 2"<<endl;
 //    mainMenu();
     al_clear_to_color(al_map_rgb(0,0,0));
