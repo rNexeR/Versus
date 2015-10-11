@@ -54,7 +54,7 @@ ALLEGRO_TIMER *timer = NULL;
 
 //Elementos Generales
 Box *blogo = NULL;
-ALLEGRO_BITMAP  *logo   = NULL;
+ALLEGRO_BITMAP  *logo   = NULL, *logom = NULL;
 ALLEGRO_BITMAP  *instru   = NULL;
 ALLEGRO_BITMAP  *fondo   = NULL;
 ALLEGRO_BITMAP  *pausa   = NULL;
@@ -163,6 +163,7 @@ int initAllegro()
     instru = al_load_bitmap("GameFiles/assets/fondos/Instrucciones.png");
     fondo = al_load_bitmap("GameFiles/assets/fondos/fondo.png");
     pausa = al_load_bitmap("GameFiles/assets/fondos/pausa.png");
+    logom = al_load_bitmap("VL.png");
 
     al_register_event_source(event_queue, al_get_display_event_source(display));//registrar eventos del display
     al_register_event_source(event_queue, al_get_timer_event_source(timer));//registrar eventos del timer
@@ -435,6 +436,12 @@ string ingresarNombre()
     return name;
 }
 
+void cleanBullets(){
+    if(getPrincipal()->disparos->size() > 0)
+    for(list<ObjetosAnimados*>::iterator i = getPrincipal()->disparos->begin(); i != getPrincipal()->disparos->end(); i++)
+        delete (*i);
+    getPrincipal()->disparos->clear();
+}
 
 /**
     Carga los recursos necesarios para el nivel especificado
@@ -505,6 +512,8 @@ int nivel(string nombre, int level){
     changeSizenormalFont(15);
     changeSizeCartoonFont(20);
     ALLEGRO_BITMAP *mes;
+    cleanBullets();
+    ev = ALLEGRO_EVENT();
     while(1)
     {
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
@@ -527,9 +536,13 @@ int nivel(string nombre, int level){
         }
         al_clear_to_color(al_map_rgb(0,0,0));
         //Game Panel
-        al_draw_scaled_bitmap(logo, 0, 0, 371, 180, 0, 0, 103, 50, 0);
-        al_draw_text(normalFont, al_map_rgb(255,255,255), 0, 0,ALLEGRO_ALIGN_LEFT, nombre.c_str());
-        al_draw_text(cartoonFont, al_map_rgb(255,255,255), width, 0,ALLEGRO_ALIGN_RIGHT, toString(seg).c_str());
+
+        //al_draw_scaled_bitmap(logom, 0, 0, 237, 238, 0, 0, 50, 50, 0);
+
+        string tool = "Player: " + nombre;
+        al_draw_text(normalFont, al_map_rgb(255,255,255), 0, 10,ALLEGRO_ALIGN_LEFT, tool.c_str());
+        tool = "Time: " + toString(seg);
+        al_draw_text(normalFont, al_map_rgb(255,255,255), width, 10,ALLEGRO_ALIGN_RIGHT, tool.c_str());
         /*
             CICLOS DE LAS LISTAS DE PERSONAJES, ENEMIGOS Y OBJETOS
             SE USAN SUS DRAWS Y ACTS

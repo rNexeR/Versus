@@ -2,21 +2,55 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="210mm"
    height="297mm"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="versus.svg">
   <defs
-     id="defs4" />
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient5661">
+      <stop
+         id="stop5665"
+         offset="0"
+         style="stop-color:#333333;stop-opacity:1" />
+      <stop
+         id="stop5663"
+         offset="1"
+         style="stop-color:#000000;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient5627"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop5629" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5661"
+       id="radialGradient5667"
+       cx="176.27161"
+       cy="429.85568"
+       fx="176.27161"
+       fy="429.85568"
+       r="118.68276"
+       gradientTransform="matrix(1,0,0,1.0021279,0,-0.91470138)"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -25,13 +59,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="244.20958"
-     inkscape:cy="809.32009"
+     inkscape:cx="138.58782"
+     inkscape:cy="751.387"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
-     inkscape:window-height="1025"
+     inkscape:window-height="1014"
      inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="1" />
@@ -43,7 +77,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -53,7 +87,7 @@
      id="layer1">
     <text
        xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#6c0004;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#6c0004;fill-opacity:1;stroke:none"
        x="63.134537"
        y="249.29091"
        id="text2985"
@@ -65,20 +99,13 @@
          id="tspan2987"
          x="63.134537"
          y="249.29091"
-         style="font-size:200px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:TeX Gyre Chorus;-inkscape-font-specification:TeX Gyre Chorus Medium;fill:#6c0004;fill-opacity:1">V</tspan></text>
-    <g
-       style="font-size:40px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#6c0004;fill-opacity:1;stroke:none;font-family:URW Chancery L;-inkscape-font-specification:URW Chancery L Bold Italic"
-       id="text2989"
-       inkscape:export-filename="/home/rnexer/Programacion 3/Versus/Versus.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
-      <path
-         d="m 97.188342,256.67012 c 91.880258,-19.267 203.171308,0.71338 283.744738,1.77004 30.59997,0 60.6,-25.00003 60.6,-50.4 0,-8.19999 -3.20001,-12.40001 -18,-24 -14.59998,-11.39999 -17,-14.80001 -17,-23.4 0,-12.99999 9.80001,-24.2 21.6,-24.2 8.39999,0 11.4,3.60001 13.6,16.4 l 13.2,-9.4 c -1.2,-10.99999 -7.20001,-16.4 -17.8,-16.4 -20.59998,0 -44,22.80002 -44,42.6 0,8.99999 4.20001,15.60001 15.8,24.6 13.59999,10.79999 17.2,16.20001 17.2,25.4 0,15.59998 -15.00002,29.4 -32.4,29.4"
-         style="font-size:200px;fill:#6c0004;fill-opacity:1"
-         id="path2994"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="ccscssccsscsc" />
-    </g>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:200px;font-family:MathJax_Caligraphic;-inkscape-font-specification:MathJax_Caligraphic;fill:#6c0004;fill-opacity:1">V </tspan></text>
+    <path
+       sodipodi:nodetypes="ccscssccsscsc"
+       inkscape:connector-curvature="0"
+       id="path2994"
+       style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:200px;line-height:125%;font-family:'URW Chancery L';-inkscape-font-specification:'URW Chancery L Bold Italic';letter-spacing:0px;word-spacing:0px;fill:#6c0004;fill-opacity:1;stroke:none"
+       d="m 97.188342,256.67012 c 91.880258,-19.267 203.171308,0.71338 283.744738,1.77004 30.59997,0 60.6,-25.00003 60.6,-50.4 0,-8.19999 -3.20001,-12.40001 -18,-24 -14.59998,-11.39999 -17,-14.80001 -17,-23.4 0,-12.99999 9.80001,-24.2 21.6,-24.2 8.39999,0 11.4,3.60001 13.6,16.4 l 13.2,-9.4 c -1.2,-10.99999 -7.20001,-16.4 -17.8,-16.4 -20.59998,0 -44,22.80002 -44,42.6 0,8.99999 4.20001,15.60001 15.8,24.6 13.59999,10.79999 17.2,16.20001 17.2,25.4 0,15.59998 -15.00002,29.4 -32.4,29.4" />
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ac0000;fill-opacity:0.99607843;stroke:none;font-family:Sans"
@@ -96,9 +123,9 @@
          style="font-size:144px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:TeX Gyre Chorus;-inkscape-font-specification:TeX Gyre Chorus Medium;fill:#ac0000;fill-opacity:0.99607843">ersu</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ac0000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="115.19545"
-       y="285.73764"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#ac0000;fill-opacity:1;stroke:none"
+       x="65.192902"
+       y="284.72748"
        id="text3837"
        sodipodi:linespacing="125%"
        inkscape:export-filename="/home/rnexer/Programacion 3/Versus/Versus.png"
@@ -106,8 +133,62 @@
        inkscape:export-ydpi="90"><tspan
          sodipodi:role="line"
          id="tspan3839"
-         x="115.19545"
-         y="285.73764"
-         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:TeX Gyre Chorus;-inkscape-font-specification:TeX Gyre Chorus Medium">raimmaster :: rnexer</tspan></text>
+         x="65.192902"
+         y="284.72748"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:'TeX Gyre Chorus';-inkscape-font-specification:'TeX Gyre Chorus Medium'">raimmaster :: rnexer :: oscarm</tspan></text>
+    <ellipse
+       style="fill:url(#radialGradient5667);stroke:#ff0000;stroke-opacity:1;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1"
+       id="path3351"
+       cx="176.27161"
+       cy="429.85568"
+       rx="117.68276"
+       ry="117.93531" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#6c0004;fill-opacity:1;stroke:none"
+       x="88.484055"
+       y="479.0661"
+       id="text2985-4"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/rnexer/Programacion 3/Versus/Versus.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan2987-5"
+         x="88.484055"
+         y="479.0661"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:200px;font-family:MathJax_Caligraphic;-inkscape-font-specification:MathJax_Caligraphic;fill:#6c0004;fill-opacity:1">V </tspan></text>
+    <path
+       sodipodi:nodetypes="cscssccsscsc"
+       inkscape:connector-curvature="0"
+       id="path2994-9"
+       style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:200px;line-height:125%;font-family:'URW Chancery L';-inkscape-font-specification:'URW Chancery L Bold Italic';letter-spacing:0px;word-spacing:0px;fill:#800000;fill-opacity:1;stroke:none"
+       d="m 200.21147,535.18744 c 30.59997,0 60.6,-25.00003 60.6,-50.4 0,-8.19999 -3.20001,-12.40001 -18,-24 -14.59998,-11.39999 -17,-14.80001 -17,-23.4 0,-12.99999 9.80001,-24.2 21.6,-24.2 8.39999,0 11.4,3.60001 13.6,16.4 l 13.2,-9.4 c -1.2,-10.99999 -7.20001,-16.4 -17.8,-16.4 -20.59998,0 -44,22.80002 -44,42.6 0,8.99999 4.20001,15.60001 15.8,24.6 13.59999,10.79999 17.2,16.20001 17.2,25.4 0,15.59998 -15.00002,29.4 -32.4,29.4" />
+    <path
+       style="fill:none;stroke:#3000ff;stroke-width:4.70038652;stroke-linecap:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+       id="path3351-4"
+       sodipodi:type="arc"
+       sodipodi:cx="448.5235"
+       sodipodi:cy="-118.65469"
+       sodipodi:rx="110.63089"
+       sodipodi:ry="110.86831"
+       sodipodi:start="0"
+       sodipodi:end="2.369966"
+       sodipodi:open="true"
+       d="M 559.15439,-118.65469 A 110.63089,110.86831 0 0 1 490.15532,-15.936018 110.63089,110.86831 0 0 1 369.22578,-41.345988"
+       transform="matrix(0.13511771,0.99082955,-0.99082955,0.13511771,0,0)" />
+    <path
+       style="fill:none;stroke:#3000ff;stroke-width:4.70038652;stroke-linecap:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+       id="path3351-4-8"
+       sodipodi:type="arc"
+       sodipodi:cx="-457.07956"
+       sodipodi:cy="-86.80349"
+       sodipodi:rx="110.63089"
+       sodipodi:ry="110.86831"
+       sodipodi:start="0"
+       sodipodi:end="2.742553"
+       sodipodi:open="true"
+       d="M -346.44867,-86.80349 A 110.63089,110.86831 0 0 1 -435.15266,21.865398 110.63089,110.86831 0 0 1 -559.01868,-43.727424"
+       transform="matrix(-0.53916846,-0.84219794,0.84219794,-0.53916846,0,0)" />
   </g>
 </svg>

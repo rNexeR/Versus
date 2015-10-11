@@ -24,7 +24,7 @@ Enemigos::Enemigos()
 {
     tipoObjeto = "Enemigo";
     detalles->x = rand() % 450;
-    detalles->y = 50;
+    detalles->y = 10;
     firingRate = 57;
     variablesRandomEstado = 100000;
     moveBy = 5;

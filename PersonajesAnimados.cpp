@@ -82,13 +82,22 @@ void PersonajesAnimados::draw()
     }
     if (vidas>0)
     {
-        health = al_create_bitmap(vidas, 5);
+        int x = detalles->x, y = detalles->y - 10;
+        int largo = vidas, ancho = 5;
+        if(tipoObjeto == "Principal"){
+            x = 0;
+            largo = vidas * 500 / 50;
+            y = 0;
+        }else{
+
+        }
+        health = al_create_bitmap(largo, ancho);
         al_set_target_bitmap(health);
 
         al_clear_to_color(al_map_rgb(255, 0, 0));
 
         al_set_target_bitmap(al_get_backbuffer(display));
-        al_draw_bitmap(health, detalles->x, detalles->y-10,0);
+        al_draw_bitmap(health, x, y,0);
     }
 
     frame++;
