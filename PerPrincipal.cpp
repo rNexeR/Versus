@@ -149,7 +149,7 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
                 dy = detalles->y-20;
                 al_stop_sample(&idsonido);
                 al_play_sample(sonido, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idsonido);
-                disparos->push_back(new Disparos(5, dx, dy, 1));
+                obstaculos->push_back(new Disparos(5, dx, dy, 1));
 
             }
             setAnimacion(orientacion == 'r' ? DISPARANDO_DERECHA : DISPARANDO_IZQUIERDA);

@@ -45,7 +45,7 @@ void Enemigos::act(ALLEGRO_EVENT* ev){
     if(randomEstado % firingRate == 0){//Si es divisible entre firingRate, entonces agregar el disparo
         al_stop_sample(&idsonido);
         al_play_sample(sonido, 1.0, 0.0,1.0,ALLEGRO_PLAYMODE_ONCE,&idsonido);
-        disparos->push_back(new Disparos(laserDmg, detalles->x + 15, detalles->y + 40, 0));
+        obstaculos->push_back(new Disparos(laserDmg, detalles->x + 15, detalles->y + 40, 0));
     }
 
     randomizarMovimiento();

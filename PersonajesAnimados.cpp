@@ -228,12 +228,15 @@ void PersonajesAnimados::detectColision()
                     muerto = true;
                     getPrincipal()->vidas -= 10;
                 }
+        }
+    }
 
-            //con las balas de otros
-            for(list<ObjetosAnimados*>::iterator e = (*i)->disparos->begin(); e != (*i)->disparos->end(); e++)
+    for(list<ObjetosAnimados*>::iterator e = obstaculos->begin(); e != obstaculos->end(); e++)
             {
                 if ((*e)->tipoObjeto == "Disparo")
                 {
+
+                    if(((*e)->velocity > 0 && tipoObjeto == "Principal") || ((*e)->velocity < 0 && tipoObjeto != "Principal"))
                     if (colision(detalles,(*e)->detalles))
                     {
                         if (tipoObjeto == "Principal")
@@ -244,16 +247,12 @@ void PersonajesAnimados::detectColision()
                 }
             }
 
-
-        }
-    }
-
     //disparos contra obstaculos
     for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i != obstaculos->end(); i++)
     {
         if ((*i)->tipoObjeto == "Obstaculo")
         {
-            for(list<ObjetosAnimados*>::iterator e = disparos->begin(); e != disparos->end(); e++)
+            for(list<ObjetosAnimados*>::iterator e = obstaculos->begin(); e != obstaculos->end(); e++)
             {
                 if ((*e)->tipoObjeto == "Disparo")
                 {
@@ -351,7 +350,7 @@ void PersonajesAnimados::limpiarEnemigos()
         }
     }
     vector<list<ObjetosAnimados*>::iterator>bdisparos;
-    for(list<ObjetosAnimados*>::iterator e = disparos->begin(); e != disparos->end(); e++)
+    for(list<ObjetosAnimados*>::iterator e = obstaculos->begin(); e != obstaculos->end(); e++)
     {
         if ((*e)->tipoObjeto == "Disparo" && (*e)->colisionado)
             bdisparos.push_back(e);

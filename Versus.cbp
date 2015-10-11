@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add library="../../../../usr/lib/liballegro_acodec.so" />
@@ -43,6 +44,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -69,6 +71,7 @@
 		<Unit filename="Enemigos.h" />
 		<Unit filename="Entidad.cpp" />
 		<Unit filename="Entidad.h" />
+		<Unit filename="MainMenu.h" />
 		<Unit filename="ObjetosAnimados.cpp" />
 		<Unit filename="ObjetosAnimados.h" />
 		<Unit filename="Obstaculo.cpp" />
@@ -77,7 +80,10 @@
 		<Unit filename="PerPrincipal.h" />
 		<Unit filename="PersonajesAnimados.cpp" />
 		<Unit filename="PersonajesAnimados.h" />
+		<Unit filename="Tools.h" />
+		<Unit filename="include/MainMenu.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/MainMenu.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

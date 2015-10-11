@@ -162,7 +162,7 @@ int initAllegro()
     game = al_load_sample("GameFiles/music/Raining Bits.wav");
     instru = al_load_bitmap("GameFiles/assets/fondos/Instrucciones.png");
     fondo = al_load_bitmap("GameFiles/assets/fondos/fondo.png");
-    pausa = al_load_bitmap("GameFiles/assets/fondos/pausa.png");
+    pausa = al_load_bitmap("GameFiles/assets/fondos/Paused.png");
     logom = al_load_bitmap("VL.png");
 
     al_register_event_source(event_queue, al_get_display_event_source(display));//registrar eventos del display
@@ -322,12 +322,17 @@ void showSplash()
 
 void showPause()
 {
+    int x = (width - 400)/2, y = (height - 204)/2;
+    al_clear_to_color(al_map_rgb(0,0,0));
+    al_draw_bitmap(pausa, x, y,0);
+    al_flip_display();
     while (true){
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
         if (teclaDownEvent(ALLEGRO_KEY_ESCAPE))
             break;
-        al_draw_bitmap(pausa,(width/2)- 150, (height/2)-100,0);
-        al_flip_display();
+        if (get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE))
+            exitGame();
+
     }
 }
 
@@ -382,7 +387,7 @@ void showRanking(){
             playerScore = "TIEMPO   ";
             playerScore += toString(timeScore);
 
-            al_draw_textf(cartoonFont, al_map_rgb(255,255,255), 300, (height/2) + scoreCoordinate - 50,
+            al_draw_textf(cartoonFont, al_map_rgb(255,255,255), 250, (height/2) + scoreCoordinate - 50,
                 ALLEGRO_ALIGN_LEFT, playerScore.c_str());
 
             scoreCoordinate += 40;
@@ -397,7 +402,7 @@ void showRanking(){
 }
 
 /**
-    función para ingresar el nombre al comienzo del juego
+    función para ingresar el nombre al comienzo del juegopausado
 **/
 string ingresarNombre()
 {
@@ -523,7 +528,7 @@ int nivel(string nombre, int level){
         if(getPrincipal()->muerto)
         {
             seg = -1;
-            string bm = "GameFiles/assets/fondos/L" + toString(level) + "U.png";
+            string bm = "GameFiles/assets/fondos/L" + toString(level) + "I.png";
             mes = al_load_bitmap(bm.c_str());
             break;
         }
@@ -604,10 +609,10 @@ void readScores(){
     jugadores.clear();//limpiar multimap
     for (int x = 0; x < cant; x++){
         string nombre;
-        char* n = new char[10];
+        char* n = new char[6];
         int time;
         in.read((char*)&time, 4);
-        in.read(n, 10);
+        in.read(n, 6);
         nombre = n;
         jugadores.insert(pair<int, string>(time, nombre));
     }
@@ -628,7 +633,7 @@ void writeScore(string nombre, int seg){
         int time = (int)(*x).first;
         string name = (*x).second;
         out.write((char*)&time, 4);
-        out.write(name.c_str(), 10);
+        out.write(name.c_str(), 6);
         y++;
         if (y >= CANTIDAD_SCORES)
             break;
