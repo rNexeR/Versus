@@ -249,6 +249,65 @@ bool teclaDownEvent(int keycode)
     return false;
 }
 
+
+/**
+    Obtener un apuntador al personaje principal
+**/
+PersonajesAnimados* getPrincipal(){
+    for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++)
+    {
+        if ((*i)->tipoObjeto == "Principal")
+            return (*i);
+    }
+}
+
+/**
+    Borra los personajes de la lista individualmente
+**/
+void cleanPersonajes()
+{
+    for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++)
+    {
+        if ((*i) != getPrincipal())
+            delete (*i);
+    }
+}
+
+/**
+    Borra los obstáculos de la lista individualmente
+**/
+void cleanObstaculos()
+{
+    for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i != obstaculos->end(); i++)
+        delete (*i);
+}
+
+void exitGame(){
+    al_destroy_display(display);
+    al_destroy_event_queue(event_queue);
+    al_destroy_timer(timer);
+    al_destroy_sample(music);
+    al_destroy_sample(effect);
+    al_destroy_sample(game);
+    al_destroy_bitmap(logo);
+    al_destroy_bitmap(instru);
+    al_destroy_bitmap(fondo);
+    al_destroy_bitmap(pausa);
+
+    cleanPersonajes();
+    exit(0);
+}
+
+/**
+    Inicialización del juego (main game)
+**/
+void resetGame()
+{
+    cleanPersonajes();
+    cleanObstaculos();//limpiar obstacles
+    obstaculos->clear();
+}
+
 /**
     Muestra la imagen inicial (comienzo del juego)
 **/
@@ -274,7 +333,9 @@ void showPause()
 void showInstrucciones(){
     while(1){
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
-        if(get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE || teclaDownEvent(ALLEGRO_KEY_ESCAPE)))
+        if (get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE))
+            exitGame();
+        if(teclaDownEvent(ALLEGRO_KEY_ESCAPE))
             break;
         al_clear_to_color(al_map_rgb(0,0,0));
         al_draw_bitmap(instru,0,0,0);
@@ -286,7 +347,9 @@ void showRanking(){
     changeSizeCartoonFont(30);
     while(true){
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
-        if(get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE || teclaDownEvent(ALLEGRO_KEY_ESCAPE)))//waiting to escape
+        if (get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE))
+            exitGame();
+        if(get_event && teclaDownEvent(ALLEGRO_KEY_ESCAPE))//waiting to escape
             break;
         al_clear_to_color(al_map_rgb(0,0,0));
         al_draw_bitmap(fondo,0,0,0);
@@ -343,9 +406,11 @@ string ingresarNombre()
     {
         al_clear_to_color(al_map_rgb(0,0,0));
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
+        if (get_event && (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE))
+                exitGame();
         if(get_event && ev.type == ALLEGRO_EVENT_KEY_DOWN)
         {
-            if (teclaDownEvent(ALLEGRO_KEY_ESCAPE) || teclaDownEvent(ALLEGRO_KEY_ENTER))
+            if (teclaDownEvent(ALLEGRO_KEY_ENTER))
                 break;
             for(int x = 1; x <= 27; x++)//for para obtener los valores de todas las letras
                 if (teclaDownEvent(x))//comparamos que tecla está siendo presionada
@@ -370,47 +435,6 @@ string ingresarNombre()
     return name;
 }
 
-/**
-    Obtener un apuntador al personaje principal
-**/
-PersonajesAnimados* getPrincipal(){
-    for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++)
-    {
-        if ((*i)->tipoObjeto == "Principal")
-            return (*i);
-    }
-}
-
-/**
-    Borra los personajes de la lista individualmente
-**/
-void cleanPersonajes()
-{
-    for(list<PersonajesAnimados*>::iterator i = personajes->begin(); i!=personajes->end(); i++)
-    {
-        if ((*i) != getPrincipal())
-            delete (*i);
-    }
-}
-
-/**
-    Borra los obstáculos de la lista individualmente
-**/
-void cleanObstaculos()
-{
-    for(list<ObjetosAnimados*>::iterator i = obstaculos->begin(); i != obstaculos->end(); i++)
-        delete (*i);
-}
-
-/**
-    Inicialización del juego (main game)
-**/
-void resetGame()
-{
-    cleanPersonajes();
-    cleanObstaculos();//limpiar obstacles
-    obstaculos->clear();
-}
 
 /**
     Carga los recursos necesarios para el nivel especificado
@@ -484,19 +508,26 @@ int nivel(string nombre, int level){
     while(1)
     {
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
-        if(getPrincipal()->muerto || (get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE))
+        if ((get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)){
+            exitGame();
+        }
+        if(getPrincipal()->muerto)
         {
             seg = -1;
-            mes = al_load_bitmap("GameFiles/assets/fondos/Lose.png");
+            string bm = "GameFiles/assets/fondos/L" + toString(level) + "U.png";
+            mes = al_load_bitmap(bm.c_str());
             break;
         }
         if (teclaDownEvent(ALLEGRO_KEY_ESCAPE))
             showPause();
         if (personajes->size()<=1 && getPrincipal()->vidas > 0){
-            mes = al_load_bitmap("GameFiles/assets/fondos/Win.png");
+            string bm = "GameFiles/assets/fondos/L" + toString(level) + "C.png";
+            mes = al_load_bitmap(bm.c_str());
             break;
         }
         al_clear_to_color(al_map_rgb(0,0,0));
+        //Game Panel
+        al_draw_scaled_bitmap(logo, 0, 0, 371, 180, 0, 0, 103, 50, 0);
         al_draw_text(normalFont, al_map_rgb(255,255,255), 0, 0,ALLEGRO_ALIGN_LEFT, nombre.c_str());
         al_draw_text(cartoonFont, al_map_rgb(255,255,255), width, 0,ALLEGRO_ALIGN_RIGHT, toString(seg).c_str());
         /*
@@ -535,7 +566,9 @@ int nivel(string nombre, int level){
 
         al_flip_display();
     }
-    al_draw_bitmap(mes, 75,200,0);
+    int x = width/2 - al_get_bitmap_width(mes)/2;
+    int y = height/2 - al_get_bitmap_height(mes)/2;
+    al_draw_bitmap(mes, x,y,0);
     al_flip_display();
     al_rest(2);
     al_destroy_bitmap(mes);
@@ -715,17 +748,7 @@ int main(int argc, char **argv)
     al_clear_to_color(al_map_rgb(0,0,0));
     al_flip_display();
 
-    al_destroy_display(display);
-    al_destroy_event_queue(event_queue);
-    al_destroy_timer(timer);
-    al_destroy_sample(music);
-    al_destroy_sample(effect);
-    al_destroy_sample(game);
-    al_destroy_bitmap(logo);
-    al_destroy_bitmap(instru);
-    al_destroy_bitmap(fondo);
-    al_destroy_bitmap(pausa);
+    exitGame();
 
-    cleanPersonajes();
     return 0;
 }

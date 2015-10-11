@@ -103,10 +103,8 @@ void PerPrincipal::act(ALLEGRO_EVENT* ev)
     if (vidas<=0)
     {
         setAnimacion(orientacion == 'r' ? MUERTO_DERECHA : MUERTO_IZQUIERDA);
-        if (vidas<=-1){
-            muerto = true;
-            al_rest(1);
-        }
+        draw();
+        muerto = true;
         entro = true;
     }
     else
