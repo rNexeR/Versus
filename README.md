@@ -3,7 +3,6 @@ Versus is a PC game programmed in C++ using the [Allegro 5](http://alleg.sourcef
 
 
 ## Dependencies
-============
 
 Linux:
 ------
@@ -18,11 +17,9 @@ Linux:
 We recommend you follow [this tutorial](https://emman31.wordpress.com/2013/01/21/ubuntu-12-04-installing-allegro-5-on-codeblocks/comment-page-1/#comment-27) for it.  
 
 ## Reporting Issues
-============
 Feel free to report an issue in the [issue section](https://github.com/rNexeR/Versus/issues) of this repository.
 
 ## Attribution Notices
-============
 This project uses assets taken from other sites. Much thanks to all those persons that share their work for usage. For attribution notices check the Attributions.txt file.
 
 ## License
